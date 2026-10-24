@@ -314,7 +314,7 @@
             <div class="text-center mb-12">
                 <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">TOPLULUK ALANI</span>
                 <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">Çatalers Forum</h2>
-                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun, tartışmayı başlatın!</p>
+                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun, tartışmayı başlatın! (Mesajlar tarayıcınızda kalıcıdır)</p>
             </div>
 
             <!-- Mesaj Gönderme Formu -->
@@ -342,41 +342,7 @@
 
             <!-- Forum Mesajları Listesi -->
             <div id="forumPosts" class="space-y-4">
-                <!-- Örnek Hazır Mesaj 1 -->
-                <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
-                                BÇ
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Baş Çatalcı</h4>
-                                <span class="text-[10px] text-slate-500">2 dakika önce</span>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold">Duyuru Yorumu</span>
-                    </div>
-                    <h5 class="font-bold text-slate-200 text-base mb-1">"ÇATAL" parçası ortalığı yıkacak!</h5>
-                    <p class="text-slate-400 text-sm">Karanlık altyapı ve metalik detaylar efsane olmuş. Çatalla let's go dostlar! 🍴🔥</p>
-                </div>
-
-                <!-- Örnek Hazır Mesaj 2 -->
-                <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-full bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400 font-bold text-xs">
-                                AV
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Antalya Vlog Bekçisi</h4>
-                                <span class="text-[10px] text-slate-500">1 saat önce</span>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400 text-[10px] font-semibold">Vlog Tartışma</span>
-                    </div>
-                    <h5 class="font-bold text-slate-200 text-base mb-1">Ekim 26'yı bekliyoruz</h5>
-                    <p class="text-slate-400 text-sm">Antalya vlogu için sabırsızlanıyoruz. Çatallar havaya!</p>
-                </div>
+                <!-- JavaScript burayı otomatik dolduracak -->
             </div>
         </div>
     </section>
@@ -404,8 +370,65 @@
         <p>© 2026 ÇTL Entertainment Inc. Tüm hakları saklıdır, çatallar bile.</p>
     </footer>
 
-    <!-- Forum JavaScript Scripti -->
+    <!-- Kalıcı Forum JavaScript Scripti -->
     <script>
+        // Sayfa açıldığında hafızadaki mesajları yükle
+        document.addEventListener("DOMContentLoaded", loadPosts);
+
+        function getStoredPosts() {
+            const posts = localStorage.getItem('ctl_forum_posts');
+            if (posts) {
+                return JSON.parse(posts);
+            }
+            // Varsayılan başlangıç mesajları
+            return [
+                {
+                    author: "Baş Çatalcı",
+                    title: "\"ÇATAL\" parçası ortalığı yıkacak!",
+                    content: "Karanlık altyapı ve metalik detaylar efsane olmuş. Çatalla let's go dostlar! 🍴🔥",
+                    time: "2 saat önce",
+                    tag: "Duyuru Yorumu",
+                    initials: "BÇ"
+                },
+                {
+                    author: "Antalya Vlog Bekçisi",
+                    title: "Ekim 26'yı bekliyoruz",
+                    content: "Antalya vlogu için sabırsızlanıyoruz. Çatallar havaya!",
+                    time: "5 saat önce",
+                    tag: "Vlog Tartışma",
+                    initials: "AV"
+                }
+            ];
+        }
+
+        function loadPosts() {
+            const posts = getStoredPosts();
+            const postsContainer = document.getElementById('forumPosts');
+            postsContainer.innerHTML = '';
+
+            posts.forEach(post => {
+                const postHTML = `
+                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
+                                    ${post.initials}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">${post.author}</h4>
+                                    <span class="text-[10px] text-slate-500">${post.time}</span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold">${post.tag}</span>
+                        </div>
+                        <h5 class="font-bold text-slate-200 text-base mb-1">${post.title}</h5>
+                        <p class="text-slate-400 text-sm">${post.content}</p>
+                    </div>
+                `;
+                postsContainer.insertAdjacentHTML('beforeend', postHTML);
+            });
+        }
+
         function addForumPost(event) {
             event.preventDefault();
             
@@ -413,33 +436,22 @@
             const title = document.getElementById('titleInput').value;
             const content = document.getElementById('contentInput').value;
             
-            // Baş harfleri avatar için al
-            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
 
-            const postsContainer = document.getElementById('forumPosts');
-            
-            const newPostHTML = `
-                <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover animate-pulse">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
-                                ${initials || 'ÇT'}
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">${author}</h4>
-                                <span class="text-[10px] text-slate-500">Az önce</span>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold">Yeni Gönderi</span>
-                    </div>
-                    <h5 class="font-bold text-slate-200 text-base mb-1">${title}</h5>
-                    <p class="text-slate-400 text-sm">${content}</p>
-                </div>
-            `;
-            
-            postsContainer.insertAdjacentHTML('afterbegin', newPostHTML);
-            
-            // Formu sıfırla
+            const newPost = {
+                author: author,
+                title: title,
+                content: content,
+                time: "Az önce",
+                tag: "Yeni Gönderi",
+                initials: initials
+            };
+
+            const posts = getStoredPosts();
+            posts.unshift(newPost); // En üste ekle
+            localStorage.setItem('ctl_forum_posts', JSON.stringify(posts));
+
+            loadPosts(); // Listeyi yenile
             document.getElementById('forumForm').reset();
         }
     </script>
