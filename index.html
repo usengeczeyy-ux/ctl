@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÇTL Entertainment | Çatalla Let's Go</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent: #e0e0e0;
+            --border: #333333;
+            --glow: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header & Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 8, 8, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 30%, #777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 8px var(--glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #080808 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #999 100%);
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.35);
+        }
+
+        /* Sections General */
+        section {
+            padding: 100px 10% 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Single / Şarkı Duyurusu */
+        .single-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .single-cover {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px var(--glow);
+            display: block;
+        }
+
+        .single-info h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .single-info p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        /* Takvim */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .calendar-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .calendar-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .calendar-card .date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .calendar-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .calendar-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111'/><circle cx='50' cy='50' r='40' fill='%23333'/><text x='50' y='57' font-size='30' fill='%23fff' text-anchor='middle' font-weight='bold'>CTL</text></svg>" alt="ÇTL Logo" class="logo-img" id="companyLogo">
+            <span class="brand-name">ÇTL</span>
+        </div>
+        <nav>
+            <a href="#single">Single Duyurusu</a>
+            <a href="#takvim">İçerik Takvimi</a>
+            <a href="#iletisim">İletişim</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>ÇTL ENTERTAINMENT</h1>
+        <p>çatalla let's go</p>
+        <a href="#single" class="btn">Şarkıyı Keşfet</a>
+    </section>
+
+    <!-- Single / Şarkı Duyurusu Section -->
+    <section id="single">
+        <h2 class="section-title">Yepyeni Single: CATAL</h2>
+        <div class="single-grid">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%231a1a1a'/><text x='200' y='200' font-size='35' fill='%23fff' text-anchor='middle' font-weight='bold'>CATAL SINGLE</text></svg>" alt="Single Kapağı" class="single-cover" id="singleCover">
+            <div class="single-info">
+                <h3>Çok Yakında Yayında!</h3>
+                <p>ÇTL kadrosundan yepyeni bir başyapıt geliyor. Müzik piyasasını alt üst edecek "CATAL" parçası tüm dijital platformlarda yerini almak üzere gün sayıyor.</p>
+                <a href="#takvim" class="btn">Takvime Göz At</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- İçerik Takvimi Section -->
+    <section id="takvim">
+        <h2 class="section-title">İçerik Takvimi</h2>
+        <div class="calendar-grid">
+            <div class="calendar-card">
+                <div class="date">EKİM 26 (PZT)</div>
+                <h4>RUSH</h4>
+                <p>Antalya Tatil Vlog yayında!</p>
+            </div>
+            <div class="calendar-card">
+                <div class="date">EKİM 27 (SALI)</div>
+                <h4>Benim Olsana</h4>
+                <p>Dans Mv prömiyeri gerçekleşiyor.</p>
+            </div>
+            <div class="calendar-card">
+                <div class="date">EKİM 28 (ÇRŞ)</div>
+                <h4>ESKİŞEHİR</h4>
+                <p>Konser Vlog serisi sizlerle.</p>
+            </div>
+            <div class="calendar-card">
+                <div class="date">EKİM 30 (CUMA)</div>
+                <h4>CRUSH</h4>
+                <p>Canlı Yayın ile karşınızdayız.</p>
+            </div>
+            <div class="calendar-card">
+                <div class="date">EKİM 31 (CMT)</div>
+                <h4>KONSER</h4>
+                <p>Özel performans videoları.</p>
+            </div>
+            <div class="calendar-card">
+                <div class="date">KASIM 2 (PZT)</div>
+                <h4>RUSH</h4>
+                <p>Adana Vlog macerası.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim / Footer -->
+    <footer id="iletisim">
+        <p>&copy; 2026 ÇTL Entertainment. Tüm hakları saklıdır. çatalla let's go 🍴</p>
+    </footer>
+
+    <script>
+        // Eğer kendi görsellerinizi bağlamak isterseniz aşağıdaki URL'leri değiştirebilirsiniz.
+        // Logo ve Single kapakları için kendi resim dosya yollarınızı ekleyebilirsiniz.
+    </script>
+</body>
+</html>
