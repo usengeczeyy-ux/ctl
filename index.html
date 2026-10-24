@@ -86,7 +86,7 @@
     <header class="sticky top-0 z-40 backdrop-blur-md bg-black/80 border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
+            <a href="#" onclick="showHomeView()" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/50">
                     <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
                         <i class="fa-solid fa-utensils text-rose-500 text-lg group-hover:rotate-12 transition-transform"></i>
@@ -100,9 +100,9 @@
 
             <!-- User / Profile / Status Actions -->
             <div class="flex items-center gap-3">
-                <button id="profileBtn" onclick="toggleProfileModal()" class="px-3.5 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2 transition-all">
-                    <i id="userBadgeIcon" class="fa-solid fa-user-gear"></i>
-                    <span id="userBadgeText">Hesap Aç / Profil</span>
+                <button id="navUserBtn" onclick="handleNavUserClick()" class="px-4 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2 transition-all">
+                    <i id="userBadgeIcon" class="fa-solid fa-user"></i>
+                    <span id="userBadgeText">Giriş Yap / Kayıt Ol</span>
                 </button>
 
                 <div id="statusBadge" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-400">
@@ -113,10 +113,11 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT CONTAINER -->
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- HOME / FORUM VIEW -->
+        <div id="homeView" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Post Message Form -->
             <div class="lg:col-span-5 lg:sticky lg:top-28">
@@ -129,27 +130,27 @@
 
                     <form id="forumForm" onsubmit="handlePostSubmit(event)" class="space-y-4">
                         
-                        <!-- Avatar Selection -->
+                        <!-- Avatar Selection (Karga, Su Aslanı, Kedi, Tavşan, Taç, Mikrofon) -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 mb-2">Avatar Simgesi Seç</label>
                             <div class="grid grid-cols-6 gap-2" id="avatarPicker">
-                                <button type="button" onclick="selectAvatar(this, 'fa-utensils')" class="avatar-option selected p-2.5 rounded-xl border border-white/10 bg-black/40 text-rose-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-utensils"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-crow')" title="Karga" class="avatar-option selected p-2.5 rounded-xl border border-white/10 bg-black/40 text-rose-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-crow text-base"></i>
                                 </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-fire')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-fire"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-otter')" title="Su Aslanı" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-otter text-base"></i>
                                 </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-crown')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-crown"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-cat')" title="Kedi" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-cat text-base"></i>
                                 </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-skull')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-skull"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-rabbit')" title="Tavşan" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-cloud-bolt text-base"></i><!-- FontAwesome rabbit fallback icon -->
                                 </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-bolt')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-bolt"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-crown')" title="Taç" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-crown text-base"></i>
                                 </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-hand-back-fist')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-hand-back-fist"></i>
+                                <button type="button" onclick="selectAvatar(this, 'fa-microphone')" title="Mikrofon" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-microphone text-base"></i>
                                 </button>
                             </div>
                         </div>
@@ -197,11 +198,11 @@
                 
                 <!-- Category Filter Buttons -->
                 <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar">
-                    <button onclick="filterPosts('ALL')" class="filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap">#Hepsi</button>
-                    <button onclick="filterPosts('#Duyuru')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">📢 #Duyuru</button>
-                    <button onclick="filterPosts('#Vlog')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎬 #Vlog</button>
-                    <button onclick="filterPosts('#Konser')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎸 #Konser</button>
-                    <button onclick="filterPosts('#Şarkı')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎵 #Şarkı</button>
+                    <button onclick="filterPosts('ALL', this)" class="filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap">#Hepsi</button>
+                    <button onclick="filterPosts('#Duyuru', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">📢 #Duyuru</button>
+                    <button onclick="filterPosts('#Vlog', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎬 #Vlog</button>
+                    <button onclick="filterPosts('#Konser', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎸 #Konser</button>
+                    <button onclick="filterPosts('#Şarkı', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎵 #Şarkı</button>
                 </div>
 
                 <!-- Live Posts Container -->
@@ -215,27 +216,85 @@
                 </div>
             </div>
         </div>
+
+        <!-- PROFILE VIEW (HIDDEN BY DEFAULT) -->
+        <div id="profileView" class="hidden max-w-4xl mx-auto">
+            <button onclick="showHomeView()" class="mb-6 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-arrow-left"></i> Akışa Dön
+            </button>
+
+            <!-- Profile Header Card -->
+            <div class="chrome-border bg-slate-900/60 p-6 sm:p-8 rounded-3xl backdrop-blur-xl mb-8 relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="relative group">
+                        <div id="profileAvatarBox" class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 p-1 flex items-center justify-center shadow-xl shadow-rose-900/30">
+                            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center overflow-hidden">
+                                <i id="profileIconDisplay" class="fa-solid fa-crow text-4xl text-rose-500"></i>
+                                <img id="profileImageDisplay" src="" class="w-full h-full object-cover hidden" alt="Profil Resmi">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center sm:text-left flex-grow">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
+                            <h2 id="profileUsername" class="text-2xl font-black text-white font-display">Kullanıcı Adı</h2>
+                            <span id="profileOwnerBadge" class="px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 text-[10px] font-bold">SENİN PROFİLİN</span>
+                        </div>
+                        <p id="profileUserBio" class="text-xs text-slate-400 mb-3">CRUSHERS Üyesi — Çatalla Let's Go!</p>
+                        
+                        <div class="flex items-center justify-center sm:justify-start gap-4 text-xs text-slate-400">
+                            <span id="profilePostCount"><strong class="text-white">0</strong> Gönderi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Customization (Only shown to profile owner) -->
+                <div id="profileEditSection" class="mt-6 pt-6 border-t border-white/10">
+                    <h4 class="text-xs font-bold text-slate-300 mb-3 uppercase tracking-wider">Profil Resmini Güncelle (URL)</h4>
+                    <div class="flex gap-2">
+                        <input type="url" id="avatarUrlInput" placeholder="https://resim-linki.com/gorsel.jpg" class="flex-grow bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-500">
+                        <button onclick="saveProfilePicture()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md transition-all">Güncelle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Posts Stream -->
+            <h3 class="text-lg font-bold text-white mb-4 font-display flex items-center gap-2">
+                <i class="fa-solid fa-layer-group text-rose-500"></i> Kullanıcının Gönderileri
+            </h3>
+            <div id="userPostsContainer" class="space-y-4">
+                <!-- User Posts Rendered Here -->
+            </div>
+        </div>
+
     </main>
 
-    <!-- PROFILE MODAL -->
-    <div id="profileModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <!-- AUTH MODAL (LOGIN / REGISTER) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="chrome-border bg-slate-950 p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
-            <button onclick="toggleProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+            <button onclick="toggleAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2 font-display">
-                <i class="fa-solid fa-user-plus text-rose-500"></i> CRUSHERS Hesabı Oluştur
+            <h3 class="text-xl font-bold text-white mb-1 flex items-center gap-2 font-display">
+                <i class="fa-solid fa-user-lock text-rose-500"></i> CRUSHERS Hesabı
             </h3>
-            <p class="text-slate-400 text-xs mb-6">Hesap açarak mesaj atarken adının otomatik dolmasını sağlayabilirsin.</p>
+            <p class="text-slate-400 text-xs mb-6">Giriş yapın veya kullanıcı adı & şifre ile hemen kayıt olun.</p>
             
-            <form onsubmit="saveUserProfile(event)" class="space-y-4">
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Kullanıcı Adın</label>
-                    <input type="text" id="modalUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Kullanıcı Adı</label>
+                    <input type="text" id="authUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
                         class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500">
                 </div>
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
-                    Profili Kaydet & Giriş Yap
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Şifre</label>
+                    <input type="password" id="authPassword" required minlength="4" placeholder="••••••••"
+                        class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
+                    Giriş Yap / Kayıt Ol
                 </button>
             </form>
         </div>
@@ -248,14 +307,14 @@
                 <i class="fa-solid fa-utensils"></i>
                 <span>CRUSHERS — Çatalla Let's Go!</span>
             </div>
-            <p>&copy; 2026 CRUSHERS Topluluğu. Tüm hakları saklıdır, çatallar bile.</p>
+            <p>&copy; 2026 CRUSHERS — Tüm hakları saklıdır, çatallar bile.</p>
         </div>
     </footer>
 
     <!-- FIREBASE REALTIME DB CODE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         // Paylaştığın Firebase Proje Yapılandırması
         const firebaseConfig = {
@@ -272,9 +331,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        let selectedAvatarIcon = 'fa-utensils';
+        let selectedAvatarIcon = 'fa-crow';
         let currentFilter = 'ALL';
         let allPostsData = [];
+        let currentUser = JSON.parse(localStorage.getItem('crusher_logged_user') || 'null');
 
         // Global Fonksiyonlar
         window.selectAvatar = function(el, iconClass) {
@@ -287,34 +347,138 @@
             selectedAvatarIcon = iconClass;
         };
 
-        window.toggleProfileModal = function() {
-            const modal = document.getElementById('profileModal');
-            modal.classList.toggle('hidden');
+        window.toggleAuthModal = function() {
+            document.getElementById('authModal').classList.toggle('hidden');
         };
 
-        window.saveUserProfile = function(e) {
+        window.handleNavUserClick = function() {
+            if (currentUser) {
+                viewUserProfile(currentUser.username);
+            } else {
+                toggleAuthModal();
+            }
+        };
+
+        // Kullanıcı Giriş / Kayıt İşlemi
+        window.handleAuthSubmit = async function(e) {
             e.preventDefault();
-            const username = document.getElementById('modalUsername').value.trim();
-            if(!username) return;
+            const username = document.getElementById('authUsername').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
 
-            localStorage.setItem('crusher_user', JSON.stringify({
-                username: username,
-                avatar: selectedAvatarIcon
-            }));
+            if (!username || !password) return;
 
-            updateUserUI();
-            toggleProfileModal();
+            const userRef = ref(db, `users/${username}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                if (userData.password === password) {
+                    currentUser = { username: username, avatar: userData.avatar || 'fa-crow', avatarUrl: userData.avatarUrl || '' };
+                    localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+                    updateUserUI();
+                    toggleAuthModal();
+                } else {
+                    alert('Hatalı şifre!');
+                }
+            } else {
+                // Yeni Kullanıcı Oluştur
+                const newUser = {
+                    username: username,
+                    password: password,
+                    avatar: selectedAvatarIcon,
+                    avatarUrl: ''
+                };
+                await set(userRef, newUser);
+                currentUser = { username: username, avatar: selectedAvatarIcon, avatarUrl: '' };
+                localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+                updateUserUI();
+                toggleAuthModal();
+            }
         };
 
         function updateUserUI() {
-            const savedUser = JSON.parse(localStorage.getItem('crusher_user') || 'null');
-            if (savedUser) {
-                document.getElementById('authorInput').value = savedUser.username;
-                document.getElementById('userBadgeText').innerText = savedUser.username;
-                document.getElementById('userBadgeIcon').className = `fa-solid ${savedUser.avatar || 'fa-utensils'}`;
+            if (currentUser) {
+                document.getElementById('authorInput').value = currentUser.username;
+                document.getElementById('userBadgeText').innerText = currentUser.username;
+                document.getElementById('userBadgeIcon').className = `fa-solid ${currentUser.avatar || 'fa-crow'}`;
+            } else {
+                document.getElementById('userBadgeText').innerText = 'Giriş Yap / Kayıt Ol';
+                document.getElementById('userBadgeIcon').className = 'fa-solid fa-user';
             }
         }
         updateUserUI();
+
+        // Profil Sayfasını Görünümünü Yönetme
+        window.showHomeView = function() {
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('profileView').classList.add('hidden');
+        };
+
+        window.viewUserProfile = async function(targetUsername) {
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('profileView').classList.remove('hidden');
+
+            document.getElementById('profileUsername').innerText = targetUsername;
+            
+            const isOwner = currentUser && currentUser.username === targetUsername;
+            document.getElementById('profileOwnerBadge').style.display = isOwner ? 'inline-block' : 'none';
+            document.getElementById('profileEditSection').style.display = isOwner ? 'block' : 'none';
+
+            // Profil verilerini çek
+            const userSnap = await get(ref(db, `users/${targetUsername}`));
+            let userData = userSnap.exists() ? userSnap.val() : {};
+
+            const iconDisplay = document.getElementById('profileIconDisplay');
+            const imgDisplay = document.getElementById('profileImageDisplay');
+
+            if (userData.avatarUrl) {
+                imgDisplay.src = userData.avatarUrl;
+                imgDisplay.classList.remove('hidden');
+                iconDisplay.classList.add('hidden');
+            } else {
+                imgDisplay.classList.add('hidden');
+                iconDisplay.className = `fa-solid ${userData.avatar || 'fa-crow'} text-4xl text-rose-500`;
+                iconDisplay.classList.remove('hidden');
+            }
+
+            // Kullanıcının attığı mesajları filtrele
+            const userPosts = allPostsData.filter(p => p.author === targetUsername);
+            document.getElementById('profilePostCount').innerHTML = `<strong class="text-white">${userPosts.length}</strong> Gönderi`;
+
+            const userContainer = document.getElementById('userPostsContainer');
+            userContainer.innerHTML = '';
+
+            if (userPosts.length === 0) {
+                userContainer.innerHTML = `<div class="p-8 text-center text-slate-500 bg-slate-900/30 rounded-2xl chrome-border">Bu kullanıcının henüz gönderisi yok.</div>`;
+                return;
+            }
+
+            userPosts.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl backdrop-blur-md';
+                postCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-rose-400 font-semibold">${escapeHtml(post.category)}</span>
+                        <span class="text-[10px] text-slate-500">${post.dateStr || ''}</span>
+                    </div>
+                    <h5 class="font-bold text-white text-base mb-1">${escapeHtml(post.title)}</h5>
+                    <p class="text-slate-300 text-sm whitespace-pre-line">${escapeHtml(post.content)}</p>
+                `;
+                userContainer.appendChild(postCard);
+            });
+        };
+
+        // Profil Resmi (URL) Güncelleme
+        window.saveProfilePicture = async function() {
+            if (!currentUser) return;
+            const url = document.getElementById('avatarUrlInput').value.trim();
+            if (!url) return;
+
+            await set(ref(db, `users/${currentUser.username}/avatarUrl`), url);
+            currentUser.avatarUrl = url;
+            localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+            viewUserProfile(currentUser.username);
+        };
 
         // Form Gönderim Fonksiyonu
         window.handlePostSubmit = function(event) {
@@ -360,12 +524,12 @@
         };
 
         // Kategori Filtreleme
-        window.filterPosts = function(cat) {
+        window.filterPosts = function(cat, btnEl) {
             currentFilter = cat;
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.className = "filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white";
             });
-            event.target.className = "filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap";
+            btnEl.className = "filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap";
             renderPosts();
         };
 
@@ -391,7 +555,7 @@
             renderPosts();
         }, () => {
             statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            statusText.innerText = "Bağlantı Hatası";
+            statusText.innerText = "Bağlanamadı";
         });
 
         function renderPosts() {
@@ -408,7 +572,6 @@
                     <div class="text-center py-12 chrome-border bg-slate-900/20 rounded-2xl">
                         <i class="fa-solid fa-comment-slash text-4xl text-slate-600 mb-3 block"></i>
                         <p class="text-slate-400 font-medium text-sm">Henüz bu kategoride gönderi yok.</p>
-                        <p class="text-slate-600 text-xs mt-1">İlk mesajı sen gönder!</p>
                     </div>
                 `;
                 return;
@@ -421,13 +584,13 @@
                 postCard.innerHTML = `
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-400 p-[1px] flex items-center justify-center font-bold text-xs text-white shadow-md">
+                            <div onclick="viewUserProfile('${escapeHtml(post.author)}')" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 p-[1px] flex items-center justify-center font-bold text-xs text-white shadow-md cursor-pointer hover:scale-105 transition-transform">
                                 <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-                                    <i class="fa-solid ${escapeHtml(post.icon || 'fa-utensils')} text-rose-400"></i>
+                                    <i class="fa-solid ${escapeHtml(post.icon || 'fa-crow')} text-rose-400"></i>
                                 </div>
                             </div>
                             <div>
-                                <h4 class="font-bold text-white text-sm leading-tight">${escapeHtml(post.author)}</h4>
+                                <h4 onclick="viewUserProfile('${escapeHtml(post.author)}')" class="font-bold text-white text-sm leading-tight cursor-pointer hover:text-rose-400 transition-colors">${escapeHtml(post.author)}</h4>
                                 <span class="text-[10px] text-slate-500">${post.dateStr || 'Az önce'}</span>
                             </div>
                         </div>
