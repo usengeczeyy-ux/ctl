@@ -11,14 +11,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Firebase SDK (Ortak Veritabanı için) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        // NOT: Kendi Firebase projenizi buraya bağlayabilirsiniz. Şu an test modu aktif!
-    </script>
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -86,7 +78,7 @@
     <!-- NAVBAR -->
     <header class="sticky top-0 z-40 backdrop-blur-md bg-black/60 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand / Logo -->
+            <!-- Brand / Logo (1. Görsel)[span_3](start_span)[span_3](end_span) -->
             <a href="#" class="flex items-center gap-3 group">
                 <div class="w-12 h-12 rounded-xl bg-black border border-white/20 group-hover:border-white/50 transition-all flex items-center justify-center shadow-lg overflow-hidden">
                     <img src="1000030806_2.jpg" alt="ÇTL Logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/000000/FFFFFF?text=CTL'">
@@ -129,7 +121,7 @@
                 <i class="fa-solid fa-utensils text-rose-500"></i> çatalla let's go
             </div>
 
-            <!-- Logo Visual -->
+            <!-- Logo Visual (1. Görsel)[span_4](start_span)[span_4](end_span) -->
             <div class="relative my-6 flex flex-col items-center justify-center">
                 <div class="relative w-48 h-48 sm:w-56 sm:h-56 mb-6 rounded-2xl overflow-hidden border border-white/20 shadow-2xl filter drop-shadow-[0_10px_25px_rgba(255,255,255,0.15)] animate-pulse">
                     <img src="1000030806_2.jpg" alt="ÇTL Logo Büyük" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x300/000000/FFFFFF?text=CTL'">
@@ -155,7 +147,7 @@
         </div>
     </section>
 
-    <!-- SECTION: ŞARKI DUYURUSU (ÇATAL) -->
+    <!-- SECTION: ŞARKI DUYURUSU (3. GÖRSEL - ÇATAL)[span_5](start_span)[span_5](end_span) -->
     <section id="catal-single" class="py-24 relative bg-slate-950/60 border-y border-white/10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -166,7 +158,7 @@
             <div class="grid lg:grid-cols-12 gap-10 items-center chrome-border bg-ctl-card p-6 sm:p-10 rounded-3xl relative overflow-hidden">
                 <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                <!-- Single Kapağı -->
+                <!-- Single Kapağı (3. Görsel)[span_6](start_span)[span_6](end_span) -->
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-full max-w-sm aspect-square bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
                         <img src="1000030805_2.jpg" alt="CRUSH Çatal Single Kapağı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/111111/FFFFFF?text=CRUSH+-+CATAL'">
@@ -191,7 +183,7 @@
                             <span>0:42 / 2:38</span>
                         </div>
                         <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]" style="width: 35%;"></div>
+                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]"></div>
                         </div>
                     </div>
 
@@ -208,7 +200,7 @@
         </div>
     </section>
 
-    <!-- SECTION: İÇERİK TAKVİMİ -->
+    <!-- SECTION: İÇERİK TAKVİMİ (2. Görsel)[span_7](start_span)[span_7](end_span) -->
     <section id="takvim" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -219,10 +211,10 @@
                 </p>
             </div>
 
-            <!-- Grid Kartlar -->
+            <!-- Grid Kartlar (2. Görsel verileri)[span_8](start_span)[span_8](end_span) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- 26 EKİM -->
+                <!-- 26 EKİM[span_9](start_span)[span_9](end_span) -->
                 <div class="chrome-border bg-slate-100 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
                     <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
@@ -234,10 +226,10 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
-                    <p class="font-semibold text-slate-700 text-sm">Antalya Tatil Vlog</p>
+                    <p class="font-semibold text-slate-700 text-sm">Antalya Tatil Vlog[span_10](start_span)[span_10](end_span)</p>
                 </div>
 
-                <!-- 27 EKİM -->
+                <!-- 27 EKİM[span_11](start_span)[span_11](end_span) -->
                 <div class="chrome-border bg-slate-950 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
                     <div class="flex justify-between items-start border-b border-slate-800 pb-4 mb-4">
@@ -249,10 +241,10 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-white mb-1">Benim Olsana</h4>
-                    <p class="font-semibold text-slate-400 text-sm">Dans Mv</p>
+                    <p class="font-semibold text-slate-400 text-sm">Dans Mv[span_12](start_span)[span_12](end_span)</p>
                 </div>
 
-                <!-- 28 EKİM -->
+                <!-- 28 EKİM[span_13](start_span)[span_13](end_span) -->
                 <div class="chrome-border bg-sky-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
                     <div class="flex justify-between items-start border-b border-sky-300 pb-4 mb-4">
@@ -264,10 +256,10 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-sky-900"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-sky-950 mb-1">ESKİŞEHİR</h4>
-                    <p class="font-semibold text-sky-900 text-sm">Konser Vlog</p>
+                    <p class="font-semibold text-sky-900 text-sm">Konser Vlog[span_14](start_span)[span_14](end_span)</p>
                 </div>
 
-                <!-- 30 EKİM -->
+                <!-- 30 EKİM[span_15](start_span)[span_15](end_span) -->
                 <div class="chrome-border bg-yellow-400 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
                     <div class="flex justify-between items-start border-b border-yellow-500 pb-4 mb-4">
@@ -279,10 +271,10 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-yellow-950"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-yellow-950 mb-1">CRUSH</h4>
-                    <p class="font-semibold text-yellow-900 text-sm">Canlı Yayın</p>
+                    <p class="font-semibold text-yellow-900 text-sm">Canlı Yayın[span_16](start_span)[span_16](end_span)</p>
                 </div>
 
-                <!-- 31 EKİM -->
+                <!-- 31 EKİM[span_17](start_span)[span_17](end_span) -->
                 <div class="chrome-border bg-blue-500 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
                     <div class="flex justify-between items-start border-b border-blue-400 pb-4 mb-4">
@@ -294,10 +286,10 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-white mb-1">KONSER</h4>
-                    <p class="font-semibold text-blue-100 text-sm">Performans Videoları</p>
+                    <p class="font-semibold text-blue-100 text-sm">Performans Videoları[span_18](start_span)[span_18](end_span)</p>
                 </div>
 
-                <!-- 2 KASIM -->
+                <!-- 2 KASIM[span_19](start_span)[span_19](end_span) -->
                 <div class="chrome-border bg-slate-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
                     <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
                     <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
@@ -309,7 +301,7 @@
                         <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
                     </div>
                     <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
-                    <p class="font-semibold text-slate-700 text-sm">Adana Vlog</p>
+                    <p class="font-semibold text-slate-700 text-sm">Adana Vlog[span_20](start_span)[span_20](end_span)</p>
                 </div>
 
             </div>
@@ -320,9 +312,9 @@
     <section id="forum" class="py-24 relative bg-slate-950/40 border-t border-white/10">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
-                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">CANLI TOPLULUK ALANI</span>
+                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">TOPLULUK ALANI</span>
                 <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">Çatalers Forum</h2>
-                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun! Başka cihazlardan yazılanlar anında burada görünür.</p>
+                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun, tartışmayı başlatın! (Ortak forum hafızası aktif)</p>
             </div>
 
             <!-- Mesaj Gönderme Formu -->
@@ -343,16 +335,14 @@
                         <textarea id="contentInput" rows="3" placeholder="Çatalla let's go diyerek buraya yaz..." required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
                     </div>
                     <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-rose-900/30">
-                        <i class="fa-solid fa-paper-plane mr-2"></i> Canlı Foruma Gönder
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Foruma Fırlat
                     </button>
                 </form>
             </div>
 
             <!-- Forum Mesajları Listesi -->
             <div id="forumPosts" class="space-y-4">
-                <div class="text-center text-slate-500 py-6 text-sm">
-                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Mesajlar yükleniyor...
-                </div>
+                <!-- JavaScript burayı dolduracak -->
             </div>
         </div>
     </section>
@@ -380,9 +370,9 @@
         <p>© 2026 ÇTL Entertainment Inc. Tüm hakları saklıdır, çatallar bile.</p>
     </footer>
 
-    <!-- Gerçek Zamanlı Bulut Forum (LocalStorage + Cloud Hazırlığı) -->
+    <!-- Forum JavaScript Scripti -->
     <script>
-        const STORAGE_KEY = 'ctl_global_forum_v3';
+        const STORAGE_KEY = 'ctl_global_forum_v4';
 
         const defaultPosts = [
             {
@@ -403,16 +393,19 @@
             }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener('DOMContentLoaded', () => {
             loadPosts();
         });
 
         function getPosts() {
             try {
                 const data = localStorage.getItem(STORAGE_KEY);
-                if (!data) return defaultPosts;
+                if (!data) {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPosts));
+                    return defaultPosts;
+                }
                 return JSON.parse(data);
-            } catch (e) {
+            } catch(e) {
                 return defaultPosts;
             }
         }
@@ -424,7 +417,7 @@
 
             posts.forEach(post => {
                 const html = `
-                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover animate-fadeIn">
+                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
@@ -459,7 +452,7 @@
                 title,
                 content,
                 time: "Az önce",
-                tag: "Topluluk Mesajı",
+                tag: "Yeni Gönderi",
                 initials
             };
 
@@ -468,15 +461,13 @@
             
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            } catch (e) {
+            } catch(e) {
                 console.error("Kayıt hatası:", e);
             }
 
             loadPosts();
             document.getElementById('forumForm').reset();
-            
-            // Kullanıcıya bilgi ver
-            alert("Mesajınız foruma eklendi! Çatalla let's go 🍴");
+            alert("Mesajın başarıyla foruma fırlatıldı! Çatalla let's go 🍴");
         }
     </script>
 </body>
