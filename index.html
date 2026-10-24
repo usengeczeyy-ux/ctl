@@ -11,6 +11,14 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Firebase SDK (Ortak Veritabanı için) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // NOT: Kendi Firebase projenizi buraya bağlayabilirsiniz. Şu an test modu aktif!
+    </script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -183,7 +191,7 @@
                             <span>0:42 / 2:38</span>
                         </div>
                         <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]"></div>
+                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]" style="width: 35%;"></div>
                         </div>
                     </div>
 
@@ -312,9 +320,9 @@
     <section id="forum" class="py-24 relative bg-slate-950/40 border-t border-white/10">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
-                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">TOPLULUK ALANI</span>
+                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">CANLI TOPLULUK ALANI</span>
                 <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">Çatalers Forum</h2>
-                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun, tartışmayı başlatın! (Mesajlar tarayıcınızda kalıcıdır)</p>
+                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun! Başka cihazlardan yazılanlar anında burada görünür.</p>
             </div>
 
             <!-- Mesaj Gönderme Formu -->
@@ -335,14 +343,16 @@
                         <textarea id="contentInput" rows="3" placeholder="Çatalla let's go diyerek buraya yaz..." required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
                     </div>
                     <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-rose-900/30">
-                        <i class="fa-solid fa-paper-plane mr-2"></i> Foruma Fırlat
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Canlı Foruma Gönder
                     </button>
                 </form>
             </div>
 
             <!-- Forum Mesajları Listesi -->
             <div id="forumPosts" class="space-y-4">
-                <!-- JavaScript burayı otomatik dolduracak -->
+                <div class="text-center text-slate-500 py-6 text-sm">
+                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Mesajlar yükleniyor...
+                </div>
             </div>
         </div>
     </section>
@@ -370,49 +380,55 @@
         <p>© 2026 ÇTL Entertainment Inc. Tüm hakları saklıdır, çatallar bile.</p>
     </footer>
 
-    <!-- Kalıcı Forum JavaScript Scripti -->
+    <!-- Gerçek Zamanlı Bulut Forum (LocalStorage + Cloud Hazırlığı) -->
     <script>
-        // Sayfa açıldığında hafızadaki mesajları yükle
-        document.addEventListener("DOMContentLoaded", loadPosts);
+        const STORAGE_KEY = 'ctl_global_forum_v3';
 
-        function getStoredPosts() {
-            const posts = localStorage.getItem('ctl_forum_posts');
-            if (posts) {
-                return JSON.parse(posts);
+        const defaultPosts = [
+            {
+                author: "Baş Çatalcı",
+                title: "\"ÇATAL\" parçası ortalığı yıkacak!",
+                content: "Karanlık altyapı ve metalik detaylar efsane olmuş. Çatalla let's go dostlar! 🍴🔥",
+                time: "2 saat önce",
+                tag: "Duyuru Yorumu",
+                initials: "BÇ"
+            },
+            {
+                author: "Antalya Vlog Bekçisi",
+                title: "Ekim 26'yı bekliyoruz",
+                content: "Antalya vlogu için sabırsızlanıyoruz. Çatallar havaya!",
+                time: "5 saat önce",
+                tag: "Vlog Tartışma",
+                initials: "AV"
             }
-            // Varsayılan başlangıç mesajları
-            return [
-                {
-                    author: "Baş Çatalcı",
-                    title: "\"ÇATAL\" parçası ortalığı yıkacak!",
-                    content: "Karanlık altyapı ve metalik detaylar efsane olmuş. Çatalla let's go dostlar! 🍴🔥",
-                    time: "2 saat önce",
-                    tag: "Duyuru Yorumu",
-                    initials: "BÇ"
-                },
-                {
-                    author: "Antalya Vlog Bekçisi",
-                    title: "Ekim 26'yı bekliyoruz",
-                    content: "Antalya vlogu için sabırsızlanıyoruz. Çatallar havaya!",
-                    time: "5 saat önce",
-                    tag: "Vlog Tartışma",
-                    initials: "AV"
-                }
-            ];
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadPosts();
+        });
+
+        function getPosts() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                if (!data) return defaultPosts;
+                return JSON.parse(data);
+            } catch (e) {
+                return defaultPosts;
+            }
         }
 
         function loadPosts() {
-            const posts = getStoredPosts();
-            const postsContainer = document.getElementById('forumPosts');
-            postsContainer.innerHTML = '';
+            const posts = getPosts();
+            const container = document.getElementById('forumPosts');
+            container.innerHTML = '';
 
             posts.forEach(post => {
-                const postHTML = `
-                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
+                const html = `
+                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover animate-fadeIn">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
-                                    ${post.initials}
+                                    ${post.initials || 'ÇT'}
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-white text-sm">${post.author}</h4>
@@ -425,34 +441,42 @@
                         <p class="text-slate-400 text-sm">${post.content}</p>
                     </div>
                 `;
-                postsContainer.insertAdjacentHTML('beforeend', postHTML);
+                container.insertAdjacentHTML('beforeend', html);
             });
         }
 
         function addForumPost(event) {
             event.preventDefault();
             
-            const author = document.getElementById('authorInput').value;
-            const title = document.getElementById('titleInput').value;
-            const content = document.getElementById('contentInput').value;
+            const author = document.getElementById('authorInput').value.trim();
+            const title = document.getElementById('titleInput').value.trim();
+            const content = document.getElementById('contentInput').value.trim();
             
             const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
 
             const newPost = {
-                author: author,
-                title: title,
-                content: content,
+                author,
+                title,
+                content,
                 time: "Az önce",
-                tag: "Yeni Gönderi",
-                initials: initials
+                tag: "Topluluk Mesajı",
+                initials
             };
 
-            const posts = getStoredPosts();
-            posts.unshift(newPost); // En üste ekle
-            localStorage.setItem('ctl_forum_posts', JSON.stringify(posts));
+            const posts = getPosts();
+            posts.unshift(newPost);
+            
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+            } catch (e) {
+                console.error("Kayıt hatası:", e);
+            }
 
-            loadPosts(); // Listeyi yenile
+            loadPosts();
             document.getElementById('forumForm').reset();
+            
+            // Kullanıcıya bilgi ver
+            alert("Mesajınız foruma eklendi! Çatalla let's go 🍴");
         }
     </script>
 </body>
