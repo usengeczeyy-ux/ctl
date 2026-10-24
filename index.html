@@ -1,343 +1,336 @@
+```html
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÇTL Entertainment | Çatalla Let's Go</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>ÇTL Entertainment | Müziğin ve İçeriğin En Keskin Noktası</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        ctl: {
+                            bg: '#0a0a0c',
+                            card: '#121216',
+                            border: '#2a2a35',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --bg-color: #030303;
-            --card-bg: #0d0d0d;
-            --card-border: #262626;
-            --text-main: #f5f5f7;
-            --text-muted: #8e8e93;
-            --accent-chrome: linear-gradient(135deg, #ffffff 0%, #888888 50%, #dcdcdc 100%);
-            --glow: rgba(255, 255, 255, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0a0a0c;
+            color: #e2e8f0;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* Header & Nav */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(3, 3, 3, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--card-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 6%;
-            z-index: 1000;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #555;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-
-        .brand-name {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            background: var(--accent-chrome);
+        .chrome-text {
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 45%, #64748b 50%, #f8fafc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
         }
 
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 30px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+        .chrome-border {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
         }
 
-        nav a:hover {
-            color: var(--text-main);
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        .chrome-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chrome-card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4);
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-            background: radial-gradient(circle at center, #141414 0%, #030303 75%);
+        .bg-grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 9vw, 7rem);
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -2px;
-            background: var(--accent-chrome);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 40px;
-            text-transform: lowercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 36px;
-            background: var(--accent-chrome);
-            color: #000;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 40px;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(255,255,255,0.4);
-        }
-
-        /* Sections General */
-        section {
-            padding: 120px 8% 80px;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 2px;
-            background: var(--accent-chrome);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Single / Şarkı Duyurusu */
-        .single-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 60px;
-            align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .single-cover {
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            border-radius: 16px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 25px var(--glow);
-            display: block;
-        }
-
-        .single-info h3 {
-            font-size: 2.3rem;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .single-info p {
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        /* Takvim */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1250px;
-            margin: 0 auto;
-        }
-
-        .calendar-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 35px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .calendar-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent-chrome);
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-        }
-
-        .calendar-card:hover {
-            transform: translateY(-6px);
-            border-color: #666;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .calendar-card:hover::after {
-            opacity: 1;
-        }
-
-        .calendar-card .date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .calendar-card h4 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .calendar-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-        }
-
-        @media(max-width: 768px) {
-            nav { display: none; }
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #2a2a35; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased relative selection:bg-rose-600 selection:text-white">
 
-    <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <!-- Şirket Logosu (1000030806.jpg) -->
-            <img src="1000030806.jpg" alt="ÇTL Logo" class="logo-img" onerror="this.src='1000030806_2.jpg';">
-            <span class="brand-name">ÇTL</span>
+    <!-- Background Grain -->
+    <div class="fixed inset-0 pointer-events-none bg-grain z-50"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/60 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Logo (1. Görsel) -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-xl bg-black border border-white/20 group-hover:border-white/50 transition-all flex items-center justify-center shadow-lg overflow-hidden">
+                    <img src="1000030806_2.jpg" alt="ÇTL Logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/000000/FFFFFF?text=CTL'">
+                </div>
+                <div>
+                    <span class="font-display font-bold text-2xl tracking-wider chrome-text block leading-none">ÇTL</span>
+                    <span class="text-[9px] tracking-widest text-slate-400 uppercase font-semibold">Entertainment</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-7 text-xs font-semibold tracking-wider">
+                <a href="#anasayfa" class="text-slate-300 hover:text-white transition-colors">ANA SAYFA</a>
+                <a href="#catal-single" class="text-rose-400 hover:text-rose-300 transition-colors flex items-center gap-1.5">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                    </span>
+                    ÇATAL (SINGLE)
+                </a>
+                <a href="#takvim" class="text-slate-300 hover:text-white transition-colors">İÇERİK TAKVİMİ</a>
+                <a href="#iletisim" class="text-slate-300 hover:text-white transition-colors">İLETİŞİM</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center">
+                <a href="#catal-single" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-bold tracking-wider uppercase transition-all">
+                    <i class="fa-solid fa-play mr-2 text-rose-500"></i> Şarkıyı Dinle
+                </a>
+            </div>
         </div>
-        <nav>
-            <a href="#single">Single Duyurusu</a>
-            <a href="#takvim">İçerik Takvimi</a>
-            <a href="#iletisim">İletişim</a>
-        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>ÇTL ENTERTAINMENT</h1>
-        <p>çatalla let's go</p>
-        <a href="#single" class="btn">Şarkıyı Keşfet</a>
-    </section>
+    <!-- HERO SECTION -->
+    <section id="anasayfa" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-20">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-900/15 rounded-full blur-[140px] pointer-events-none"></div>
 
-    <!-- Single / Şarkı Duyurusu Section -->
-    <section id="single">
-        <h2 class="section-title">Yepyeni Single: ÇATAL</h2>
-        <div class="single-grid">
-            <!-- Single Kapağı (1000030805.jpg) -->
-            <img src="1000030805.jpg" alt="ÇATAL Single Kapağı" class="single-cover" onerror="this.src='1000030805_2.jpg';">
-            <div class="single-info">
-                <h3>Çok Yakında Yayında!</h3>
-                <p>ÇTL kadrosundan piyasayı sallayacak yepyeni single "ÇATAL" tüm dijital platformlarda yayına girmek için gün sayıyor. Müzik dünyasının dengelerini değiştirecek bu parça için hazırlıklar tamamlandı.</p>
-                <a href="#takvim" class="btn">İçerik Takvimine Bak</a>
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300 text-xs tracking-widest uppercase font-semibold mb-8">
+                <i class="fa-solid fa-utensils text-rose-500"></i> çatalla let's go
+            </div>
+
+            <!-- Logo Visual (1. Görsel) -->
+            <div class="relative my-6 flex flex-col items-center justify-center">
+                <div class="relative w-48 h-48 sm:w-56 sm:h-56 mb-6 rounded-2xl overflow-hidden border border-white/20 shadow-2xl filter drop-shadow-[0_10px_25px_rgba(255,255,255,0.15)] animate-pulse">
+                    <img src="1000030806_2.jpg" alt="ÇTL Logo Büyük" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x300/000000/FFFFFF?text=CTL'">
+                </div>
+
+                <h1 class="font-display text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter chrome-text uppercase mb-2">
+                    ÇTL ENTERTAINMENT
+                </h1>
+            </div>
+
+            <p class="text-base sm:text-xl font-light text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                "Ciddi bir şirketiz dediysek, her akşam makarna yiyeceğiz demedik." <br>Bağımsız prodüksiyon, konser vlogları ve keskin melodiler.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#catal-single" class="px-8 py-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-bold tracking-wider shadow-lg shadow-rose-900/40 transition-all">
+                    <i class="fa-solid fa-compact-disc mr-2"></i> YENİ ŞARKI: ÇATAL
+                </a>
+                <a href="#takvim" class="px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold tracking-wider transition-all">
+                    <i class="fa-solid fa-calendar-days mr-2 text-sky-400"></i> İÇERİK TAKVİMİ
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- İçerik Takvimi Section -->
-    <section id="takvim">
-        <h2 class="section-title">İçerik Takvimi</h2>
-        <div class="calendar-grid">
-            <div class="calendar-card">
-                <div class="date">EKİM 26 (PZT)</div>
-                <h4>RUSH</h4>
-                <p>Antalya Tatil Vlog yayında!</p>
+    <!-- SECTION: ŞARKI DUYURUSU (3. GÖRSEL - ÇATAL) -->
+    <section id="catal-single" class="py-24 relative bg-slate-950/60 border-y border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">ŞARKI DUYURUSU</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">CRUSH — ÇATAL</h2>
             </div>
-            <div class="calendar-card">
-                <div class="date">EKİM 27 (SALI)</div>
-                <h4>Benim Olsana</h4>
-                <p>Dans Mv prömiyeri gerçekleşiyor.</p>
-            </div>
-            <div class="calendar-card">
-                <div class="date">EKİM 28 (ÇRŞ)</div>
-                <h4>ESKİŞEHİR</h4>
-                <p>Konser Vlog serisi sizlerle.</p>
-            </div>
-            <div class="calendar-card">
-                <div class="date">EKİM 30 (CUMA)</div>
-                <h4>CRUSH</h4>
-                <p>Canlı Yayın ile karşınızdayız.</p>
-            </div>
-            <div class="calendar-card">
-                <div class="date">EKİM 31 (CMT)</div>
-                <h4>KONSER</h4>
-                <p>Özel performans videoları.</p>
-            </div>
-            <div class="calendar-card">
-                <div class="date">KASIM 2 (PZT)</div>
-                <h4>RUSH</h4>
-                <p>Adana Vlog macerası.</p>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-center chrome-border bg-ctl-card p-6 sm:p-10 rounded-3xl relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- Single Kapağı (2. Görsel) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm aspect-square bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
+                        <img src="1000030805_2.jpg" alt="CRUSH Çatal Single Kapağı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/111111/FFFFFF?text=CRUSH+-+CATAL'">
+                    </div>
+                </div>
+
+                <!-- Single Info -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+                        <i class="fa-solid fa-fire"></i> YENİ ÇIKIŞ
+                    </div>
+
+                    <h3 class="text-2xl sm:text-4xl font-bold text-white">"Kalbe saplanan bir çatal gibi..."</h3>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        ÇTL'nin en keskin yapımı CRUSH imzalı <strong class="text-slate-200">"ÇATAL"</strong> yayında. Karanlık ritimler ve metalik altyapılarla masadaki yerinizi alın.
+                    </p>
+
+                    <!-- Player Box -->
+                    <div class="bg-black/40 border border-slate-800 p-4 rounded-2xl space-y-3">
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span class="font-semibold text-rose-400">Önizleme: CRUSH - ÇATAL</span>
+                            <span>0:42 / 2:38</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]"></div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <a href="#" class="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-[#1DB954]/10 border border-[#1DB954]/30 text-white font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-spotify text-lg text-[#1DB954]"></i> Spotify
+                        </a>
+                        <a href="#" class="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-slate-800 border border-slate-700 text-white font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-apple text-lg"></i> Apple Music
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- İletişim / Footer -->
-    <footer id="iletisim">
-        <p>&copy; 2026 ÇTL Entertainment. Tüm hakları saklıdır. çatalla let's go 🍴</p>
+    <!-- SECTION: İÇERİK TAKVİMİ -->
+    <section id="takvim" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-400 font-bold tracking-widest text-xs uppercase">EKİM - KASIM 2026</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">İÇERİK TAKVİMİ</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-3">
+                    Bazen tatilde, bazen konser sahnelerinde ama hep kameradayız.
+                </p>
+            </div>
+
+            <!-- Grid Kartlar -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- 26 EKİM -->
+                <div class="chrome-border bg-slate-100 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
+                    <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-slate-600 uppercase">EKİM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none text-slate-900">26</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase">PZT</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
+                    <p class="font-semibold text-slate-700 text-sm">Antalya Tatil Vlog</p>
+                </div>
+
+                <!-- 27 EKİM -->
+                <div class="chrome-border bg-slate-950 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
+                    <div class="flex justify-between items-start border-b border-slate-800 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-slate-400 uppercase">EKİM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none chrome-text">27</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-white text-black text-[10px] font-bold uppercase">SALI</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-white mb-1">Benim Olsana</h4>
+                    <p class="font-semibold text-slate-400 text-sm">Dans Mv</p>
+                </div>
+
+                <!-- 28 EKİM -->
+                <div class="chrome-border bg-sky-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
+                    <div class="flex justify-between items-start border-b border-sky-300 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-sky-800 uppercase">EKİM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none text-sky-950">28</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-sky-950 text-white text-[10px] font-bold uppercase">ÇRŞ</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-sky-900"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-sky-950 mb-1">ESKİŞEHİR</h4>
+                    <p class="font-semibold text-sky-900 text-sm">Konser Vlog</p>
+                </div>
+
+                <!-- 30 EKİM -->
+                <div class="chrome-border bg-yellow-400 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
+                    <div class="flex justify-between items-start border-b border-yellow-500 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-yellow-900 uppercase">EKİM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none text-yellow-950">30</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-black text-yellow-400 text-[10px] font-bold uppercase">CUMA</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-yellow-950"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-yellow-950 mb-1">CRUSH</h4>
+                    <p class="font-semibold text-yellow-900 text-sm">Canlı Yayın</p>
+                </div>
+
+                <!-- 31 EKİM -->
+                <div class="chrome-border bg-blue-500 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
+                    <div class="flex justify-between items-start border-b border-blue-400 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-blue-100 uppercase">EKİM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none text-white">31</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-950 text-white text-[10px] font-bold uppercase">CMT</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-white mb-1">KONSER</h4>
+                    <p class="font-semibold text-blue-100 text-sm">Performans Videoları</p>
+                </div>
+
+                <!-- 2 KASIM -->
+                <div class="chrome-border bg-slate-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
+                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
+                    <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
+                        <div>
+                            <span class="font-display font-bold text-xs text-slate-600 uppercase">KASIM</span>
+                            <span class="font-display text-4xl font-extrabold leading-none text-slate-900">2</span>
+                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase">PZT</span>
+                        </div>
+                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
+                    </div>
+                    <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
+                    <p class="font-semibold text-slate-700 text-sm">Adana Vlog</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: İLETİŞİM -->
+    <section id="iletisim" class="py-24 relative bg-slate-950/80 border-t border-white/10">
+        <div class="max-w-xl mx-auto px-4">
+            <div class="chrome-border bg-ctl-card p-8 rounded-3xl">
+                <div class="text-center mb-6">
+                    <h2 class="font-display text-2xl font-extrabold chrome-text">İletişim Hattı</h2>
+                    <p class="text-slate-400 text-xs mt-1">Demolarınızı veya çatal önerilerinizi gönderin.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Mesajınız ÇTL ekibine iletildi!');" class="space-y-4">
+                    <input type="text" placeholder="Adınız" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
+                    <input type="email" placeholder="E-posta Adresiniz" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
+                    <textarea rows="3" placeholder="Mesajınız..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 text-white font-bold text-xs uppercase tracking-wider">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-slate-800 py-8 text-center text-slate-500 text-xs">
+        <p>© 2026 ÇTL Entertainment Inc. Tüm hakları saklıdır, çatallar biler.</p>
     </footer>
 
 </body>
 </html>
+```
