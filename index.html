@@ -1,474 +1,309 @@
+```html
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÇTL Entertainment | Müziğin ve İçeriğin En Keskin Noktası</title>
-    <!-- Tailwind CSS -->
+    <title>ÇTL Entertainment - Canlı Forum</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
+    <!-- FontAwesome Icon Set -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Syncopate', 'sans-serif'],
-                    },
-                    colors: {
-                        ctl: {
-                            bg: '#0a0a0c',
-                            card: '#121216',
-                            border: '#2a2a35',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         body {
+            font-family: 'Inter', sans-serif;
             background-color: #0a0a0c;
             color: #e2e8f0;
             overflow-x: hidden;
         }
 
+        /* Metallic Chrome Text Effect */
         .chrome-text {
             background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 45%, #64748b 50%, #f8fafc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
         }
 
+        /* Chrome Metallic Border Effect */
         .chrome-border {
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
         }
 
+        /* Card Hover Transition */
         .chrome-card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .chrome-card-hover:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px);
+            border-color: rgba(225, 29, 72, 0.4);
+            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
+        /* Subtle Background Texture */
         .bg-grain {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0c; }
-        ::-webkit-scrollbar-thumb { background: #2a2a35; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
     </style>
 </head>
-<body class="font-sans antialiased relative selection:bg-rose-600 selection:text-white">
-
-    <!-- Background Grain -->
-    <div class="fixed inset-0 pointer-events-none bg-grain z-50"></div>
+<body class="bg-grain min-h-screen flex flex-col justify-between selection:bg-rose-600 selection:text-white">
 
     <!-- NAVBAR -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/60 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand / Logo (1. Görsel)[span_3](start_span)[span_3](end_span) -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-xl bg-black border border-white/20 group-hover:border-white/50 transition-all flex items-center justify-center shadow-lg overflow-hidden">
-                    <img src="1000030806_2.jpg" alt="ÇTL Logo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/000000/FFFFFF?text=CTL'">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-400 p-[1px] shadow-lg shadow-rose-900/40">
+                    <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
+                        <i class="fa-solid fa-utensils text-rose-500 group-hover:rotate-12 transition-transform"></i>
+                    </div>
                 </div>
                 <div>
-                    <span class="font-display font-bold text-2xl tracking-wider chrome-text block leading-none">ÇTL</span>
-                    <span class="text-[9px] tracking-widest text-slate-400 uppercase font-semibold">Entertainment</span>
+                    <span class="font-extrabold text-2xl tracking-wider chrome-text block leading-none">ÇTL</span>
+                    <span class="text-[9px] tracking-widest text-slate-400 uppercase font-semibold">Entertainment Forum</span>
                 </div>
             </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-7 text-xs font-semibold tracking-wider">
-                <a href="#anasayfa" class="text-slate-300 hover:text-white transition-colors">ANA SAYFA</a>
-                <a href="#catal-single" class="text-rose-400 hover:text-rose-300 transition-colors flex items-center gap-1.5">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
-                    </span>
-                    ÇATAL (SINGLE)
-                </a>
-                <a href="#takvim" class="text-slate-300 hover:text-white transition-colors">İÇERİK TAKVİMİ</a>
-                <a href="#forum" class="text-slate-300 hover:text-white transition-colors">ÇATALERS FORUM</a>
-                <a href="#iletisim" class="text-slate-300 hover:text-white transition-colors">İLETİŞİM</a>
-            </nav>
-
-            <div class="hidden sm:flex items-center">
-                <a href="#catal-single" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-bold tracking-wider uppercase transition-all">
-                    <i class="fa-solid fa-play mr-2 text-rose-500"></i> Şarkıyı Dinle
-                </a>
+            <!-- Status Indicator -->
+            <div id="statusBadge" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/50 text-xs font-medium text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="statusDot"></span>
+                <span id="statusText">Buluta Bağlanıyor...</span>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="anasayfa" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-20">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-900/15 rounded-full blur-[140px] pointer-events-none"></div>
-
-        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300 text-xs tracking-widest uppercase font-semibold mb-8">
-                <i class="fa-solid fa-utensils text-rose-500"></i> çatalla let's go
-            </div>
-
-            <!-- Logo Visual (1. Görsel)[span_4](start_span)[span_4](end_span) -->
-            <div class="relative my-6 flex flex-col items-center justify-center">
-                <div class="relative w-48 h-48 sm:w-56 sm:h-56 mb-6 rounded-2xl overflow-hidden border border-white/20 shadow-2xl filter drop-shadow-[0_10px_25px_rgba(255,255,255,0.15)] animate-pulse">
-                    <img src="1000030806_2.jpg" alt="ÇTL Logo Büyük" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/300x300/000000/FFFFFF?text=CTL'">
-                </div>
-
-                <h1 class="font-display text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter chrome-text uppercase mb-2">
-                    ÇTL ENTERTAINMENT
-                </h1>
-            </div>
-
-            <p class="text-base sm:text-xl font-light text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Bağımsız prodüksiyon, konser vlogları ve keskin melodiler.
-            </p>
-
-            <div class="flex flex-wrap items-center justify-center gap-4">
-                <a href="#catal-single" class="px-8 py-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-bold tracking-wider shadow-lg shadow-rose-900/40 transition-all">
-                    <i class="fa-solid fa-compact-disc mr-2"></i> YENİ ŞARKI: ÇATAL
-                </a>
-                <a href="#takvim" class="px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold tracking-wider transition-all">
-                    <i class="fa-solid fa-calendar-days mr-2 text-sky-400"></i> İÇERİK TAKVİMİ
-                </a>
-            </div>
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+        
+        <!-- HEADER SECTION -->
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold uppercase tracking-widest mb-4 inline-block">
+                <i class="fa-solid fa-bolt mr-1"></i> Anlık Canlı Topluluk
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight chrome-text mb-3">ÇATAL FORUM</h1>
+            <p class="text-slate-400 text-sm sm:text-base">Düşüncelerini, fikirlerini veya mesajlarını yaz. Tüm kullanıcılar ekranlarında anında görsün!</p>
         </div>
-    </section>
 
-    <!-- SECTION: ŞARKI DUYURUSU (3. GÖRSEL - ÇATAL)[span_5](start_span)[span_5](end_span) -->
-    <section id="catal-single" class="py-24 relative bg-slate-950/60 border-y border-white/10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">ŞARKI DUYURUSU</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">CRUSH — ÇATAL</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT COLUMN: Post Message Form -->
+            <div class="lg:col-span-5 sticky top-28">
+                <div class="chrome-border bg-slate-900/40 backdrop-blur-xl p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-rose-600/10 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-rose-500"></i> Yeni Tartışma Başlat
+                    </h3>
+
+                    <form id="forumForm" onsubmit="handlePostSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Takma Adın / Adın</label>
+                            <input type="text" id="authorInput" required maxlength="30" placeholder="Örn: ÇatalSever" 
+                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Başlık</label>
+                            <input type="text" id="titleInput" required maxlength="60" placeholder="Örn: Yeni içerikler hakkında ne düşünüyorsunuz?" 
+                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Mesajın</label>
+                            <textarea id="contentInput" required rows="4" maxlength="500" placeholder="Mesajını buraya yaz..." 
+                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn"
+                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Buluta Gönder
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <div class="grid lg:grid-cols-12 gap-10 items-center chrome-border bg-ctl-card p-6 sm:p-10 rounded-3xl relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <!-- Single Kapağı (3. Görsel)[span_6](start_span)[span_6](end_span) -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div class="relative w-full max-w-sm aspect-square bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
-                        <img src="1000030805_2.jpg" alt="CRUSH Çatal Single Kapağı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/111111/FFFFFF?text=CRUSH+-+CATAL'">
-                    </div>
+            <!-- RIGHT COLUMN: Post Stream -->
+            <div class="lg:col-span-7">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-rose-500"></i> Akış 
+                    </h3>
+                    <span id="postCount" class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-white/10">0 Gönderi</span>
                 </div>
 
-                <!-- Single Info -->
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
-                        <i class="fa-solid fa-fire"></i> YENİ ÇIKIŞ
-                    </div>
-
-                    <h3 class="text-2xl sm:text-4xl font-bold text-white">"Kalbe saplanan bir çatal gibi..."</h3>
-                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-                        ÇTL'nin en keskin yapımı CRUSH imzalı <strong class="text-slate-200">"ÇATAL"</strong> yayında. Karanlık ritimler ve metalik altyapılarla masadaki yerinizi alın.
-                    </p>
-
-                    <!-- Player Box -->
-                    <div class="bg-black/40 border border-slate-800 p-4 rounded-2xl space-y-3">
-                        <div class="flex items-center justify-between text-xs text-slate-400">
-                            <span class="font-semibold text-rose-400">Önizleme: CRUSH - ÇATAL</span>
-                            <span>0:42 / 2:38</span>
-                        </div>
-                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-full w-[35%]"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-2 flex flex-wrap gap-3">
-                        <a href="#" class="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-[#1DB954]/10 border border-[#1DB954]/30 text-white font-semibold text-xs flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-spotify text-lg text-[#1DB954]"></i> Spotify
-                        </a>
-                        <a href="#" class="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-slate-800 border border-slate-700 text-white font-semibold text-xs flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-apple text-lg"></i> Apple Music
-                        </a>
+                <!-- Live Posts Container -->
+                <div id="forumPosts" class="space-y-4">
+                    <!-- Loading Skeleton -->
+                    <div class="animate-pulse chrome-border bg-slate-900/20 p-6 rounded-2xl space-y-3">
+                        <div class="h-4 bg-slate-800 rounded w-1/4"></div>
+                        <div class="h-6 bg-slate-800 rounded w-3/4"></div>
+                        <div class="h-12 bg-slate-800 rounded w-full"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- SECTION: İÇERİK TAKVİMİ (2. Görsel)[span_7](start_span)[span_7](end_span) -->
-    <section id="takvim" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-sky-400 font-bold tracking-widest text-xs uppercase">EKİM - KASIM 2026</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">İÇERİK TAKVİMİ</h2>
-                <p class="text-slate-400 text-sm sm:text-base mt-3">
-                    Bazen tatilde, bazen konser sahnelerinde ama hep kameradayız.
-                </p>
-            </div>
-
-            <!-- Grid Kartlar (2. Görsel verileri)[span_8](start_span)[span_8](end_span) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- 26 EKİM[span_9](start_span)[span_9](end_span) -->
-                <div class="chrome-border bg-slate-100 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
-                    <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-slate-600 uppercase">EKİM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none text-slate-900">26</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase">PZT</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
-                    <p class="font-semibold text-slate-700 text-sm">Antalya Tatil Vlog[span_10](start_span)[span_10](end_span)</p>
-                </div>
-
-                <!-- 27 EKİM[span_11](start_span)[span_11](end_span) -->
-                <div class="chrome-border bg-slate-950 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
-                    <div class="flex justify-between items-start border-b border-slate-800 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-slate-400 uppercase">EKİM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none chrome-text">27</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-white text-black text-[10px] font-bold uppercase">SALI</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-white mb-1">Benim Olsana</h4>
-                    <p class="font-semibold text-slate-400 text-sm">Dans Mv[span_12](start_span)[span_12](end_span)</p>
-                </div>
-
-                <!-- 28 EKİM[span_13](start_span)[span_13](end_span) -->
-                <div class="chrome-border bg-sky-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
-                    <div class="flex justify-between items-start border-b border-sky-300 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-sky-800 uppercase">EKİM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none text-sky-950">28</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-sky-950 text-white text-[10px] font-bold uppercase">ÇRŞ</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-sky-900"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-sky-950 mb-1">ESKİŞEHİR</h4>
-                    <p class="font-semibold text-sky-900 text-sm">Konser Vlog[span_14](start_span)[span_14](end_span)</p>
-                </div>
-
-                <!-- 30 EKİM[span_15](start_span)[span_15](end_span) -->
-                <div class="chrome-border bg-yellow-400 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
-                    <div class="flex justify-between items-start border-b border-yellow-500 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-yellow-900 uppercase">EKİM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none text-yellow-950">30</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-black text-yellow-400 text-[10px] font-bold uppercase">CUMA</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-yellow-950"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-yellow-950 mb-1">CRUSH</h4>
-                    <p class="font-semibold text-yellow-900 text-sm">Canlı Yayın[span_16](start_span)[span_16](end_span)</p>
-                </div>
-
-                <!-- 31 EKİM[span_17](start_span)[span_17](end_span) -->
-                <div class="chrome-border bg-blue-500 text-white rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-white/20"></div>
-                    <div class="flex justify-between items-start border-b border-blue-400 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-blue-100 uppercase">EKİM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none text-white">31</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-950 text-white text-[10px] font-bold uppercase">CMT</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-white"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-white mb-1">KONSER</h4>
-                    <p class="font-semibold text-blue-100 text-sm">Performans Videoları[span_18](start_span)[span_18](end_span)</p>
-                </div>
-
-                <!-- 2 KASIM[span_19](start_span)[span_19](end_span) -->
-                <div class="chrome-border bg-slate-200 text-slate-900 rounded-2xl p-6 relative overflow-hidden chrome-card-hover">
-                    <div class="w-4 h-4 rounded-full bg-rose-600 shadow-md absolute top-4 left-1/2 -translate-x-1/2 z-10 border border-black/20"></div>
-                    <div class="flex justify-between items-start border-b border-slate-300 pb-4 mb-4">
-                        <div>
-                            <span class="font-display font-bold text-xs text-slate-600 uppercase">KASIM</span>
-                            <span class="font-display text-4xl font-extrabold leading-none text-slate-900">2</span>
-                            <span class="inline-block mt-1 px-3 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase">PZT</span>
-                        </div>
-                        <div class="w-10 h-10 opacity-80"><i class="fa-solid fa-utensils text-2xl text-slate-800"></i></div>
-                    </div>
-                    <h4 class="font-black text-2xl tracking-tight text-slate-900 mb-1">RUSH</h4>
-                    <p class="font-semibold text-slate-700 text-sm">Adana Vlog[span_20](start_span)[span_20](end_span)</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: ÇATALERS FORUM -->
-    <section id="forum" class="py-24 relative bg-slate-950/40 border-t border-white/10">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <span class="text-rose-500 font-bold tracking-widest text-xs uppercase">TOPLULUK ALANI</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-extrabold chrome-text mt-1">Çatalers Forum</h2>
-                <p class="text-slate-400 text-sm mt-2">Çatalları masaya vurun, tartışmayı başlatın! (Ortak forum hafızası aktif)</p>
-            </div>
-
-            <!-- Mesaj Gönderme Formu -->
-            <div class="chrome-border bg-ctl-card p-6 sm:p-8 rounded-3xl mb-10">
-                <form id="forumForm" onsubmit="addForumPost(event)" class="space-y-4">
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase">Çataler Adı / Rumuz</label>
-                            <input type="text" id="authorInput" placeholder="Örn: Baş Çatalcı" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase">Konu Başlığı</label>
-                            <input type="text" id="titleInput" placeholder="Örn: Yeni şarkı hani nerde?" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase">Düşüncelerin / Mesajın</label>
-                        <textarea id="contentInput" rows="3" placeholder="Çatalla let's go diyerek buraya yaz..." required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-rose-900/30">
-                        <i class="fa-solid fa-paper-plane mr-2"></i> Foruma Fırlat
-                    </button>
-                </form>
-            </div>
-
-            <!-- Forum Mesajları Listesi -->
-            <div id="forumPosts" class="space-y-4">
-                <!-- JavaScript burayı dolduracak -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: İLETİŞİM -->
-    <section id="iletisim" class="py-24 relative bg-slate-950/80 border-t border-white/10">
-        <div class="max-w-xl mx-auto px-4">
-            <div class="chrome-border bg-ctl-card p-8 rounded-3xl">
-                <div class="text-center mb-6">
-                    <h2 class="font-display text-2xl font-extrabold chrome-text">İletişim Hattı</h2>
-                    <p class="text-slate-400 text-xs mt-1">Demolarınızı veya çatal önerilerinizi gönderin.</p>
-                </div>
-                <form onsubmit="event.preventDefault(); alert('Mesajınız ÇTL ekibine iletildi!');" class="space-y-4">
-                    <input type="text" placeholder="Adınız" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                    <input type="email" placeholder="E-posta Adresiniz" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                    <textarea rows="3" placeholder="Mesajınız..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 text-white font-bold text-xs uppercase tracking-wider">Gönder</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- FOOTER -->
-    <footer class="bg-black border-t border-slate-800 py-8 text-center text-slate-500 text-xs">
-        <p>© 2026 ÇTL Entertainment Inc. Tüm hakları saklıdır, çatallar bile.</p>
+    <footer class="border-t border-white/10 bg-black/40 py-6 text-center text-xs text-slate-500">
+        <p>&copy; 2026 ÇTL Entertainment. Tüm hakları saklıdır. Realtime Firebase altyapısı ile güçlendirilmiştir.</p>
     </footer>
 
-    <!-- Forum JavaScript Scripti -->
-    <script>
-        const STORAGE_KEY = 'ctl_global_forum_v4';
+    <!-- FIREBASE MODULE CODE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        const defaultPosts = [
-            {
-                author: "Baş Çatalcı",
-                title: "\"ÇATAL\" parçası ortalığı yıkacak!",
-                content: "Karanlık altyapı ve metalik detaylar efsane olmuş. Çatalla let's go dostlar! 🍴🔥",
-                time: "2 saat önce",
-                tag: "Duyuru Yorumu",
-                initials: "BÇ"
-            },
-            {
-                author: "Antalya Vlog Bekçisi",
-                title: "Ekim 26'yı bekliyoruz",
-                content: "Antalya vlogu için sabırsızlanıyoruz. Çatallar havaya!",
-                time: "5 saat önce",
-                tag: "Vlog Tartışma",
-                initials: "AV"
-            }
-        ];
+        // Paylaştığın Firebase Proje Yapılandırması
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXlTNpnv4CrLC2H-rPV5Owry3CUbWB2jU",
+            authDomain: "crushers-1c298.firebaseapp.com",
+            databaseURL: "https://crushers-1c298-default-rtdb.firebaseio.com",
+            projectId: "crushers-1c298",
+            storageBucket: "crushers-1c298.firebasestorage.app",
+            messagingSenderId: "834085976380",
+            appId: "1:834085976380:web:e15aa1773424a74c8ac639",
+            measurementId: "G-4PX64E8MB7"
+        };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadPosts();
-        });
+        // Firebase Başlatma
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-        function getPosts() {
-            try {
-                const data = localStorage.getItem(STORAGE_KEY);
-                if (!data) {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPosts));
-                    return defaultPosts;
-                }
-                return JSON.parse(data);
-            } catch(e) {
-                return defaultPosts;
-            }
-        }
+        // Durum Göstergesi Elemanları
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
 
-        function loadPosts() {
-            const posts = getPosts();
-            const container = document.getElementById('forumPosts');
-            container.innerHTML = '';
-
-            posts.forEach(post => {
-                const html = `
-                    <div class="chrome-border bg-ctl-card p-6 rounded-2xl chrome-card-hover">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
-                                    ${post.initials || 'ÇT'}
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm">${post.author}</h4>
-                                    <span class="text-[10px] text-slate-500">${post.time}</span>
-                                </div>
-                            </div>
-                            <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold">${post.tag}</span>
-                        </div>
-                        <h5 class="font-bold text-slate-200 text-base mb-1">${post.title}</h5>
-                        <p class="text-slate-400 text-sm">${post.content}</p>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', html);
-            });
-        }
-
-        function addForumPost(event) {
+        // Form Gönderim Fonksiyonu
+        window.handlePostSubmit = function(event) {
             event.preventDefault();
             
+            const submitBtn = document.getElementById('submitBtn');
             const author = document.getElementById('authorInput').value.trim();
             const title = document.getElementById('titleInput').value.trim();
             const content = document.getElementById('contentInput').value.trim();
             
-            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
+            if (!author || !title || !content) return;
 
-            const newPost = {
-                author,
-                title,
-                content,
-                time: "Az önce",
-                tag: "Yeni Gönderi",
-                initials
-            };
+            // İnisiyalleri Hesapla (Örn: Ahmet Yılmaz -> AY)
+            const initials = author.split(' ')
+                .filter(part => part.length > 0)
+                .map(n => n[0])
+                .join('')
+                .substring(0, 2)
+                .toUpperCase() || 'ÇT';
 
-            const posts = getPosts();
-            posts.unshift(newPost);
-            
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            } catch(e) {
-                console.error("Kayıt hatası:", e);
+            // Butonu Pasife Al
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Gönderiliyor...';
+
+            // Firebase'e Ekle
+            push(ref(db, 'forum_posts'), {
+                author: author,
+                title: title,
+                content: content,
+                initials: initials,
+                timestamp: Date.now(),
+                dateStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            }).then(() => {
+                document.getElementById('forumForm').reset();
+            }).catch((err) => {
+                console.error("Hata:", err);
+                alert("Gönderi eklenirken bir hata oluştu: " + err.message);
+            }).finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Buluta Gönder';
+            });
+        };
+
+        // Veritabanını Canlı Dinleme (Real-time Listener)
+        const postsRef = ref(db, 'forum_posts');
+        
+        onValue(postsRef, (snapshot) => {
+            // Bağlantı Başarılı
+            statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500";
+            statusText.innerText = "Canlı Bulut Bağlantısı";
+
+            const container = document.getElementById('forumPosts');
+            const postCountEl = document.getElementById('postCount');
+            const data = snapshot.val();
+
+            container.innerHTML = '';
+
+            if (!data) {
+                postCountEl.innerText = '0 Gönderi';
+                container.innerHTML = `
+                    <div class="text-center py-12 chrome-border bg-slate-900/20 rounded-2xl">
+                        <i class="fa-solid fa-comment-dots text-4xl text-slate-600 mb-3 block"></i>
+                        <p class="text-slate-400 font-medium text-sm">Henüz mesaj yok.</p>
+                        <p class="text-slate-600 text-xs mt-1">İlk tartışmayı sol taraftaki formdan sen başlat!</p>
+                    </div>
+                `;
+                return;
             }
 
-            loadPosts();
-            document.getElementById('forumForm').reset();
-            alert("Mesajın başarıyla foruma fırlatıldı! Çatalla let's go 🍴");
+            // Objeyi diziye çevirip en yeniden en eskiye sırala
+            const postsArray = Object.keys(data).map(key => ({
+                id: key,
+                ...data[key]
+            })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            postCountEl.innerText = `${postsArray.length} Gönderi`;
+
+            // Gönderileri Render Et
+            postsArray.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl chrome-card-hover backdrop-blur-md';
+                
+                postCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-400 p-[1px] flex items-center justify-center font-bold text-xs text-white shadow-md">
+                                <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
+                                    ${escapeHtml(post.initials || 'ÇT')}
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm leading-tight">${escapeHtml(post.author)}</h4>
+                                <span class="text-[10px] text-slate-500">${post.dateStr || 'Az önce'}</span>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-semibold">
+                            Canlı Mesaj
+                        </span>
+                    </div>
+                    <h5 class="font-bold text-slate-100 text-base mb-2 leading-snug">${escapeHtml(post.title)}</h5>
+                    <p class="text-slate-300 text-sm whitespace-pre-line leading-relaxed">${escapeHtml(post.content)}</p>
+                `;
+                container.appendChild(postCard);
+            });
+        }, (error) => {
+            statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
+            statusText.innerText = "Bağlantı Hatası";
+            console.error("Firebase Hatası:", error);
+        });
+
+        // XSS Koruması için Basit Yardımcı Fonksiyon
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
         }
     </script>
 </body>
 </html>
+```
