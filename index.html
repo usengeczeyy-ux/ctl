@@ -69,122 +69,6 @@
         ::-webkit-scrollbar-thumb { background: #2a2a35; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
-    <!DOCTYPE html>
-<html lang="tr" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÇTL Entertainment | Çatalers Forum</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        // BURAYA KENDİ FIREBASE BİLGİLERİNİ YAZACAKSIN
-        const firebaseConfig = {
-            apiKey: "SENIN_API_KEY",
-            authDomain: "SENIN_PROJE.firebaseapp.com",
-            databaseURL: "https://SENIN_PROJE-default-rtdb.firebaseio.com",
-            projectId: "SENIN_PROJE",
-            storageBucket: "SENIN_PROJE.appspot.com",
-            messagingSenderId: "ID",
-            appId: "APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // Form gönderildiğinde buluta kaydet
-        window.sendToCloud = function(event) {
-            event.preventDefault();
-            const author = document.getElementById('authorInput').value.trim();
-            const title = document.getElementById('titleInput').value.trim();
-            const content = document.getElementById('contentInput').value.trim();
-            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
-
-            push(ref(db, 'forum_posts'), {
-                author, title, content, initials,
-                time: "Az önce",
-                tag: "Canlı Üye Mesajı"
-            });
-
-            document.getElementById('forumForm').reset();
-            alert("Mesajın buluta fırlatıldı! Herkes görebilir 🍴");
-        };
-
-        // Buluttaki mesajları anın dinle ve ekranda göster
-        onValue(ref(db, 'forum_posts'), (snapshot) => {
-            const data = snapshot.val();
-            const container = document.getElementById('forumPosts');
-            container.innerHTML = '';
-
-            if (!data) {
-                container.innerHTML = '<p class="text-center text-slate-500">Henüz mesaj yok. İlk mesajı sen yaz!</p>';
-                return;
-            }
-
-            // Mesajları ters çevir (en yenisi üstte olsun)
-            const posts = Object.values(data).reverse();
-
-            posts.forEach(post => {
-                const html = `
-                    <div class="border border-white/10 bg-[#121216] p-6 rounded-2xl shadow-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-full bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 font-bold text-xs">
-                                    ${post.initials}
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm">${post.author}</h4>
-                                    <span class="text-[10px] text-slate-500">${post.time}</span>
-                                </div>
-                            </div>
-                            <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold">${post.tag}</span>
-                        </div>
-                        <h5 class="font-bold text-slate-200 text-base mb-1">${post.title}</h5>
-                        <p class="text-slate-400 text-sm">${post.content}</p>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', html);
-            });
-        });
-    </script>
-</head>
-<body class="bg-[#0a0a0c] text-slate-100 font-sans">
-
-    <div class="max-w-4xl mx-auto px-4 py-16">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-black uppercase tracking-wider text-white mb-2">Çatalers Bulut Forum</h1>
-            <p class="text-slate-400 text-sm">Başka cihazlardan yazılanlar anında burada görünür!</p>
-        </div>
-
-        <!-- Mesaj Gönderme Formu -->
-        <div class="border border-white/10 bg-[#121216] p-6 sm:p-8 rounded-3xl mb-10 shadow-2xl">
-            <form id="forumForm" onsubmit="sendToCloud(event)" class="space-y-4">
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <input type="text" id="authorInput" placeholder="Adın / Rumuzun" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                    <input type="text" id="titleInput" placeholder="Konu Başlığı" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500">
-                </div>
-                <textarea id="contentInput" rows="3" placeholder="Mesajını yaz, çatalla let's go..." required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-500"></textarea>
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-rose-950">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> Buluta Gönder
-                </button>
-            </form>
-        </div>
-
-        <!-- Mesajların Listeleneceği Alan -->
-        <div id="forumPosts" class="space-y-4">
-            <p class="text-center text-slate-500">Buluttan mesajlar yükleniyor...</p>
-        </div>
-    </div>
-
-</body>
-</html>
-
 </head>
 <body class="font-sans antialiased relative selection:bg-rose-600 selection:text-white">
 
@@ -509,57 +393,27 @@
             }
         ];
 
-            <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+        });
 
-        // Firebase Proje Bilgilerin (Bunu kendi bilgilerinle dolduracaksın)
-        const firebaseConfig = {
-            apiKey: "SENIN_API_KEY",
-            authDomain: "SENIN_PROJE.firebaseapp.com",
-            databaseURL: "https://SENIN_PROJE-default-rtdb.firebaseio.com",
-            projectId: "SENIN_PROJE",
-            storageBucket: "SENIN_PROJE.appspot.com",
-            messagingSenderId: "ID",
-            appId: "APP_ID"
-        };
+        function getPosts() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                if (!data) {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPosts));
+                    return defaultPosts;
+                }
+                return JSON.parse(data);
+            } catch(e) {
+                return defaultPosts;
+            }
+        }
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // Form gönderilince buluta kaydet
-        window.addForumPost = function(event) {
-            event.preventDefault();
-            const author = document.getElementById('authorInput').value.trim();
-            const title = document.getElementById('titleInput').value.trim();
-            const content = document.getElementById('contentInput').value.trim();
-            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
-
-            push(ref(db, 'forum_posts'), {
-                author, title, content, initials,
-                time: "Az önce",
-                tag: "Canlı Üye Mesajı"
-            });
-
-            document.getElementById('forumForm').reset();
-            alert("Mesajın buluta fırlatıldı! Herkes görebilir 🍴");
-        };
-
-        // Buluttaki mesajları anlık dinle ve listele
-        onValue(ref(db, 'forum_posts'), (snapshot) => {
-            const data = snapshot.val();
+        function loadPosts() {
+            const posts = getPosts();
             const container = document.getElementById('forumPosts');
             container.innerHTML = '';
-
-            if (!data) {
-                container.innerHTML = '<p class="text-center text-slate-500 py-6 text-sm">Henüz mesaj yok. İlk çatalı sen vur!</p>';
-                return;
-            }
-
-            const posts = Object.values(data).reverse();
-
-            posts.posts(post => { // Düzeltme: forEach kullanıyoruz
-            });
 
             posts.forEach(post => {
                 const html = `
@@ -582,5 +436,39 @@
                 `;
                 container.insertAdjacentHTML('beforeend', html);
             });
-        });
+        }
+
+        function addForumPost(event) {
+            event.preventDefault();
+            
+            const author = document.getElementById('authorInput').value.trim();
+            const title = document.getElementById('titleInput').value.trim();
+            const content = document.getElementById('contentInput').value.trim();
+            
+            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'ÇT';
+
+            const newPost = {
+                author,
+                title,
+                content,
+                time: "Az önce",
+                tag: "Yeni Gönderi",
+                initials
+            };
+
+            const posts = getPosts();
+            posts.unshift(newPost);
+            
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+            } catch(e) {
+                console.error("Kayıt hatası:", e);
+            }
+
+            loadPosts();
+            document.getElementById('forumForm').reset();
+            alert("Mesajın başarıyla foruma fırlatıldı! Çatalla let's go 🍴");
+        }
     </script>
+</body>
+</html>
