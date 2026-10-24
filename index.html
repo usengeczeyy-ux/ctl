@@ -1,14 +1,15 @@
+```html
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr" class="theme-black">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUSHERS - Çatalla Let's Go!</title>
+    <title>CRUSHERS - Çatalla Çiz Let's Go!</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icon Set -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Inter & Space Grotesk Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     
     <script>
@@ -18,11 +19,9 @@
                 extend: {
                     colors: {
                         crusher: {
-                            bg: '#050508',
-                            card: '#0d0e15',
-                            border: 'rgba(255, 255, 255, 0.08)',
                             accent: '#e11d48',
-                            neon: '#ff2a5f'
+                            neon: '#ff2a5f',
+                            gold: '#f59e0b'
                         }
                     },
                     fontFamily: {
@@ -35,11 +34,75 @@
     </script>
 
     <style>
+        /* Theme Variables */
+        .theme-navy {
+            --bg-color: #0a1128;
+            --card-bg: rgba(16, 27, 61, 0.7);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --input-bg: rgba(5, 10, 25, 0.8);
+            --header-bg: rgba(10, 17, 40, 0.85);
+            --accent-glow: rgba(59, 130, 246, 0.2);
+        }
+
+        .theme-black {
+            --bg-color: #050508;
+            --card-bg: rgba(13, 14, 21, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --input-bg: rgba(0, 0, 0, 0.8);
+            --header-bg: rgba(5, 5, 8, 0.85);
+            --accent-glow: rgba(225, 29, 72, 0.2);
+        }
+
+        .theme-white {
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --input-bg: #f1f5f9;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --accent-glow: rgba(225, 29, 72, 0.1);
+        }
+
+        .theme-yellow {
+            --bg-color: #fefce8;
+            --card-bg: rgba(254, 243, 199, 0.85);
+            --card-border: rgba(217, 119, 6, 0.2);
+            --text-main: #451a03;
+            --text-muted: #78350f;
+            --input-bg: #fffbeb;
+            --header-bg: rgba(254, 252, 232, 0.9);
+            --accent-glow: rgba(245, 158, 11, 0.2);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #050508;
-            color: #e2e8f0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
             overflow-x: hidden;
+        }
+
+        .app-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .app-input {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+        }
+
+        .app-header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--card-border);
         }
 
         .chrome-text {
@@ -49,274 +112,265 @@
             filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
         }
 
-        .chrome-border {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.9);
-        }
-
-        .chrome-card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .chrome-card-hover:hover {
-            transform: translateY(-4px);
-            border-color: rgba(225, 29, 72, 0.4);
-            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        .theme-white .chrome-text, .theme-yellow .chrome-text {
+            background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: none;
         }
 
         .bg-grain {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
             background-size: 24px 24px;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050508; }
-        ::-webkit-scrollbar-thumb { background: #1e1e24; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
+        /* Canvas Touch Action */
+        #drawingCanvas {
+            touch-action: none;
+            cursor: crosshair;
+        }
 
-        .avatar-option.selected {
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e11d48; border-radius: 4px; }
+
+        .tool-btn.active {
             border-color: #e11d48;
             background-color: rgba(225, 29, 72, 0.2);
-            box-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
+            color: #e11d48;
         }
     </style>
 </head>
 <body class="bg-grain min-h-screen flex flex-col justify-between selection:bg-rose-600 selection:text-white">
 
     <!-- NAVBAR -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/80 border-b border-white/10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header class="app-header sticky top-0 z-40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             <!-- Brand Logo -->
-            <a href="#" onclick="showHomeView()" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/50">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/40">
                     <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
-                        <i class="fa-solid fa-utensils text-rose-500 text-lg group-hover:rotate-12 transition-transform"></i>
+                        <i class="fa-solid fa-paintbrush text-rose-500 text-lg group-hover:rotate-12 transition-transform"></i>
                     </div>
                 </div>
                 <div>
-                    <span class="font-display font-black text-2xl tracking-wider chrome-text block leading-none">CRUSHERS</span>
-                    <span class="text-[9px] tracking-widest text-rose-400 font-bold uppercase">Çatalla Let's Go!</span>
+                    <span class="font-display font-black text-xl sm:text-2xl tracking-wider chrome-text block leading-none">CRUSHERS</span>
+                    <span class="text-[9px] tracking-widest text-rose-500 font-bold uppercase">Çatalla Çiz Let's Go!</span>
                 </div>
             </a>
 
-            <!-- User / Profile / Status Actions -->
+            <!-- Right Controls: Theme Selector & Status -->
             <div class="flex items-center gap-3">
-                <button id="navUserBtn" onclick="handleNavUserClick()" class="px-4 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2 transition-all">
-                    <i id="userBadgeIcon" class="fa-solid fa-user"></i>
-                    <span id="userBadgeText">Giriş Yap / Kayıt Ol</span>
-                </button>
+                <!-- Theme Selector -->
+                <div class="flex items-center gap-1.5 p-1 rounded-xl app-card">
+                    <button onclick="setTheme('navy')" title="Koyu Lacivert" class="w-6 h-6 rounded-lg bg-slate-900 border border-blue-500/50 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('black')" title="Siyah" class="w-6 h-6 rounded-lg bg-black border border-rose-500/50 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('white')" title="Beyaz" class="w-6 h-6 rounded-lg bg-slate-100 border border-slate-300 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('yellow')" title="Açık Sarı" class="w-6 h-6 rounded-lg bg-amber-100 border border-amber-400 hover:scale-110 transition-transform"></button>
+                </div>
 
-                <div id="statusBadge" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-400">
+                <!-- Firebase Status Indicator -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl app-card text-xs font-medium">
                     <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="statusDot"></span>
-                    <span id="statusText" class="text-[11px]">Bağlanıyor...</span>
+                    <span id="statusText" class="text-[11px] opacity-80">Bağlanıyor...</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
-        <!-- HOME / FORUM VIEW -->
-        <div id="homeView" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <!-- LEFT COLUMN: Post Message Form -->
-            <div class="lg:col-span-5 lg:sticky lg:top-28">
-                <div class="chrome-border bg-slate-900/50 backdrop-blur-xl p-6 sm:p-7 rounded-3xl relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-rose-600/10 rounded-full blur-2xl pointer-events-none"></div>
-                    
-                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-2 font-display tracking-wide">
-                        <i class="fa-solid fa-pen-to-square text-rose-500"></i> Yeni Gönderi Paylaş
-                    </h3>
-
-                    <form id="forumForm" onsubmit="handlePostSubmit(event)" class="space-y-4">
-                        
-                        <!-- Avatar Selection (Karga, Su Aslanı, Kedi, Tavşan, Taç, Mikrofon) -->
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-2">Avatar Simgesi Seç</label>
-                            <div class="grid grid-cols-6 gap-2" id="avatarPicker">
-                                <button type="button" onclick="selectAvatar(this, 'fa-crow')" title="Karga" class="avatar-option selected p-2.5 rounded-xl border border-white/10 bg-black/40 text-rose-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-crow text-base"></i>
-                                </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-otter')" title="Su Aslanı" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-otter text-base"></i>
-                                </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-cat')" title="Kedi" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-cat text-base"></i>
-                                </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-rabbit')" title="Tavşan" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-cloud-bolt text-base"></i><!-- FontAwesome rabbit fallback icon -->
-                                </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-crown')" title="Taç" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-crown text-base"></i>
-                                </button>
-                                <button type="button" onclick="selectAvatar(this, 'fa-microphone')" title="Mikrofon" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
-                                    <i class="fa-solid fa-microphone text-base"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Category Selection -->
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1">Kategori Tag'i</label>
-                            <select id="categoryInput" class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500 transition-colors">
-                                <option value="#Genel">💬 #Genel</option>
-                                <option value="#Duyuru">📢 #Duyuru</option>
-                                <option value="#Vlog">🎬 #Vlog</option>
-                                <option value="#Konser">🎸 #Konser</option>
-                                <option value="#Şarkı">🎵 #Şarkı</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1">Takma Adın / İsmin</label>
-                            <input type="text" id="authorInput" required maxlength="30" placeholder="Örn: CrusherMehmet" 
-                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1">Gönderi Başlığı</label>
-                            <input type="text" id="titleInput" required maxlength="60" placeholder="Örn: Eskişehir Vlog harikaydı!" 
-                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1">Mesajın</label>
-                            <textarea id="contentInput" required rows="4" maxlength="500" placeholder="Çatalla Let's Go mesajını yaz..." 
-                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors resize-none"></textarea>
-                        </div>
-
-                        <button type="submit" id="submitBtn"
-                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Buluta Gönder
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- RIGHT COLUMN: Forum Stream -->
-            <div class="lg:col-span-7">
+            <!-- LEFT COLUMN: Drawing Studio (7 Cols) -->
+            <div class="lg:col-span-7 space-y-6">
                 
-                <!-- Category Filter Buttons -->
-                <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar">
-                    <button onclick="filterPosts('ALL', this)" class="filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap">#Hepsi</button>
-                    <button onclick="filterPosts('#Duyuru', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">📢 #Duyuru</button>
-                    <button onclick="filterPosts('#Vlog', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎬 #Vlog</button>
-                    <button onclick="filterPosts('#Konser', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎸 #Konser</button>
-                    <button onclick="filterPosts('#Şarkı', this)" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎵 #Şarkı</button>
-                </div>
+                <div class="app-card p-5 sm:p-7 rounded-3xl relative overflow-hidden">
+                    
+                    <!-- Header & Target Member Picker -->
+                    <div class="mb-5 space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <h3 class="text-xl font-bold font-display tracking-wide flex items-center gap-2">
+                                <i class="fa-solid fa-palette text-rose-500"></i> Resim Çizme Alanı
+                            </h3>
+                            <span class="text-xs opacity-70">Çizimini tamamla ve gruba ulaştır!</span>
+                        </div>
 
-                <!-- Live Posts Container -->
-                <div id="forumPosts" class="space-y-4">
-                    <!-- Skeleton Loader -->
-                    <div class="animate-pulse chrome-border bg-slate-900/20 p-6 rounded-2xl space-y-3">
-                        <div class="h-4 bg-slate-800 rounded w-1/4"></div>
-                        <div class="h-6 bg-slate-800 rounded w-3/4"></div>
-                        <div class="h-12 bg-slate-800 rounded w-full"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PROFILE VIEW (HIDDEN BY DEFAULT) -->
-        <div id="profileView" class="hidden max-w-4xl mx-auto">
-            <button onclick="showHomeView()" class="mb-6 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all">
-                <i class="fa-solid fa-arrow-left"></i> Akışa Dön
-            </button>
-
-            <!-- Profile Header Card -->
-            <div class="chrome-border bg-slate-900/60 p-6 sm:p-8 rounded-3xl backdrop-blur-xl mb-8 relative overflow-hidden">
-                <div class="flex flex-col sm:flex-row items-center gap-6">
-                    <div class="relative group">
-                        <div id="profileAvatarBox" class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 p-1 flex items-center justify-center shadow-xl shadow-rose-900/30">
-                            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center overflow-hidden">
-                                <i id="profileIconDisplay" class="fa-solid fa-crow text-4xl text-rose-500"></i>
-                                <img id="profileImageDisplay" src="" class="w-full h-full object-cover hidden" alt="Profil Resmi">
+                        <!-- Target Member Selector -->
+                        <div class="pt-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider opacity-80 mb-2">
+                                <i class="fa-solid fa-user-tag text-rose-500 mr-1"></i> Gönderilecek Grup Üyesi Seç
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="memberPicker">
+                                <button type="button" onclick="selectMember('Efe Şan')" class="member-btn active px-3 py-2 rounded-xl text-xs font-bold border border-rose-500 bg-rose-500/20 text-rose-500 transition-all text-center">Efe Şan</button>
+                                <button type="button" onclick="selectMember('Arda Soydoğan')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Arda Soydoğan</button>
+                                <button type="button" onclick="selectMember('Batu Cengiz')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Batu Cengiz</button>
+                                <button type="button" onclick="selectMember('Miraç Fırat')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Miraç Fırat</button>
+                                <button type="button" onclick="selectMember('Milan Önder')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Milan Önder</button>
+                                <button type="button" onclick="selectMember('Barış Yüksekkaya')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Barış Yüksekkaya</button>
+                                <button type="button" onclick="selectMember('Oğuzhan Çifçi')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Oğuzhan Çifçi</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-center sm:text-left flex-grow">
-                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
-                            <h2 id="profileUsername" class="text-2xl font-black text-white font-display">Kullanıcı Adı</h2>
-                            <span id="profileOwnerBadge" class="px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 text-[10px] font-bold">SENİN PROFİLİN</span>
-                        </div>
-                        <p id="profileUserBio" class="text-xs text-slate-400 mb-3">CRUSHERS Üyesi — Çatalla Let's Go!</p>
-                        
-                        <div class="flex items-center justify-center sm:justify-start gap-4 text-xs text-slate-400">
-                            <span id="profilePostCount"><strong class="text-white">0</strong> Gönderi</span>
-                        </div>
+                    <!-- Canvas Container -->
+                    <div class="relative w-full aspect-square sm:aspect-[4/3] bg-white rounded-2xl overflow-hidden shadow-inner border border-black/10 mb-4">
+                        <canvas id="drawingCanvas" class="w-full h-full block"></canvas>
                     </div>
-                </div>
 
-                <!-- Profile Customization (Only shown to profile owner) -->
-                <div id="profileEditSection" class="mt-6 pt-6 border-t border-white/10">
-                    <h4 class="text-xs font-bold text-slate-300 mb-3 uppercase tracking-wider">Profil Resmini Güncelle (URL)</h4>
-                    <div class="flex gap-2">
-                        <input type="url" id="avatarUrlInput" placeholder="https://resim-linki.com/gorsel.jpg" class="flex-grow bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-500">
-                        <button onclick="saveProfilePicture()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md transition-all">Güncelle</button>
+                    <!-- Drawing Toolbar -->
+                    <div class="space-y-4">
+                        
+                        <!-- Canvas Background Color Selector -->
+                        <div class="pt-1">
+                            <label class="block text-xs font-bold uppercase tracking-wider opacity-80 mb-2">
+                                <i class="fa-solid fa-fill-drip text-rose-500 mr-1"></i> Tuval Arka Plan Rengi
+                            </label>
+                            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                                <input type="color" id="bgCustomColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer border-0 bg-transparent shrink-0" title="Özel Arka Plan Rengi">
+                                <button onclick="setCanvasBg('#ffffff')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white text-slate-800 border border-slate-300 shrink-0">Saf Beyaz</button>
+                                <button onclick="setCanvasBg('#1e293b')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-white border border-slate-700 shrink-0">Koyu Kömür</button>
+                                <button onclick="setCanvasBg('#fce7f3')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-pink-100 text-pink-800 border border-pink-200 shrink-0">Pastel Pembe</button>
+                                <button onclick="setCanvasBg('#fef3c7')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200 shrink-0">Krem Sarı</button>
+                                <button onclick="setCanvasBg('#dcfce7')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 shrink-0">Açık Nane</button>
+                                <button onclick="setCanvasBg('#e0f2fe')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200 shrink-0">Açık Mavi</button>
+                                <button onclick="setCanvasBg('#09090b')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-zinc-950 text-zinc-100 border border-zinc-800 shrink-0">Gece Siyahı</button>
+                            </div>
+                        </div>
+
+                        <!-- Tools Row -->
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            
+                            <!-- Brush / Eraser Mode -->
+                            <div class="flex items-center gap-1.5 p-1 rounded-xl app-input">
+                                <button id="brushBtn" onclick="setTool('brush')" class="tool-btn active px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
+                                    <i class="fa-solid fa-paint-brush"></i> Fırça
+                                </button>
+                                <button id="eraserBtn" onclick="setTool('eraser')" class="tool-btn px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
+                                    <i class="fa-solid fa-eraser"></i> Silgi
+                                </button>
+                            </div>
+
+                            <!-- Brush Size -->
+                            <div class="flex items-center gap-2 app-input px-3 py-1.5 rounded-xl">
+                                <i class="fa-solid fa-circle text-[8px] opacity-70"></i>
+                                <input type="range" id="brushSize" min="1" max="40" value="5" class="w-24 accent-rose-600">
+                                <i class="fa-solid fa-circle text-base opacity-70"></i>
+                            </div>
+
+                            <!-- Actions (Undo, Clear) -->
+                            <div class="flex items-center gap-2">
+                                <button onclick="undoCanvas()" title="Geri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                </button>
+                                <button onclick="clearCanvas()" title="Temizle" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-rose-500 text-xs transition-all">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Color Palette -->
+                        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                            <input type="color" id="customColorPicker" value="#000000" class="w-8 h-8 rounded-lg cursor-pointer border-0 bg-transparent shrink-0" title="Özel Renk">
+                            <button onclick="setColor('#000000')" class="w-7 h-7 rounded-full bg-black border border-white/20 shrink-0"></button>
+                            <button onclick="setColor('#ffffff')" class="w-7 h-7 rounded-full bg-white border border-black/20 shrink-0"></button>
+                            <button onclick="setColor('#e11d48')" class="w-7 h-7 rounded-full bg-rose-600 shrink-0"></button>
+                            <button onclick="setColor('#2563eb')" class="w-7 h-7 rounded-full bg-blue-600 shrink-0"></button>
+                            <button onclick="setColor('#16a34a')" class="w-7 h-7 rounded-full bg-green-600 shrink-0"></button>
+                            <button onclick="setColor('#ca8a04')" class="w-7 h-7 rounded-full bg-yellow-600 shrink-0"></button>
+                            <button onclick="setColor('#9333ea')" class="w-7 h-7 rounded-full bg-purple-600 shrink-0"></button>
+                            <button onclick="setColor('#ea580c')" class="w-7 h-7 rounded-full bg-orange-600 shrink-0"></button>
+                        </div>
+
+                        <!-- Sender Meta Form -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <div>
+                                <label class="block text-xs font-semibold opacity-80 mb-1">Gönderen İsmi</label>
+                                <input type="text" id="senderNameInput" placeholder="İsminiz / Takma Adınız" maxlength="25" required
+                                    class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold opacity-80 mb-1">Not / Mesaj (İsteğe Bağlı)</label>
+                                <input type="text" id="noteInput" placeholder="Çatalla Let's Go mesajın..." maxlength="80"
+                                    class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="button" id="submitDrawingBtn" onclick="submitDrawing()"
+                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.99] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Buluta Gönder & Paylaş
+                        </button>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Profile Posts Stream -->
-            <h3 class="text-lg font-bold text-white mb-4 font-display flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-rose-500"></i> Kullanıcının Gönderileri
-            </h3>
-            <div id="userPostsContainer" class="space-y-4">
-                <!-- User Posts Rendered Here -->
+            <!-- RIGHT COLUMN: Fan Art Gallery Stream (5 Cols) -->
+            <div class="lg:col-span-5 space-y-5">
+                
+                <!-- Filter Stream by Member -->
+                <div class="app-card p-4 rounded-2xl">
+                    <div class="text-xs font-bold uppercase tracking-wider opacity-80 mb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-filter text-rose-500 mr-1"></i> Galeriyi Filtrele</span>
+                        <span id="drawingCount" class="text-rose-500 font-extrabold">0 Çizim</span>
+                    </div>
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                        <button onclick="filterDrawings('ALL', this)" class="filter-btn active px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-bold whitespace-nowrap">Tümü</button>
+                        <button onclick="filterDrawings('Efe Şan', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Efe</button>
+                        <button onclick="filterDrawings('Arda Soydoğan', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Arda</button>
+                        <button onclick="filterDrawings('Batu Cengiz', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Batu</button>
+                        <button onclick="filterDrawings('Miraç Fırat', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Miraç</button>
+                        <button onclick="filterDrawings('Milan Önder', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Milan</button>
+                        <button onclick="filterDrawings('Barış Yüksekkaya', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Barış</button>
+                        <button onclick="filterDrawings('Oğuzhan Çifçi', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Oğuzhan</button>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid / Stream -->
+                <div id="galleryContainer" class="space-y-4">
+                    <!-- Skeleton Loader -->
+                    <div class="animate-pulse app-card p-4 rounded-2xl space-y-3">
+                        <div class="h-4 bg-slate-500/20 rounded w-1/3"></div>
+                        <div class="h-48 bg-slate-500/20 rounded-xl w-full"></div>
+                        <div class="h-4 bg-slate-500/20 rounded w-2/3"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
     </main>
 
-    <!-- AUTH MODAL (LOGIN / REGISTER) -->
-    <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="chrome-border bg-slate-950 p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
-            <button onclick="toggleAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <!-- LIGHTBOX MODAL FOR FULL VIEW -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full flex flex-col items-center">
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white text-2xl hover:text-rose-500">
+                <i class="fa-solid fa-xmark"></i>
             </button>
-            <h3 class="text-xl font-bold text-white mb-1 flex items-center gap-2 font-display">
-                <i class="fa-solid fa-user-lock text-rose-500"></i> CRUSHERS Hesabı
-            </h3>
-            <p class="text-slate-400 text-xs mb-6">Giriş yapın veya kullanıcı adı & şifre ile hemen kayıt olun.</p>
-            
-            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Kullanıcı Adı</label>
-                    <input type="text" id="authUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
-                        class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Şifre</label>
-                    <input type="password" id="authPassword" required minlength="4" placeholder="••••••••"
-                        class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500">
-                </div>
-
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
-                    Giriş Yap / Kayıt Ol
-                </button>
-            </form>
+            <img id="lightboxImg" src="" class="max-h-[80vh] w-auto rounded-2xl shadow-2xl bg-white object-contain">
+            <div id="lightboxMeta" class="mt-4 text-center text-white"></div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-black/60 py-6 text-center text-xs text-slate-500">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-2 text-rose-400 font-bold">
+    <footer class="app-header py-6 text-center text-xs opacity-60 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-rose-500 font-bold">
                 <i class="fa-solid fa-utensils"></i>
                 <span>CRUSHERS — Çatalla Let's Go!</span>
             </div>
-            <p>&copy; 2026 CRUSHERS — Tüm hakları saklıdır, çatallar bile.</p>
+            <p>&copy; 2026 CRUSHERS Hayran Çizim Alanı — Tüm Hakları Saklıdır.</p>
         </div>
     </footer>
 
-    <!-- FIREBASE REALTIME DB CODE -->
+    <!-- FIREBASE MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue, runTransaction, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Paylaştığın Firebase Proje Yapılandırması
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBXlTNpnv4CrLC2H-rPV5Owry3CUbWB2jU",
             authDomain: "crushers-1c298.firebaseapp.com",
@@ -324,292 +378,344 @@
             projectId: "crushers-1c298",
             storageBucket: "crushers-1c298.firebasestorage.app",
             messagingSenderId: "834085976380",
-            appId: "1:834085976380:web:e15aa1773424a74c8ac639",
-            measurementId: "G-4PX64E8MB7"
+            appId: "1:834085976380:web:e15aa1773424a74c8ac639"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        let selectedAvatarIcon = 'fa-crow';
-        let currentFilter = 'ALL';
-        let allPostsData = [];
-        let currentUser = JSON.parse(localStorage.getItem('crusher_logged_user') || 'null');
+        // App States
+        let selectedMember = 'Efe Şan';
+        let activeFilter = 'ALL';
+        let allDrawings = [];
 
-        // Global Fonksiyonlar
-        window.selectAvatar = function(el, iconClass) {
-            document.querySelectorAll('.avatar-option').forEach(btn => {
-                btn.classList.remove('selected', 'border-rose-500/50', 'text-rose-400');
-                btn.classList.add('text-slate-400');
-            });
-            el.classList.add('selected', 'border-rose-500/50', 'text-rose-400');
-            el.classList.remove('text-slate-400');
-            selectedAvatarIcon = iconClass;
+        // Canvas State Variables
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let currentTool = 'brush'; // 'brush' or 'eraser'
+        let currentColor = '#000000';
+        let canvasBgColor = '#ffffff';
+        let brushSize = 5;
+        let undoHistory = [];
+        const maxUndoSteps = 15;
+
+        // Auto Save Sender Handle
+        const savedSender = localStorage.getItem('crusher_sender_name');
+        if (savedSender) {
+            document.getElementById('senderNameInput').value = savedSender;
+        }
+
+        // Initialize Canvas Dimensions
+        function initCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            // High DPI support
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            // Fill Canvas with Selected Background
+            ctx.fillStyle = canvasBgColor;
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            saveCanvasState();
+        }
+
+        // Change Canvas Background Color
+        window.setCanvasBg = function(color) {
+            canvasBgColor = color;
+            document.getElementById('bgCustomColorPicker').value = color;
+
+            const rect = canvas.getBoundingClientRect();
+            // Save contents before repainting background
+            const tempImg = new Image();
+            tempImg.src = canvas.toDataURL();
+            tempImg.onload = function() {
+                ctx.fillStyle = canvasBgColor;
+                ctx.fillRect(0, 0, rect.width, rect.height);
+                ctx.drawImage(tempImg, 0, 0, rect.width, rect.height);
+                saveCanvasState();
+            };
         };
 
-        window.toggleAuthModal = function() {
-            document.getElementById('authModal').classList.toggle('hidden');
-        };
+        document.getElementById('bgCustomColorPicker').addEventListener('input', (e) => {
+            setCanvasBg(e.target.value);
+        });
 
-        window.handleNavUserClick = function() {
-            if (currentUser) {
-                viewUserProfile(currentUser.username);
-            } else {
-                toggleAuthModal();
-            }
-        };
+        window.addEventListener('resize', () => {
+            // Re-init canvas preserving drawing if needed
+        });
 
-        // Kullanıcı Giriş / Kayıt İşlemi
-        window.handleAuthSubmit = async function(e) {
-            e.preventDefault();
-            const username = document.getElementById('authUsername').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
+        // Canvas Drawing Handlers
+        function saveCanvasState() {
+            if (undoHistory.length >= maxUndoSteps) undoHistory.shift();
+            undoHistory.push(canvas.toDataURL());
+        }
 
-            if (!username || !password) return;
-
-            const userRef = ref(db, `users/${username}`);
-            const snapshot = await get(userRef);
-
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                if (userData.password === password) {
-                    currentUser = { username: username, avatar: userData.avatar || 'fa-crow', avatarUrl: userData.avatarUrl || '' };
-                    localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
-                    updateUserUI();
-                    toggleAuthModal();
-                } else {
-                    alert('Hatalı şifre!');
-                }
-            } else {
-                // Yeni Kullanıcı Oluştur
-                const newUser = {
-                    username: username,
-                    password: password,
-                    avatar: selectedAvatarIcon,
-                    avatarUrl: ''
+        window.undoCanvas = function() {
+            if (undoHistory.length > 1) {
+                undoHistory.pop(); // remove current state
+                const previousState = undoHistory[undoHistory.length - 1];
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.getBoundingClientRect().width, canvas.getBoundingClientRect().height);
                 };
-                await set(userRef, newUser);
-                currentUser = { username: username, avatar: selectedAvatarIcon, avatarUrl: '' };
-                localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
-                updateUserUI();
-                toggleAuthModal();
+                img.src = previousState;
             }
         };
 
-        function updateUserUI() {
-            if (currentUser) {
-                document.getElementById('authorInput').value = currentUser.username;
-                document.getElementById('userBadgeText').innerText = currentUser.username;
-                document.getElementById('userBadgeIcon').className = `fa-solid ${currentUser.avatar || 'fa-crow'}`;
+        window.clearCanvas = function() {
+            const rect = canvas.getBoundingClientRect();
+            ctx.fillStyle = canvasBgColor;
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            saveCanvasState();
+        };
+
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            e.preventDefault();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getCanvasCoordinates(e);
+
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            if (currentTool === 'eraser') {
+                ctx.strokeStyle = canvasBgColor;
             } else {
-                document.getElementById('userBadgeText').innerText = 'Giriş Yap / Kayıt Ol';
-                document.getElementById('userBadgeIcon').className = 'fa-solid fa-user';
+                ctx.strokeStyle = currentColor;
+            }
+
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            e.preventDefault();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.closePath();
+                saveCanvasState();
             }
         }
-        updateUserUI();
 
-        // Profil Sayfasını Görünümünü Yönetme
-        window.showHomeView = function() {
-            document.getElementById('homeView').classList.remove('hidden');
-            document.getElementById('profileView').classList.add('hidden');
+        // Attach Canvas Touch & Mouse Events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        // Tool Settings
+        window.setTool = function(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+            if (tool === 'brush') document.getElementById('brushBtn').classList.add('active');
+            if (tool === 'eraser') document.getElementById('eraserBtn').classList.add('active');
         };
 
-        window.viewUserProfile = async function(targetUsername) {
-            document.getElementById('homeView').classList.add('hidden');
-            document.getElementById('profileView').classList.remove('hidden');
+        window.setColor = function(color) {
+            currentColor = color;
+            setTool('brush');
+            document.getElementById('customColorPicker').value = color;
+        };
 
-            document.getElementById('profileUsername').innerText = targetUsername;
-            
-            const isOwner = currentUser && currentUser.username === targetUsername;
-            document.getElementById('profileOwnerBadge').style.display = isOwner ? 'inline-block' : 'none';
-            document.getElementById('profileEditSection').style.display = isOwner ? 'block' : 'none';
+        document.getElementById('customColorPicker').addEventListener('input', (e) => {
+            setColor(e.target.value);
+        });
 
-            // Profil verilerini çek
-            const userSnap = await get(ref(db, `users/${targetUsername}`));
-            let userData = userSnap.exists() ? userSnap.val() : {};
+        document.getElementById('brushSize').addEventListener('input', (e) => {
+            brushSize = e.target.value;
+        });
 
-            const iconDisplay = document.getElementById('profileIconDisplay');
-            const imgDisplay = document.getElementById('profileImageDisplay');
+        // Select Member
+        window.selectMember = function(member) {
+            selectedMember = member;
+            document.querySelectorAll('.member-btn').forEach(btn => {
+                btn.className = 'member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center';
+            });
+            event.target.className = 'member-btn active px-3 py-2 rounded-xl text-xs font-bold border border-rose-500 bg-rose-500/20 text-rose-500 transition-all text-center';
+        };
 
-            if (userData.avatarUrl) {
-                imgDisplay.src = userData.avatarUrl;
-                imgDisplay.classList.remove('hidden');
-                iconDisplay.classList.add('hidden');
-            } else {
-                imgDisplay.classList.add('hidden');
-                iconDisplay.className = `fa-solid ${userData.avatar || 'fa-crow'} text-4xl text-rose-500`;
-                iconDisplay.classList.remove('hidden');
-            }
+        // Theme Switcher
+        window.setTheme = function(themeName) {
+            document.documentElement.className = `theme-${themeName}`;
+        };
 
-            // Kullanıcının attığı mesajları filtrele
-            const userPosts = allPostsData.filter(p => p.author === targetUsername);
-            document.getElementById('profilePostCount').innerHTML = `<strong class="text-white">${userPosts.length}</strong> Gönderi`;
+        // Submit Drawing to Firebase Realtime Database
+        window.submitDrawing = function() {
+            const senderName = document.getElementById('senderNameInput').value.trim();
+            const note = document.getElementById('noteInput').value.trim();
+            const submitBtn = document.getElementById('submitDrawingBtn');
 
-            const userContainer = document.getElementById('userPostsContainer');
-            userContainer.innerHTML = '';
-
-            if (userPosts.length === 0) {
-                userContainer.innerHTML = `<div class="p-8 text-center text-slate-500 bg-slate-900/30 rounded-2xl chrome-border">Bu kullanıcının henüz gönderisi yok.</div>`;
+            if (!senderName) {
+                alert('Lütfen isminizi veya kullanıcı adınızı girin!');
                 return;
             }
 
-            userPosts.forEach(post => {
-                const postCard = document.createElement('div');
-                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl backdrop-blur-md';
-                postCard.innerHTML = `
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs text-rose-400 font-semibold">${escapeHtml(post.category)}</span>
-                        <span class="text-[10px] text-slate-500">${post.dateStr || ''}</span>
-                    </div>
-                    <h5 class="font-bold text-white text-base mb-1">${escapeHtml(post.title)}</h5>
-                    <p class="text-slate-300 text-sm whitespace-pre-line">${escapeHtml(post.content)}</p>
-                `;
-                userContainer.appendChild(postCard);
-            });
-        };
+            localStorage.setItem('crusher_sender_name', senderName);
 
-        // Profil Resmi (URL) Güncelleme
-        window.saveProfilePicture = async function() {
-            if (!currentUser) return;
-            const url = document.getElementById('avatarUrlInput').value.trim();
-            if (!url) return;
-
-            await set(ref(db, `users/${currentUser.username}/avatarUrl`), url);
-            currentUser.avatarUrl = url;
-            localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
-            viewUserProfile(currentUser.username);
-        };
-
-        // Form Gönderim Fonksiyonu
-        window.handlePostSubmit = function(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const author = document.getElementById('authorInput').value.trim();
-            const title = document.getElementById('titleInput').value.trim();
-            const content = document.getElementById('contentInput').value.trim();
-            const category = document.getElementById('categoryInput').value;
-            
-            if (!author || !title || !content) return;
+            // Compress / Get Image Data URL from Canvas
+            const imageDataUrl = canvas.toDataURL('image/png', 0.85);
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Gönderiliyor...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Buluta Yükleniyor...';
 
-            push(ref(db, 'forum_posts'), {
-                author: author,
-                title: title,
-                content: content,
-                category: category,
-                icon: selectedAvatarIcon,
+            push(ref(db, 'drawings'), {
+                senderName: senderName,
+                targetMember: selectedMember,
+                imageDataUrl: imageDataUrl,
+                note: note,
                 likes: 0,
                 timestamp: Date.now(),
                 dateStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             }).then(() => {
-                document.getElementById('titleInput').value = '';
-                document.getElementById('contentInput').value = '';
+                document.getElementById('noteInput').value = '';
+                clearCanvas();
             }).catch((err) => {
-                alert("Hata oluştu: " + err.message);
+                alert("Yükleme hatası: " + err.message);
             }).finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Buluta Gönder';
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Buluta Gönder & Paylaş';
             });
         };
 
-        // Beğeni Artırma
-        window.likePost = function(postId) {
-            const postLikesRef = ref(db, `forum_posts/${postId}/likes`);
-            runTransaction(postLikesRef, (currentLikes) => {
+        // Like Drawing
+        window.likeDrawing = function(drawingId) {
+            const likesRef = ref(db, `drawings/${drawingId}/likes`);
+            runTransaction(likesRef, (currentLikes) => {
                 return (currentLikes || 0) + 1;
             });
         };
 
-        // Kategori Filtreleme
-        window.filterPosts = function(cat, btnEl) {
-            currentFilter = cat;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.className = "filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white";
+        // Filter Stream
+        window.filterDrawings = function(member, btnEl) {
+            activeFilter = member;
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.className = 'filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100';
             });
-            btnEl.className = "filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap";
-            renderPosts();
+            btnEl.className = 'filter-btn active px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-bold whitespace-nowrap';
+            renderGallery();
         };
 
-        // Realtime Veritabanı Dinleyici
-        const postsRef = ref(db, 'forum_posts');
+        // Lightbox Functions
+        window.openLightbox = function(imgSrc, sender, target, note) {
+            document.getElementById('lightboxImg').src = imgSrc;
+            document.getElementById('lightboxMeta').innerHTML = `
+                <div class="font-bold text-lg">${escapeHtml(sender)} ➔ <span class="text-rose-500">${escapeHtml(target)}</span></div>
+                <div class="text-xs opacity-75 mt-1">${escapeHtml(note || '')}</div>
+            `;
+            document.getElementById('lightboxModal').classList.remove('hidden');
+        };
+
+        window.closeLightbox = function() {
+            document.getElementById('lightboxModal').classList.add('hidden');
+        };
+
+        // Realtime Listener
+        const drawingsRef = ref(db, 'drawings');
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
 
-        onValue(postsRef, (snapshot) => {
+        onValue(drawingsRef, (snapshot) => {
             statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500";
             statusText.innerText = "Canlı Bulut";
 
             const data = snapshot.val();
             if (!data) {
-                allPostsData = [];
+                allDrawings = [];
             } else {
-                allPostsData = Object.keys(data).map(key => ({
+                allDrawings = Object.keys(data).map(key => ({
                     id: key,
                     ...data[key]
                 })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             }
 
-            renderPosts();
+            renderGallery();
         }, () => {
             statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            statusText.innerText = "Bağlanamadı";
+            statusText.innerText = "Bağlantı Kesildi";
         });
 
-        function renderPosts() {
-            const container = document.getElementById('forumPosts');
+        function renderGallery() {
+            const container = document.getElementById('galleryContainer');
             container.innerHTML = '';
 
-            let filtered = allPostsData;
-            if (currentFilter !== 'ALL') {
-                filtered = allPostsData.filter(p => p.category === currentFilter);
+            let filtered = allDrawings;
+            if (activeFilter !== 'ALL') {
+                filtered = allDrawings.filter(d => d.targetMember === activeFilter);
             }
+
+            document.getElementById('drawingCount').innerText = `${filtered.length} Çizim`;
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-12 chrome-border bg-slate-900/20 rounded-2xl">
-                        <i class="fa-solid fa-comment-slash text-4xl text-slate-600 mb-3 block"></i>
-                        <p class="text-slate-400 font-medium text-sm">Henüz bu kategoride gönderi yok.</p>
+                    <div class="text-center py-12 app-card rounded-2xl">
+                        <i class="fa-solid fa-paint-brush text-3xl text-rose-500/50 mb-2 block"></i>
+                        <p class="font-medium text-xs opacity-70">Henüz bu kategori için çizim yapılmadı.</p>
                     </div>
                 `;
                 return;
             }
 
-            filtered.forEach(post => {
-                const postCard = document.createElement('div');
-                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl chrome-card-hover backdrop-blur-md relative';
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'app-card p-4 rounded-2xl space-y-3 relative transition-transform hover:-translate-y-0.5';
                 
-                postCard.innerHTML = `
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div onclick="viewUserProfile('${escapeHtml(post.author)}')" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 p-[1px] flex items-center justify-center font-bold text-xs text-white shadow-md cursor-pointer hover:scale-105 transition-transform">
-                                <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-                                    <i class="fa-solid ${escapeHtml(post.icon || 'fa-crow')} text-rose-400"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 onclick="viewUserProfile('${escapeHtml(post.author)}')" class="font-bold text-white text-sm leading-tight cursor-pointer hover:text-rose-400 transition-colors">${escapeHtml(post.author)}</h4>
-                                <span class="text-[10px] text-slate-500">${post.dateStr || 'Az önce'}</span>
-                            </div>
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            <span class="font-bold text-xs">${escapeHtml(item.senderName)}</span>
                         </div>
-                        <span class="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-semibold">
-                            ${escapeHtml(post.category || '#Genel')}
+                        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">
+                            ${escapeHtml(item.targetMember)}
                         </span>
                     </div>
 
-                    <h5 class="font-bold text-slate-100 text-base mb-2 leading-snug">${escapeHtml(post.title)}</h5>
-                    <p class="text-slate-300 text-sm whitespace-pre-line leading-relaxed mb-4">${escapeHtml(post.content)}</p>
-                    
-                    <div class="flex items-center justify-between border-t border-white/5 pt-3">
-                        <button onclick="likePost('${post.id}')" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold transition-all active:scale-95">
+                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(item.targetMember)}', '${escapeHtml(item.note || '')}')" 
+                        class="w-full bg-white rounded-xl overflow-hidden cursor-pointer shadow-inner border border-black/5 flex items-center justify-center p-2 group">
+                        <img src="${item.imageDataUrl}" class="max-h-52 w-auto object-contain group-hover:scale-105 transition-transform" alt="Fan Art">
+                    </div>
+
+                    ${item.note ? `<p class="text-xs opacity-80 italic">"${escapeHtml(item.note)}"</p>` : ''}
+
+                    <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+                        <span class="text-[10px] opacity-60">${item.dateStr || ''}</span>
+                        <button onclick="likeDrawing('${item.id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 font-bold transition-all active:scale-95">
                             <i class="fa-solid fa-utensils"></i>
-                            <span>Çatalla (${post.likes || 0})</span>
+                            <span>Çatalla (${item.likes || 0})</span>
                         </button>
                     </div>
                 `;
-                container.appendChild(postCard);
+                container.appendChild(card);
             });
         }
 
@@ -617,6 +723,12 @@
             if (!str) return '';
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
+
+        // Init Canvas on page load
+        window.addEventListener('load', () => {
+            initCanvas();
+        });
     </script>
 </body>
 </html>
+```
