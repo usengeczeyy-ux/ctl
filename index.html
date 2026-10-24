@@ -37,45 +37,45 @@
         /* Theme Variables */
         .theme-navy {
             --bg-color: #0a1128;
-            --card-bg: rgba(16, 27, 61, 0.7);
+            --card-bg: rgba(16, 27, 61, 0.75);
             --card-border: rgba(255, 255, 255, 0.12);
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --input-bg: rgba(5, 10, 25, 0.8);
-            --header-bg: rgba(10, 17, 40, 0.85);
+            --input-bg: rgba(5, 10, 25, 0.85);
+            --header-bg: rgba(10, 17, 40, 0.9);
             --accent-glow: rgba(59, 130, 246, 0.2);
         }
 
         .theme-black {
             --bg-color: #050508;
-            --card-bg: rgba(13, 14, 21, 0.7);
+            --card-bg: rgba(13, 14, 21, 0.75);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #e2e8f0;
             --text-muted: #64748b;
-            --input-bg: rgba(0, 0, 0, 0.8);
-            --header-bg: rgba(5, 5, 8, 0.85);
+            --input-bg: rgba(0, 0, 0, 0.85);
+            --header-bg: rgba(5, 5, 8, 0.9);
             --accent-glow: rgba(225, 29, 72, 0.2);
         }
 
         .theme-white {
             --bg-color: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --card-border: rgba(0, 0, 0, 0.1);
             --text-main: #0f172a;
             --text-muted: #64748b;
             --input-bg: #f1f5f9;
-            --header-bg: rgba(255, 255, 255, 0.9);
+            --header-bg: rgba(255, 255, 255, 0.95);
             --accent-glow: rgba(225, 29, 72, 0.1);
         }
 
         .theme-yellow {
             --bg-color: #fefce8;
-            --card-bg: rgba(254, 243, 199, 0.85);
-            --card-border: rgba(217, 119, 6, 0.2);
+            --card-bg: rgba(254, 243, 199, 0.9);
+            --card-border: rgba(217, 119, 6, 0.25);
             --text-main: #451a03;
             --text-muted: #78350f;
             --input-bg: #fffbeb;
-            --header-bg: rgba(254, 252, 232, 0.9);
+            --header-bg: rgba(254, 252, 232, 0.95);
             --accent-glow: rgba(245, 158, 11, 0.2);
         }
 
@@ -124,13 +124,12 @@
             background-size: 24px 24px;
         }
 
-        /* Canvas Touch Action */
         #drawingCanvas {
             touch-action: none;
             cursor: crosshair;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #e11d48; border-radius: 4px; }
 
@@ -138,6 +137,14 @@
             border-color: #e11d48;
             background-color: rgba(225, 29, 72, 0.2);
             color: #e11d48;
+        }
+
+        .member-chip.selected {
+            border-color: #e11d48;
+            background-color: rgba(225, 29, 72, 0.25);
+            color: #f43f5e;
+            box-shadow: 0 0 12px rgba(225, 29, 72, 0.3);
+            opacity: 1 !important;
         }
     </style>
 </head>
@@ -147,7 +154,7 @@
     <header class="app-header sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
+            <a href="#" onclick="showHomeView()" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/40">
                     <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
                         <i class="fa-solid fa-paintbrush text-rose-500 text-lg group-hover:rotate-12 transition-transform"></i>
@@ -159,14 +166,19 @@
                 </div>
             </a>
 
-            <!-- Right Controls: Theme Selector & Status -->
+            <!-- Right Controls: User Profile + Theme Selector + Status -->
             <div class="flex items-center gap-3">
+                <button id="navUserBtn" onclick="handleNavUserClick()" class="px-3.5 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-500 text-xs font-semibold flex items-center gap-2 transition-all">
+                    <i id="userBadgeIcon" class="fa-solid fa-user"></i>
+                    <span id="userBadgeText">Giriş Yap / Kayıt Ol</span>
+                </button>
+
                 <!-- Theme Selector -->
                 <div class="flex items-center gap-1.5 p-1 rounded-xl app-card">
                     <button onclick="setTheme('navy')" title="Koyu Lacivert" class="w-6 h-6 rounded-lg bg-slate-900 border border-blue-500/50 hover:scale-110 transition-transform"></button>
-                    <button onclick="setTheme('black')" title="Siyah" class="w-6 h-6 rounded-lg bg-black border border-rose-500/50 hover:scale-110 transition-transform"></button>
-                    <button onclick="setTheme('white')" title="Beyaz" class="w-6 h-6 rounded-lg bg-slate-100 border border-slate-300 hover:scale-110 transition-transform"></button>
-                    <button onclick="setTheme('yellow')" title="Açık Sarı" class="w-6 h-6 rounded-lg bg-amber-100 border border-amber-400 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('black')" title="Gece Siyahı" class="w-6 h-6 rounded-lg bg-black border border-rose-500/50 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('white')" title="Temiz Beyaz" class="w-6 h-6 rounded-lg bg-slate-100 border border-slate-300 hover:scale-110 transition-transform"></button>
+                    <button onclick="setTheme('yellow')" title="Sıcak Sarı" class="w-6 h-6 rounded-lg bg-amber-100 border border-amber-400 hover:scale-110 transition-transform"></button>
                 </div>
 
                 <!-- Firebase Status Indicator -->
@@ -181,41 +193,66 @@
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- HOME / DRAWING & GALLERY VIEW -->
+        <div id="homeView" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Drawing Studio (7 Cols) -->
             <div class="lg:col-span-7 space-y-6">
                 
                 <div class="app-card p-5 sm:p-7 rounded-3xl relative overflow-hidden">
                     
-                    <!-- Header & Target Member Picker -->
+                    <!-- Header & Target Member Multi-Picker -->
                     <div class="mb-5 space-y-3">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <h3 class="text-xl font-bold font-display tracking-wide flex items-center gap-2">
                                 <i class="fa-solid fa-palette text-rose-500"></i> Resim Çizme Alanı
                             </h3>
-                            <span class="text-xs opacity-70">Çizimini tamamla ve gruba ulaştır!</span>
+                            <span class="text-xs opacity-70">Çizimini tamamla ve sevdiğin üyelere ulaştır!</span>
                         </div>
 
-                        <!-- Target Member Selector -->
+                        <!-- Multi-Select Band Member Picker -->
                         <div class="pt-2">
-                            <label class="block text-xs font-bold uppercase tracking-wider opacity-80 mb-2">
-                                <i class="fa-solid fa-user-tag text-rose-500 mr-1"></i> Gönderilecek Grup Üyesi Seç
-                            </label>
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="memberPicker">
-                                <button type="button" onclick="selectMember('Efe Şan')" class="member-btn active px-3 py-2 rounded-xl text-xs font-bold border border-rose-500 bg-rose-500/20 text-rose-500 transition-all text-center">Efe Şan</button>
-                                <button type="button" onclick="selectMember('Arda Soydoğan')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Arda Soydoğan</button>
-                                <button type="button" onclick="selectMember('Batu Cengiz')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Batu Cengiz</button>
-                                <button type="button" onclick="selectMember('Miraç Fırat')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Miraç Fırat</button>
-                                <button type="button" onclick="selectMember('Milan Önder')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Milan Önder</button>
-                                <button type="button" onclick="selectMember('Barış Yüksekkaya')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Barış Yüksekkaya</button>
-                                <button type="button" onclick="selectMember('Oğuzhan Çifçi')" class="member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center">Oğuzhan Çifçi</button>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-xs font-bold uppercase tracking-wider opacity-80 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-users text-rose-500"></i>
+                                    <span>Gönderilecek Üyeler</span>
+                                    <span id="memberCountBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 font-extrabold border border-rose-500/30">1 üye seçildi</span>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <button type="button" onclick="selectAllMembers()" class="text-[11px] text-rose-500 hover:underline font-semibold">Tümünü Seç</button>
+                                    <span class="text-xs opacity-30">|</span>
+                                    <button type="button" onclick="clearMemberSelection()" class="text-[11px] opacity-60 hover:opacity-100 font-semibold">Temizle</button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2" id="memberPicker">
+                                <button type="button" onclick="toggleMember('Efe Şan', this)" class="member-chip selected px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px]"></i> Efe Şan
+                                </button>
+                                <button type="button" onclick="toggleMember('Arda Soydoğan', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Arda Soydoğan
+                                </button>
+                                <button type="button" onclick="toggleMember('Batu Cengiz', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Batu Cengiz
+                                </button>
+                                <button type="button" onclick="toggleMember('Miraç Fırat', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Miraç Fırat
+                                </button>
+                                <button type="button" onclick="toggleMember('Milan Önder', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Milan Önder
+                                </button>
+                                <button type="button" onclick="toggleMember('Barış Yüksekkaya', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Barış Yüksekkaya
+                                </button>
+                                <button type="button" onclick="toggleMember('Oğuzhan Çifçi', this)" class="member-chip px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-check text-[10px] hidden"></i> Oğuzhan Çifçi
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Canvas Container -->
-                    <div class="relative w-full aspect-square sm:aspect-[4/3] bg-white rounded-2xl overflow-hidden shadow-inner border border-black/10 mb-4">
+                    <div class="relative w-full aspect-square sm:aspect-[4/3] rounded-2xl overflow-hidden shadow-inner border border-black/10 mb-4 transition-colors" id="canvasFrame">
                         <canvas id="drawingCanvas" class="w-full h-full block"></canvas>
                     </div>
 
@@ -252,17 +289,28 @@
                                 </button>
                             </div>
 
+                            <!-- Neon Glow Toggle -->
+                            <button id="neonToggleBtn" onclick="toggleNeonGlow()" class="app-input px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all opacity-80 hover:opacity-100">
+                                <i class="fa-solid fa-wand-magic-sparkles text-rose-500"></i> Neon Efekt
+                            </button>
+
                             <!-- Brush Size -->
                             <div class="flex items-center gap-2 app-input px-3 py-1.5 rounded-xl">
                                 <i class="fa-solid fa-circle text-[8px] opacity-70"></i>
-                                <input type="range" id="brushSize" min="1" max="40" value="5" class="w-24 accent-rose-600">
+                                <input type="range" id="brushSize" min="1" max="40" value="5" class="w-20 accent-rose-600">
                                 <i class="fa-solid fa-circle text-base opacity-70"></i>
                             </div>
 
-                            <!-- Actions (Undo, Clear) -->
-                            <div class="flex items-center gap-2">
+                            <!-- Actions (Undo, Redo, Download, Clear) -->
+                            <div class="flex items-center gap-1.5">
                                 <button onclick="undoCanvas()" title="Geri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
                                     <i class="fa-solid fa-rotate-left"></i>
+                                </button>
+                                <button onclick="redoCanvas()" title="İleri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                                <button onclick="downloadCanvas()" title="İndir (PNG)" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
+                                    <i class="fa-solid fa-download"></i>
                                 </button>
                                 <button onclick="clearCanvas()" title="Temizle" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-rose-500 text-xs transition-all">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -284,15 +332,23 @@
                         </div>
 
                         <!-- Sender Meta Form -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div>
-                                <label class="block text-xs font-semibold opacity-80 mb-1">Gönderen İsmi</label>
-                                <input type="text" id="senderNameInput" placeholder="İsminiz / Takma Adınız" maxlength="25" required
-                                    class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                        <div class="space-y-3 pt-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold opacity-80 mb-1">Sanatçı Adı / Takma Ad</label>
+                                    <input type="text" id="senderNameInput" placeholder="İsminiz" maxlength="30" required
+                                        class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold opacity-80 mb-1">Çizim Başlığı</label>
+                                    <input type="text" id="titleInput" placeholder="Örn: Konser Coşkusu" maxlength="40" required
+                                        class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                                </div>
                             </div>
+
                             <div>
-                                <label class="block text-xs font-semibold opacity-80 mb-1">Not / Mesaj (İsteğe Bağlı)</label>
-                                <input type="text" id="noteInput" placeholder="Çatalla Let's Go mesajın..." maxlength="80"
+                                <label class="block text-xs font-semibold opacity-80 mb-1">Mesajın / Notun (İsteğe Bağlı)</label>
+                                <input type="text" id="noteInput" placeholder="Çatalla Let's Go mesajını yaz..." maxlength="120"
                                     class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
                             </div>
                         </div>
@@ -300,7 +356,7 @@
                         <!-- Submit Button -->
                         <button type="button" id="submitDrawingBtn" onclick="submitDrawing()"
                             class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.99] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Buluta Gönder & Paylaş
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Çizimi Gönder & Buluta Yükle
                         </button>
 
                     </div>
@@ -316,7 +372,7 @@
                         <span><i class="fa-solid fa-filter text-rose-500 mr-1"></i> Galeriyi Filtrele</span>
                         <span id="drawingCount" class="text-rose-500 font-extrabold">0 Çizim</span>
                     </div>
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
                         <button onclick="filterDrawings('ALL', this)" class="filter-btn active px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-bold whitespace-nowrap">Tümü</button>
                         <button onclick="filterDrawings('Efe Şan', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Efe</button>
                         <button onclick="filterDrawings('Arda Soydoğan', this)" class="filter-btn px-3 py-1 rounded-full app-input text-xs font-semibold whitespace-nowrap opacity-80 hover:opacity-100">Arda</button>
@@ -341,7 +397,85 @@
             </div>
         </div>
 
+        <!-- PROFILE VIEW (HIDDEN BY DEFAULT) -->
+        <div id="profileView" class="hidden max-w-4xl mx-auto space-y-6">
+            <button onclick="showHomeView()" class="px-4 py-2 rounded-xl app-card text-xs font-semibold flex items-center gap-2 hover:border-rose-500 transition-all">
+                <i class="fa-solid fa-arrow-left"></i> Çizim Alanına Dön
+            </button>
+
+            <!-- Profile Card -->
+            <div class="app-card p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 p-1 flex items-center justify-center shadow-xl shadow-rose-900/30">
+                        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center overflow-hidden">
+                            <i id="profileIconDisplay" class="fa-solid fa-crow text-4xl text-rose-500"></i>
+                            <img id="profileImageDisplay" src="" class="w-full h-full object-cover hidden" alt="Profil Resmi">
+                        </div>
+                    </div>
+
+                    <div class="text-center sm:text-left flex-grow">
+                        <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
+                            <h2 id="profileUsername" class="text-2xl font-black font-display">Kullanıcı Adı</h2>
+                            <span id="profileOwnerBadge" class="px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-500 text-[10px] font-bold">SENİN PROFİLİN</span>
+                        </div>
+                        <p class="text-xs opacity-70 mb-3">CRUSHERS Sanatçısı — Çatalla Let's Go!</p>
+                        <div class="text-xs opacity-80" id="profileDrawingCount">
+                            <strong class="text-rose-500">0</strong> Çizim Paylaşıldı
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Avatar URL -->
+                <div id="profileEditSection" class="mt-6 pt-6 border-t border-white/10 space-y-2">
+                    <label class="block text-xs font-bold opacity-80 uppercase tracking-wider">Profil Resmini Güncelle (URL)</label>
+                    <div class="flex gap-2">
+                        <input type="url" id="avatarUrlInput" placeholder="https://resim-linki.com/gorsel.jpg" class="flex-grow app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                        <button onclick="saveProfilePicture()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-all">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Gallery Stream -->
+            <h3 class="text-lg font-bold font-display flex items-center gap-2">
+                <i class="fa-solid fa-images text-rose-500"></i> Kullanıcının Çizimleri
+            </h3>
+            <div id="userDrawingsContainer" class="space-y-4">
+                <!-- Rendered user drawings -->
+            </div>
+        </div>
+
     </main>
+
+    <!-- AUTH MODAL (LOGIN / REGISTER) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="app-card p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
+            <button onclick="toggleAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold mb-1 flex items-center gap-2 font-display">
+                <i class="fa-solid fa-user-lock text-rose-500"></i> CRUSHERS Hesabı
+            </h3>
+            <p class="text-xs opacity-70 mb-6">Giriş yapın veya hemen yeni üyelik oluşturun.</p>
+            
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold opacity-80 mb-1">Kullanıcı Adı</label>
+                    <input type="text" id="authUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
+                        class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold opacity-80 mb-1">Şifre</label>
+                    <input type="password" id="authPassword" required minlength="4" placeholder="••••••••"
+                        class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
+                    Giriş Yap / Kayıt Ol
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- LIGHTBOX MODAL FOR FULL VIEW -->
     <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
@@ -361,14 +495,14 @@
                 <i class="fa-solid fa-utensils"></i>
                 <span>CRUSHERS — Çatalla Let's Go!</span>
             </div>
-            <p>&copy; 2026 CRUSHERS Hayran Çizim Alanı — Tüm Hakları Saklıdır.</p>
+            <p>&copy; 2026 CRUSHERS Hayran Çizim Platformu — Tüm Hakları Saklıdır.</p>
         </div>
     </footer>
 
-    <!-- FIREBASE MODULE -->
+    <!-- FIREBASE MODULE & APPLICATION LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -378,18 +512,21 @@
             projectId: "crushers-1c298",
             storageBucket: "crushers-1c298.firebasestorage.app",
             messagingSenderId: "834085976380",
-            appId: "1:834085976380:web:e15aa1773424a74c8ac639"
+            appId: "1:834085976380:web:e15aa1773424a74c8ac639",
+            measurementId: "G-4PX64E8MB7"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
         // App States
-        let selectedMember = 'Efe Şan';
+        const ALL_MEMBERS = ["Efe Şan", "Arda Soydoğan", "Batu Cengiz", "Miraç Fırat", "Milan Önder", "Barış Yüksekkaya", "Oğuzhan Çifçi"];
+        let selectedMembers = ["Efe Şan"];
         let activeFilter = 'ALL';
         let allDrawings = [];
+        let currentUser = JSON.parse(localStorage.getItem('crusher_logged_user') || 'null');
 
-        // Canvas State Variables
+        // Canvas State
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
@@ -397,8 +534,11 @@
         let currentColor = '#000000';
         let canvasBgColor = '#ffffff';
         let brushSize = 5;
-        let undoHistory = [];
-        const maxUndoSteps = 15;
+        let isNeon = false;
+
+        let undoStack = [];
+        let redoStack = [];
+        const MAX_HISTORY = 20;
 
         // Auto Save Sender Handle
         const savedSender = localStorage.getItem('crusher_sender_name');
@@ -406,35 +546,77 @@
             document.getElementById('senderNameInput').value = savedSender;
         }
 
-        // Initialize Canvas Dimensions
+        // Setup Canvas
         function initCanvas() {
             const rect = canvas.getBoundingClientRect();
-            // High DPI support
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             ctx.scale(dpr, dpr);
 
-            // Fill Canvas with Selected Background
             ctx.fillStyle = canvasBgColor;
             ctx.fillRect(0, 0, rect.width, rect.height);
-            saveCanvasState();
+            saveState();
         }
 
-        // Change Canvas Background Color
+        function saveState() {
+            if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+            undoStack.push(canvas.toDataURL());
+            redoStack = []; // clear redo on new stroke
+        }
+
+        window.undoCanvas = function() {
+            if (undoStack.length > 1) {
+                redoStack.push(undoStack.pop());
+                const prevState = undoStack[undoStack.length - 1];
+                restoreCanvasFromDataUrl(prevState);
+            }
+        };
+
+        window.redoCanvas = function() {
+            if (redoStack.length > 0) {
+                const nextState = redoStack.pop();
+                undoStack.push(nextState);
+                restoreCanvasFromDataUrl(nextState);
+            }
+        };
+
+        function restoreCanvasFromDataUrl(dataUrl) {
+            const img = new Image();
+            img.onload = function() {
+                const rect = canvas.getBoundingClientRect();
+                ctx.clearRect(0, 0, rect.width, rect.height);
+                ctx.drawImage(img, 0, 0, rect.width, rect.height);
+            };
+            img.src = dataUrl;
+        }
+
+        window.clearCanvas = function() {
+            const rect = canvas.getBoundingClientRect();
+            ctx.fillStyle = canvasBgColor;
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            saveState();
+        };
+
+        window.downloadCanvas = function() {
+            const link = document.createElement('a');
+            link.download = `CRUSHERS-cizim-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        };
+
         window.setCanvasBg = function(color) {
             canvasBgColor = color;
             document.getElementById('bgCustomColorPicker').value = color;
 
             const rect = canvas.getBoundingClientRect();
-            // Save contents before repainting background
             const tempImg = new Image();
             tempImg.src = canvas.toDataURL();
             tempImg.onload = function() {
                 ctx.fillStyle = canvasBgColor;
                 ctx.fillRect(0, 0, rect.width, rect.height);
                 ctx.drawImage(tempImg, 0, 0, rect.width, rect.height);
-                saveCanvasState();
+                saveState();
             };
         };
 
@@ -442,37 +624,8 @@
             setCanvasBg(e.target.value);
         });
 
-        window.addEventListener('resize', () => {
-            // Re-init canvas preserving drawing if needed
-        });
-
-        // Canvas Drawing Handlers
-        function saveCanvasState() {
-            if (undoHistory.length >= maxUndoSteps) undoHistory.shift();
-            undoHistory.push(canvas.toDataURL());
-        }
-
-        window.undoCanvas = function() {
-            if (undoHistory.length > 1) {
-                undoHistory.pop(); // remove current state
-                const previousState = undoHistory[undoHistory.length - 1];
-                const img = new Image();
-                img.onload = function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0, canvas.getBoundingClientRect().width, canvas.getBoundingClientRect().height);
-                };
-                img.src = previousState;
-            }
-        };
-
-        window.clearCanvas = function() {
-            const rect = canvas.getBoundingClientRect();
-            ctx.fillStyle = canvasBgColor;
-            ctx.fillRect(0, 0, rect.width, rect.height);
-            saveCanvasState();
-        };
-
-        function getCanvasCoordinates(e) {
+        // Drawing Event Handlers
+        function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
             let clientX = e.clientX;
             let clientY = e.clientY;
@@ -490,7 +643,7 @@
 
         function startDrawing(e) {
             isDrawing = true;
-            const pos = getCanvasCoordinates(e);
+            const pos = getCoords(e);
             ctx.beginPath();
             ctx.moveTo(pos.x, pos.y);
             e.preventDefault();
@@ -498,7 +651,7 @@
 
         function draw(e) {
             if (!isDrawing) return;
-            const pos = getCanvasCoordinates(e);
+            const pos = getCoords(e);
 
             ctx.lineWidth = brushSize;
             ctx.lineCap = 'round';
@@ -506,8 +659,15 @@
 
             if (currentTool === 'eraser') {
                 ctx.strokeStyle = canvasBgColor;
+                ctx.shadowBlur = 0;
             } else {
                 ctx.strokeStyle = currentColor;
+                if (isNeon) {
+                    ctx.shadowColor = currentColor;
+                    ctx.shadowBlur = 12;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
             }
 
             ctx.lineTo(pos.x, pos.y);
@@ -519,11 +679,10 @@
             if (isDrawing) {
                 isDrawing = false;
                 ctx.closePath();
-                saveCanvasState();
+                saveState();
             }
         }
 
-        // Attach Canvas Touch & Mouse Events
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -533,12 +692,22 @@
         canvas.addEventListener('touchmove', draw);
         canvas.addEventListener('touchend', stopDrawing);
 
-        // Tool Settings
+        // Tools Setup
         window.setTool = function(tool) {
             currentTool = tool;
             document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
             if (tool === 'brush') document.getElementById('brushBtn').classList.add('active');
             if (tool === 'eraser') document.getElementById('eraserBtn').classList.add('active');
+        };
+
+        window.toggleNeonGlow = function() {
+            isNeon = !isNeon;
+            const btn = document.getElementById('neonToggleBtn');
+            if (isNeon) {
+                btn.classList.add('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
+            } else {
+                btn.classList.remove('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
+            }
         };
 
         window.setColor = function(color) {
@@ -555,34 +724,200 @@
             brushSize = e.target.value;
         });
 
-        // Select Member
-        window.selectMember = function(member) {
-            selectedMember = member;
-            document.querySelectorAll('.member-btn').forEach(btn => {
-                btn.className = 'member-btn px-3 py-2 rounded-xl text-xs font-bold border border-white/10 opacity-70 hover:opacity-100 transition-all text-center';
-            });
-            event.target.className = 'member-btn active px-3 py-2 rounded-xl text-xs font-bold border border-rose-500 bg-rose-500/20 text-rose-500 transition-all text-center';
+        // Multi-Select Member Handling
+        window.toggleMember = function(memberName, btnEl) {
+            const idx = selectedMembers.indexOf(memberName);
+            if (idx > -1) {
+                if (selectedMembers.length === 1) {
+                    alert('En az bir üye seçili olmalıdır!');
+                    return;
+                }
+                selectedMembers.splice(idx, 1);
+                btnEl.classList.remove('selected');
+                btnEl.querySelector('.fa-check').classList.add('hidden');
+            } else {
+                selectedMembers.push(memberName);
+                btnEl.classList.add('selected');
+                btnEl.querySelector('.fa-check').classList.remove('hidden');
+            }
+            updateMemberBadge();
         };
+
+        window.selectAllMembers = function() {
+            selectedMembers = [...ALL_MEMBERS];
+            document.querySelectorAll('.member-chip').forEach(chip => {
+                chip.classList.add('selected');
+                chip.querySelector('.fa-check').classList.remove('hidden');
+            });
+            updateMemberBadge();
+        };
+
+        window.clearMemberSelection = function() {
+            selectedMembers = [ALL_MEMBERS[0]];
+            document.querySelectorAll('.member-chip').forEach(chip => {
+                chip.classList.remove('selected');
+                chip.querySelector('.fa-check').classList.add('hidden');
+            });
+            const firstChip = document.querySelector('.member-chip');
+            if (firstChip) {
+                firstChip.classList.add('selected');
+                firstChip.querySelector('.fa-check').classList.remove('hidden');
+            }
+            updateMemberBadge();
+        };
+
+        function updateMemberBadge() {
+            const count = selectedMembers.length;
+            const badge = document.getElementById('memberCountBadge');
+            badge.innerText = `${count} üye seçildi`;
+        }
 
         // Theme Switcher
         window.setTheme = function(themeName) {
             document.documentElement.className = `theme-${themeName}`;
         };
 
-        // Submit Drawing to Firebase Realtime Database
+        // Navigation & Auth Logic
+        window.toggleAuthModal = function() {
+            document.getElementById('authModal').classList.toggle('hidden');
+        };
+
+        window.handleNavUserClick = function() {
+            if (currentUser) {
+                viewUserProfile(currentUser.username);
+            } else {
+                toggleAuthModal();
+            }
+        };
+
+        window.handleAuthSubmit = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('authUsername').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+
+            if (!username || !password) return;
+
+            const userRef = ref(db, `users/${username}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                if (userData.password === password) {
+                    currentUser = { username: username, avatar: userData.avatar || 'fa-crow', avatarUrl: userData.avatarUrl || '' };
+                    localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+                    updateUserUI();
+                    toggleAuthModal();
+                } else {
+                    alert('Hatalı şifre!');
+                }
+            } else {
+                const newUser = { username, password, avatar: 'fa-crow', avatarUrl: '' };
+                await set(userRef, newUser);
+                currentUser = newUser;
+                localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+                updateUserUI();
+                toggleAuthModal();
+            }
+        };
+
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('senderNameInput').value = currentUser.username;
+                document.getElementById('userBadgeText').innerText = currentUser.username;
+            } else {
+                document.getElementById('userBadgeText').innerText = 'Giriş Yap / Kayıt Ol';
+            }
+        }
+        updateUserUI();
+
+        window.showHomeView = function() {
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('profileView').classList.add('hidden');
+        };
+
+        window.viewUserProfile = async function(targetUsername) {
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('profileView').classList.remove('hidden');
+            document.getElementById('profileUsername').innerText = targetUsername;
+
+            const isOwner = currentUser && currentUser.username === targetUsername;
+            document.getElementById('profileOwnerBadge').style.display = isOwner ? 'inline-block' : 'none';
+            document.getElementById('profileEditSection').style.display = isOwner ? 'block' : 'none';
+
+            const userSnap = await get(ref(db, `users/${targetUsername}`));
+            let userData = userSnap.exists() ? userSnap.val() : {};
+
+            const iconDisplay = document.getElementById('profileIconDisplay');
+            const imgDisplay = document.getElementById('profileImageDisplay');
+
+            if (userData.avatarUrl) {
+                imgDisplay.src = userData.avatarUrl;
+                imgDisplay.classList.remove('hidden');
+                iconDisplay.classList.add('hidden');
+            } else {
+                imgDisplay.classList.add('hidden');
+                iconDisplay.classList.remove('hidden');
+            }
+
+            const userDrawings = allDrawings.filter(d => d.senderName === targetUsername);
+            document.getElementById('profileDrawingCount').innerHTML = `<strong class="text-rose-500">${userDrawings.length}</strong> Çizim Paylaşıldı`;
+
+            const container = document.getElementById('userDrawingsContainer');
+            container.innerHTML = '';
+
+            if (userDrawings.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-xs opacity-70 app-card rounded-2xl">Bu kullanıcının henüz gönderilmiş çizimi bulunmuyor.</div>`;
+                return;
+            }
+
+            userDrawings.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'app-card p-4 rounded-2xl space-y-3';
+                const targets = normalizeTargets(item);
+                const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-bold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm">${escapeHtml(item.title || 'İsimsiz Çizim')}</span>
+                        <div class="flex flex-wrap gap-1">${targetBadges}</div>
+                    </div>
+                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" class="bg-white rounded-xl overflow-hidden cursor-pointer p-2 flex justify-center">
+                        <img src="${item.imageDataUrl}" class="max-h-56 object-contain" alt="Çizim">
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        };
+
+        window.saveProfilePicture = async function() {
+            if (!currentUser) return;
+            const url = document.getElementById('avatarUrlInput').value.trim();
+            if (!url) return;
+
+            await set(ref(db, `users/${currentUser.username}/avatarUrl`), url);
+            currentUser.avatarUrl = url;
+            localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
+            viewUserProfile(currentUser.username);
+        };
+
+        // Submit Drawing to Firebase
         window.submitDrawing = function() {
             const senderName = document.getElementById('senderNameInput').value.trim();
+            const title = document.getElementById('titleInput').value.trim() || 'Çatalla Çizim';
             const note = document.getElementById('noteInput').value.trim();
             const submitBtn = document.getElementById('submitDrawingBtn');
 
             if (!senderName) {
-                alert('Lütfen isminizi veya kullanıcı adınızı girin!');
+                alert('Lütfen sanatçı isminizi girin!');
+                return;
+            }
+
+            if (selectedMembers.length === 0) {
+                alert('Lütfen en az 1 grup üyesi seçin!');
                 return;
             }
 
             localStorage.setItem('crusher_sender_name', senderName);
-
-            // Compress / Get Image Data URL from Canvas
             const imageDataUrl = canvas.toDataURL('image/png', 0.85);
 
             submitBtn.disabled = true;
@@ -590,7 +925,9 @@
 
             push(ref(db, 'drawings'), {
                 senderName: senderName,
-                targetMember: selectedMember,
+                title: title,
+                targetMembers: selectedMembers,
+                targetMember: selectedMembers.join(', '), // backward compatibility fallback
                 imageDataUrl: imageDataUrl,
                 note: note,
                 likes: 0,
@@ -598,16 +935,16 @@
                 dateStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             }).then(() => {
                 document.getElementById('noteInput').value = '';
+                document.getElementById('titleInput').value = '';
                 clearCanvas();
             }).catch((err) => {
                 alert("Yükleme hatası: " + err.message);
             }).finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Buluta Gönder & Paylaş';
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Çizimi Gönder & Buluta Yükle';
             });
         };
 
-        // Like Drawing
         window.likeDrawing = function(drawingId) {
             const likesRef = ref(db, `drawings/${drawingId}/likes`);
             runTransaction(likesRef, (currentLikes) => {
@@ -615,7 +952,6 @@
             });
         };
 
-        // Filter Stream
         window.filterDrawings = function(member, btnEl) {
             activeFilter = member;
             document.querySelectorAll('.filter-btn').forEach(b => {
@@ -625,11 +961,11 @@
             renderGallery();
         };
 
-        // Lightbox Functions
-        window.openLightbox = function(imgSrc, sender, target, note) {
+        // Lightbox
+        window.openLightbox = function(imgSrc, sender, targets, note) {
             document.getElementById('lightboxImg').src = imgSrc;
             document.getElementById('lightboxMeta').innerHTML = `
-                <div class="font-bold text-lg">${escapeHtml(sender)} ➔ <span class="text-rose-500">${escapeHtml(target)}</span></div>
+                <div class="font-bold text-lg">${escapeHtml(sender)} ➔ <span class="text-rose-500">${escapeHtml(targets)}</span></div>
                 <div class="text-xs opacity-75 mt-1">${escapeHtml(note || '')}</div>
             `;
             document.getElementById('lightboxModal').classList.remove('hidden');
@@ -664,13 +1000,22 @@
             statusText.innerText = "Bağlantı Kesildi";
         });
 
+        function normalizeTargets(item) {
+            if (Array.isArray(item.targetMembers)) return item.targetMembers;
+            if (item.targetMember) return item.targetMember.split(',').map(s => s.trim());
+            return [];
+        }
+
         function renderGallery() {
             const container = document.getElementById('galleryContainer');
             container.innerHTML = '';
 
             let filtered = allDrawings;
             if (activeFilter !== 'ALL') {
-                filtered = allDrawings.filter(d => d.targetMember === activeFilter);
+                filtered = allDrawings.filter(d => {
+                    const targets = normalizeTargets(d);
+                    return targets.includes(activeFilter);
+                });
             }
 
             document.getElementById('drawingCount').innerText = `${filtered.length} Çizim`;
@@ -679,7 +1024,7 @@
                 container.innerHTML = `
                     <div class="text-center py-12 app-card rounded-2xl">
                         <i class="fa-solid fa-paint-brush text-3xl text-rose-500/50 mb-2 block"></i>
-                        <p class="font-medium text-xs opacity-70">Henüz bu kategori için çizim yapılmadı.</p>
+                        <p class="font-medium text-xs opacity-70">Henüz bu filtre için çizim bulunmuyor.</p>
                     </div>
                 `;
                 return;
@@ -689,20 +1034,23 @@
                 const card = document.createElement('div');
                 card.className = 'app-card p-4 rounded-2xl space-y-3 relative transition-transform hover:-translate-y-0.5';
                 
+                const targets = normalizeTargets(item);
+                const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
+
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                             <span class="font-bold text-xs">${escapeHtml(item.senderName)}</span>
                         </div>
-                        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">
-                            ${escapeHtml(item.targetMember)}
-                        </span>
+                        <div class="flex flex-wrap gap-1 justify-end">${targetBadges}</div>
                     </div>
 
-                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(item.targetMember)}', '${escapeHtml(item.note || '')}')" 
+                    <h4 class="font-bold text-sm leading-snug">${escapeHtml(item.title || 'İsimsiz Çizim')}</h4>
+
+                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" 
                         class="w-full bg-white rounded-xl overflow-hidden cursor-pointer shadow-inner border border-black/5 flex items-center justify-center p-2 group">
-                        <img src="${item.imageDataUrl}" class="max-h-52 w-auto object-contain group-hover:scale-105 transition-transform" alt="Fan Art">
+                        <img src="${item.imageDataUrl}" class="max-h-56 w-auto object-contain group-hover:scale-105 transition-transform" alt="Fan Art">
                     </div>
 
                     ${item.note ? `<p class="text-xs opacity-80 italic">"${escapeHtml(item.note)}"</p>` : ''}
@@ -724,7 +1072,6 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // Init Canvas on page load
         window.addEventListener('load', () => {
             initCanvas();
         });
