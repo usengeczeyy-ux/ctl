@@ -1,150 +1,212 @@
-```html
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÇTL Entertainment - Canlı Forum</title>
+    <title>CRUSHERS - Çatalla Let's Go!</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icon Set -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Inter & Space Grotesk Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        crusher: {
+                            bg: '#050508',
+                            card: '#0d0e15',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            accent: '#e11d48',
+                            neon: '#ff2a5f'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0c;
+            background-color: #050508;
             color: #e2e8f0;
             overflow-x: hidden;
         }
 
-        /* Metallic Chrome Text Effect */
         .chrome-text {
-            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 45%, #64748b 50%, #f8fafc 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 40%, #64748b 55%, #f8fafc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
         }
 
-        /* Chrome Metallic Border Effect */
         .chrome-border {
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.9);
         }
 
-        /* Card Hover Transition */
         .chrome-card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .chrome-card-hover:hover {
             transform: translateY(-4px);
             border-color: rgba(225, 29, 72, 0.4);
-            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px -10px rgba(225, 29, 72, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
-        /* Subtle Background Texture */
         .bg-grain {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
             background-size: 24px 24px;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0c; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: #1e1e24; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
+
+        .avatar-option.selected {
+            border-color: #e11d48;
+            background-color: rgba(225, 29, 72, 0.2);
+            box-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
+        }
     </style>
 </head>
 <body class="bg-grain min-h-screen flex flex-col justify-between selection:bg-rose-600 selection:text-white">
 
     <!-- NAVBAR -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/10">
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/80 border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-400 p-[1px] shadow-lg shadow-rose-900/40">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/50">
                     <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
-                        <i class="fa-solid fa-utensils text-rose-500 group-hover:rotate-12 transition-transform"></i>
+                        <i class="fa-solid fa-utensils text-rose-500 text-lg group-hover:rotate-12 transition-transform"></i>
                     </div>
                 </div>
                 <div>
-                    <span class="font-extrabold text-2xl tracking-wider chrome-text block leading-none">ÇTL</span>
-                    <span class="text-[9px] tracking-widest text-slate-400 uppercase font-semibold">Entertainment Forum</span>
+                    <span class="font-display font-black text-2xl tracking-wider chrome-text block leading-none">CRUSHERS</span>
+                    <span class="text-[9px] tracking-widest text-rose-400 font-bold uppercase">Çatalla Let's Go!</span>
                 </div>
             </a>
 
-            <!-- Status Indicator -->
-            <div id="statusBadge" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/50 text-xs font-medium text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="statusDot"></span>
-                <span id="statusText">Buluta Bağlanıyor...</span>
+            <!-- User / Profile / Status Actions -->
+            <div class="flex items-center gap-3">
+                <button id="profileBtn" onclick="toggleProfileModal()" class="px-3.5 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2 transition-all">
+                    <i id="userBadgeIcon" class="fa-solid fa-user-gear"></i>
+                    <span id="userBadgeText">Hesap Aç / Profil</span>
+                </button>
+
+                <div id="statusBadge" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-medium text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="statusDot"></span>
+                    <span id="statusText" class="text-[11px]">Bağlanıyor...</span>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
-        <!-- HEADER SECTION -->
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold uppercase tracking-widest mb-4 inline-block">
-                <i class="fa-solid fa-bolt mr-1"></i> Anlık Canlı Topluluk
-            </span>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight chrome-text mb-3">ÇATAL FORUM</h1>
-            <p class="text-slate-400 text-sm sm:text-base">Düşüncelerini, fikirlerini veya mesajlarını yaz. Tüm kullanıcılar ekranlarında anında görsün!</p>
-        </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Post Message Form -->
-            <div class="lg:col-span-5 sticky top-28">
-                <div class="chrome-border bg-slate-900/40 backdrop-blur-xl p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+            <div class="lg:col-span-5 lg:sticky lg:top-28">
+                <div class="chrome-border bg-slate-900/50 backdrop-blur-xl p-6 sm:p-7 rounded-3xl relative overflow-hidden">
                     <div class="absolute -right-10 -top-10 w-32 h-32 bg-rose-600/10 rounded-full blur-2xl pointer-events-none"></div>
                     
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-pen-to-square text-rose-500"></i> Yeni Tartışma Başlat
+                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-2 font-display tracking-wide">
+                        <i class="fa-solid fa-pen-to-square text-rose-500"></i> Yeni Gönderi Paylaş
                     </h3>
 
                     <form id="forumForm" onsubmit="handlePostSubmit(event)" class="space-y-4">
+                        
+                        <!-- Avatar Selection -->
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Takma Adın / Adın</label>
-                            <input type="text" id="authorInput" required maxlength="30" placeholder="Örn: ÇatalSever" 
-                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
+                            <label class="block text-xs font-semibold text-slate-400 mb-2">Avatar Simgesi Seç</label>
+                            <div class="grid grid-cols-6 gap-2" id="avatarPicker">
+                                <button type="button" onclick="selectAvatar(this, 'fa-utensils')" class="avatar-option selected p-2.5 rounded-xl border border-white/10 bg-black/40 text-rose-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </button>
+                                <button type="button" onclick="selectAvatar(this, 'fa-fire')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-fire"></i>
+                                </button>
+                                <button type="button" onclick="selectAvatar(this, 'fa-crown')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-crown"></i>
+                                </button>
+                                <button type="button" onclick="selectAvatar(this, 'fa-skull')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-skull"></i>
+                                </button>
+                                <button type="button" onclick="selectAvatar(this, 'fa-bolt')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </button>
+                                <button type="button" onclick="selectAvatar(this, 'fa-hand-back-fist')" class="avatar-option p-2.5 rounded-xl border border-white/10 bg-black/40 text-slate-400 hover:border-rose-500/50 flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-hand-back-fist"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Category Selection -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Kategori Tag'i</label>
+                            <select id="categoryInput" class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500 transition-colors">
+                                <option value="#Genel">💬 #Genel</option>
+                                <option value="#Duyuru">📢 #Duyuru</option>
+                                <option value="#Vlog">🎬 #Vlog</option>
+                                <option value="#Konser">🎸 #Konser</option>
+                                <option value="#Şarkı">🎵 #Şarkı</option>
+                            </select>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Başlık</label>
-                            <input type="text" id="titleInput" required maxlength="60" placeholder="Örn: Yeni içerikler hakkında ne düşünüyorsunuz?" 
-                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Takma Adın / İsmin</label>
+                            <input type="text" id="authorInput" required maxlength="30" placeholder="Örn: CrusherMehmet" 
+                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Mesajın</label>
-                            <textarea id="contentInput" required rows="4" maxlength="500" placeholder="Mesajını buraya yaz..." 
-                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors resize-none"></textarea>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Gönderi Başlığı</label>
+                            <input type="text" id="titleInput" required maxlength="60" placeholder="Örn: Eskişehir Vlog harikaydı!" 
+                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Mesajın</label>
+                            <textarea id="contentInput" required rows="4" maxlength="500" placeholder="Çatalla Let's Go mesajını yaz..." 
+                                class="w-full bg-black/70 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 transition-colors resize-none"></textarea>
                         </div>
 
                         <button type="submit" id="submitBtn"
-                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i> Buluta Gönder
                         </button>
                     </form>
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Post Stream -->
+            <!-- RIGHT COLUMN: Forum Stream -->
             <div class="lg:col-span-7">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-comments text-rose-500"></i> Akış 
-                    </h3>
-                    <span id="postCount" class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-white/10">0 Gönderi</span>
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar">
+                    <button onclick="filterPosts('ALL')" class="filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap">#Hepsi</button>
+                    <button onclick="filterPosts('#Duyuru')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">📢 #Duyuru</button>
+                    <button onclick="filterPosts('#Vlog')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎬 #Vlog</button>
+                    <button onclick="filterPosts('#Konser')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎸 #Konser</button>
+                    <button onclick="filterPosts('#Şarkı')" class="filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white">🎵 #Şarkı</button>
                 </div>
 
                 <!-- Live Posts Container -->
                 <div id="forumPosts" class="space-y-4">
-                    <!-- Loading Skeleton -->
+                    <!-- Skeleton Loader -->
                     <div class="animate-pulse chrome-border bg-slate-900/20 p-6 rounded-2xl space-y-3">
                         <div class="h-4 bg-slate-800 rounded w-1/4"></div>
                         <div class="h-6 bg-slate-800 rounded w-3/4"></div>
@@ -155,15 +217,45 @@
         </div>
     </main>
 
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="chrome-border bg-slate-950 p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
+            <button onclick="toggleProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2 font-display">
+                <i class="fa-solid fa-user-plus text-rose-500"></i> CRUSHERS Hesabı Oluştur
+            </h3>
+            <p class="text-slate-400 text-xs mb-6">Hesap açarak mesaj atarken adının otomatik dolmasını sağlayabilirsin.</p>
+            
+            <form onsubmit="saveUserProfile(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Kullanıcı Adın</label>
+                    <input type="text" id="modalUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
+                        class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-500">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
+                    Profili Kaydet & Giriş Yap
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-black/40 py-6 text-center text-xs text-slate-500">
-        <p>&copy; 2026 ÇTL Entertainment. Tüm hakları saklıdır. Realtime Firebase altyapısı ile güçlendirilmiştir.</p>
+    <footer class="border-t border-white/10 bg-black/60 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-rose-400 font-bold">
+                <i class="fa-solid fa-utensils"></i>
+                <span>CRUSHERS — Çatalla Let's Go!</span>
+            </div>
+            <p>&copy; 2026 CRUSHERS Topluluğu. Tüm hakları saklıdır, çatallar bile.</p>
+        </div>
     </footer>
 
-    <!-- FIREBASE MODULE CODE -->
+    <!-- FIREBASE REALTIME DB CODE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         // Paylaştığın Firebase Proje Yapılandırması
         const firebaseConfig = {
@@ -177,13 +269,52 @@
             measurementId: "G-4PX64E8MB7"
         };
 
-        // Firebase Başlatma
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Durum Göstergesi Elemanları
-        const statusDot = document.getElementById('statusDot');
-        const statusText = document.getElementById('statusText');
+        let selectedAvatarIcon = 'fa-utensils';
+        let currentFilter = 'ALL';
+        let allPostsData = [];
+
+        // Global Fonksiyonlar
+        window.selectAvatar = function(el, iconClass) {
+            document.querySelectorAll('.avatar-option').forEach(btn => {
+                btn.classList.remove('selected', 'border-rose-500/50', 'text-rose-400');
+                btn.classList.add('text-slate-400');
+            });
+            el.classList.add('selected', 'border-rose-500/50', 'text-rose-400');
+            el.classList.remove('text-slate-400');
+            selectedAvatarIcon = iconClass;
+        };
+
+        window.toggleProfileModal = function() {
+            const modal = document.getElementById('profileModal');
+            modal.classList.toggle('hidden');
+        };
+
+        window.saveUserProfile = function(e) {
+            e.preventDefault();
+            const username = document.getElementById('modalUsername').value.trim();
+            if(!username) return;
+
+            localStorage.setItem('crusher_user', JSON.stringify({
+                username: username,
+                avatar: selectedAvatarIcon
+            }));
+
+            updateUserUI();
+            toggleProfileModal();
+        };
+
+        function updateUserUI() {
+            const savedUser = JSON.parse(localStorage.getItem('crusher_user') || 'null');
+            if (savedUser) {
+                document.getElementById('authorInput').value = savedUser.username;
+                document.getElementById('userBadgeText').innerText = savedUser.username;
+                document.getElementById('userBadgeIcon').className = `fa-solid ${savedUser.avatar || 'fa-utensils'}`;
+            }
+        }
+        updateUserUI();
 
         // Form Gönderim Fonksiyonu
         window.handlePostSubmit = function(event) {
@@ -193,85 +324,106 @@
             const author = document.getElementById('authorInput').value.trim();
             const title = document.getElementById('titleInput').value.trim();
             const content = document.getElementById('contentInput').value.trim();
+            const category = document.getElementById('categoryInput').value;
             
             if (!author || !title || !content) return;
 
-            // İnisiyalleri Hesapla (Örn: Ahmet Yılmaz -> AY)
-            const initials = author.split(' ')
-                .filter(part => part.length > 0)
-                .map(n => n[0])
-                .join('')
-                .substring(0, 2)
-                .toUpperCase() || 'ÇT';
-
-            // Butonu Pasife Al
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Gönderiliyor...';
 
-            // Firebase'e Ekle
             push(ref(db, 'forum_posts'), {
                 author: author,
                 title: title,
                 content: content,
-                initials: initials,
+                category: category,
+                icon: selectedAvatarIcon,
+                likes: 0,
                 timestamp: Date.now(),
                 dateStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             }).then(() => {
-                document.getElementById('forumForm').reset();
+                document.getElementById('titleInput').value = '';
+                document.getElementById('contentInput').value = '';
             }).catch((err) => {
-                console.error("Hata:", err);
-                alert("Gönderi eklenirken bir hata oluştu: " + err.message);
+                alert("Hata oluştu: " + err.message);
             }).finally(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Buluta Gönder';
             });
         };
 
-        // Veritabanını Canlı Dinleme (Real-time Listener)
+        // Beğeni Artırma
+        window.likePost = function(postId) {
+            const postLikesRef = ref(db, `forum_posts/${postId}/likes`);
+            runTransaction(postLikesRef, (currentLikes) => {
+                return (currentLikes || 0) + 1;
+            });
+        };
+
+        // Kategori Filtreleme
+        window.filterPosts = function(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn px-3.5 py-1.5 rounded-full bg-slate-900 text-slate-400 border border-white/10 text-xs font-semibold whitespace-nowrap hover:text-white";
+            });
+            event.target.className = "filter-btn active px-3.5 py-1.5 rounded-full bg-rose-600 text-white border border-rose-500 text-xs font-semibold whitespace-nowrap";
+            renderPosts();
+        };
+
+        // Realtime Veritabanı Dinleyici
         const postsRef = ref(db, 'forum_posts');
-        
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+
         onValue(postsRef, (snapshot) => {
-            // Bağlantı Başarılı
             statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500";
-            statusText.innerText = "Canlı Bulut Bağlantısı";
+            statusText.innerText = "Canlı Bulut";
 
-            const container = document.getElementById('forumPosts');
-            const postCountEl = document.getElementById('postCount');
             const data = snapshot.val();
+            if (!data) {
+                allPostsData = [];
+            } else {
+                allPostsData = Object.keys(data).map(key => ({
+                    id: key,
+                    ...data[key]
+                })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            }
 
+            renderPosts();
+        }, () => {
+            statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
+            statusText.innerText = "Bağlantı Hatası";
+        });
+
+        function renderPosts() {
+            const container = document.getElementById('forumPosts');
             container.innerHTML = '';
 
-            if (!data) {
-                postCountEl.innerText = '0 Gönderi';
+            let filtered = allPostsData;
+            if (currentFilter !== 'ALL') {
+                filtered = allPostsData.filter(p => p.category === currentFilter);
+            }
+
+            if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-12 chrome-border bg-slate-900/20 rounded-2xl">
-                        <i class="fa-solid fa-comment-dots text-4xl text-slate-600 mb-3 block"></i>
-                        <p class="text-slate-400 font-medium text-sm">Henüz mesaj yok.</p>
-                        <p class="text-slate-600 text-xs mt-1">İlk tartışmayı sol taraftaki formdan sen başlat!</p>
+                        <i class="fa-solid fa-comment-slash text-4xl text-slate-600 mb-3 block"></i>
+                        <p class="text-slate-400 font-medium text-sm">Henüz bu kategoride gönderi yok.</p>
+                        <p class="text-slate-600 text-xs mt-1">İlk mesajı sen gönder!</p>
                     </div>
                 `;
                 return;
             }
 
-            // Objeyi diziye çevirip en yeniden en eskiye sırala
-            const postsArray = Object.keys(data).map(key => ({
-                id: key,
-                ...data[key]
-            })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-            postCountEl.innerText = `${postsArray.length} Gönderi`;
-
-            // Gönderileri Render Et
-            postsArray.forEach(post => {
+            filtered.forEach(post => {
                 const postCard = document.createElement('div');
-                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl chrome-card-hover backdrop-blur-md';
+                postCard.className = 'chrome-border bg-slate-900/40 p-6 rounded-2xl chrome-card-hover backdrop-blur-md relative';
                 
                 postCard.innerHTML = `
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-400 p-[1px] flex items-center justify-center font-bold text-xs text-white shadow-md">
                                 <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-                                    ${escapeHtml(post.initials || 'ÇT')}
+                                    <i class="fa-solid ${escapeHtml(post.icon || 'fa-utensils')} text-rose-400"></i>
                                 </div>
                             </div>
                             <div>
@@ -280,30 +432,28 @@
                             </div>
                         </div>
                         <span class="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-semibold">
-                            Canlı Mesaj
+                            ${escapeHtml(post.category || '#Genel')}
                         </span>
                     </div>
+
                     <h5 class="font-bold text-slate-100 text-base mb-2 leading-snug">${escapeHtml(post.title)}</h5>
-                    <p class="text-slate-300 text-sm whitespace-pre-line leading-relaxed">${escapeHtml(post.content)}</p>
+                    <p class="text-slate-300 text-sm whitespace-pre-line leading-relaxed mb-4">${escapeHtml(post.content)}</p>
+                    
+                    <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                        <button onclick="likePost('${post.id}')" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold transition-all active:scale-95">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Çatalla (${post.likes || 0})</span>
+                        </button>
+                    </div>
                 `;
                 container.appendChild(postCard);
             });
-        }, (error) => {
-            statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            statusText.innerText = "Bağlantı Hatası";
-            console.error("Firebase Hatası:", error);
-        });
+        }
 
-        // XSS Koruması için Basit Yardımcı Fonksiyon
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/&/g, "&amp;")
-                      .replace(/</g, "&lt;")
-                      .replace(/>/g, "&gt;")
-                      .replace(/"/g, "&quot;")
-                      .replace(/'/g, "&#039;");
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
 </html>
-```
