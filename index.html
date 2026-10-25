@@ -419,25 +419,6 @@
         </div>
     </main>
 
-    <!-- FLOATING MINI MUSIC PLAYER (IN-PAGE YOUTUBE EMBED + GROUP PHOTO) -->
-    <div class="fixed bottom-5 left-5 z-50 app-card px-3.5 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 border border-rose-500/30">
-        <div class="w-10 h-10 rounded-xl overflow-hidden border border-rose-500/40 shadow-sm shrink-0">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="CRUSHERS">
-        </div>
-        <div>
-            <div class="text-[11px] font-bold">CRUSH - CRUSH!</div>
-            <div class="text-[9px] opacity-70">50M+ Özel Müzik Kutusu</div>
-        </div>
-        <button onclick="toggleMusic()" id="musicToggleBtn" class="w-8 h-8 rounded-xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-xs transition-all shadow-md ml-1" title="Müziği Başlat/Durdur">
-            <i id="musicIcon" class="fa-solid fa-play"></i>
-        </button>
-    </div>
-
-    <!-- Hidden YouTube iframe player inside page -->
-    <div id="youtubePlayerContainer" class="hidden">
-        <iframe id="youtubeAudio" width="200" height="200" src="https://www.youtube.com/embed/aKGCXYX7jN8?enablejsapi=1&autoplay=0" frameborder="0"></iframe>
-    </div>
-
     <!-- AUTH MODAL -->
     <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="app-card p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
@@ -914,27 +895,6 @@
                 text: commentText,
                 timestamp: Date.now()
             }).then(() => { input.value = ''; });
-        };
-
-        // In-page Hidden YouTube Audio Player Logic
-        let isMusicPlaying = false;
-        window.toggleMusic = function() {
-            const iframe = document.getElementById('youtubeAudio');
-            const icon = document.getElementById('musicIcon');
-            let src = iframe.src;
-
-            if (!isMusicPlaying) {
-                if (!src.includes('autoplay=1')) {
-                    iframe.src = src.replace('autoplay=0', 'autoplay=1');
-                }
-                icon.className = "fa-solid fa-pause";
-                isMusicPlaying = true;
-                triggerConfetti();
-            } else {
-                iframe.src = src.replace('autoplay=1', 'autoplay=0');
-                icon.className = "fa-solid fa-play";
-                isMusicPlaying = false;
-            }
         };
 
         window.triggerConfetti = function() {
