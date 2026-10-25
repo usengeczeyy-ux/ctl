@@ -35,7 +35,6 @@
     </script>
 
     <style>
-        /* Theme Variables */
         .theme-navy {
             --bg-color: #0a1128;
             --card-bg: rgba(16, 27, 61, 0.75);
@@ -164,7 +163,6 @@
     <!-- NAVBAR -->
     <header class="app-header sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            <!-- Brand Logo -->
             <a href="#" onclick="showHomeView()" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-[1px] shadow-lg shadow-rose-900/40">
                     <div class="w-full h-full bg-black rounded-[11px] flex items-center justify-center">
@@ -177,14 +175,12 @@
                 </div>
             </a>
 
-            <!-- Right Controls: User Profile + Theme Selector + Status -->
             <div class="flex items-center gap-3">
                 <button id="navUserBtn" onclick="handleNavUserClick()" class="px-3.5 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600/20 border border-rose-500/30 text-rose-500 text-xs font-semibold flex items-center gap-2 transition-all">
                     <i id="userBadgeIcon" class="fa-solid fa-user"></i>
                     <span id="userBadgeText">Giriş Yap / Kayıt Ol</span>
                 </button>
 
-                <!-- Theme Selector -->
                 <div class="flex items-center gap-1.5 p-1 rounded-xl app-card">
                     <button onclick="setTheme('navy')" title="Koyu Lacivert" class="w-6 h-6 rounded-lg bg-slate-900 border border-blue-500/50 hover:scale-110 transition-transform"></button>
                     <button onclick="setTheme('black')" title="Gece Siyahı" class="w-6 h-6 rounded-lg bg-black border border-rose-500/50 hover:scale-110 transition-transform"></button>
@@ -192,7 +188,6 @@
                     <button onclick="setTheme('yellow')" title="Sıcak Sarı" class="w-6 h-6 rounded-lg bg-amber-100 border border-amber-400 hover:scale-110 transition-transform"></button>
                 </div>
 
-                <!-- Firebase Status Indicator -->
                 <div class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl app-card text-xs font-medium">
                     <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" id="statusDot"></span>
                     <span id="statusText" class="text-[11px] opacity-80">Bağlanıyor...</span>
@@ -204,7 +199,6 @@
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
-        <!-- HOME / DRAWING & GALLERY VIEW -->
         <div id="homeView" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Drawing Studio (7 Cols) -->
@@ -230,7 +224,6 @@
                             <span class="text-xs opacity-70">Çizimini tamamla ve sevdiğin üyelere ulaştır!</span>
                         </div>
 
-                        <!-- Multi-Select Band Member Picker -->
                         <div class="pt-2">
                             <div class="flex items-center justify-between mb-2">
                                 <label class="text-xs font-bold uppercase tracking-wider opacity-80 flex items-center gap-1.5">
@@ -279,7 +272,6 @@
                     <!-- Drawing Toolbar -->
                     <div class="space-y-4">
                         
-                        <!-- Canvas Background Color Selector -->
                         <div class="pt-1">
                             <label class="block text-xs font-bold uppercase tracking-wider opacity-80 mb-2">
                                 <i class="fa-solid fa-fill-drip text-rose-500 mr-1"></i> Tuval Arka Plan Rengi
@@ -296,10 +288,7 @@
                             </div>
                         </div>
 
-                        <!-- Tools Row -->
                         <div class="flex flex-wrap items-center justify-between gap-3">
-                            
-                            <!-- Brush / Fork / Eraser Mode -->
                             <div class="flex items-center gap-1.5 p-1 rounded-xl app-input">
                                 <button id="brushBtn" onclick="setTool('brush')" class="tool-btn active px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
                                     <i class="fa-solid fa-paint-brush"></i> Fırça
@@ -312,36 +301,24 @@
                                 </button>
                             </div>
 
-                            <!-- Neon Glow Toggle -->
                             <button id="neonToggleBtn" onclick="toggleNeonGlow()" class="app-input px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all opacity-80 hover:opacity-100">
                                 <i class="fa-solid fa-wand-magic-sparkles text-rose-500"></i> Neon Efekt
                             </button>
 
-                            <!-- Brush Size -->
                             <div class="flex items-center gap-2 app-input px-3 py-1.5 rounded-xl">
                                 <i class="fa-solid fa-circle text-[8px] opacity-70"></i>
                                 <input type="range" id="brushSize" min="1" max="40" value="5" class="w-20 accent-rose-600">
                                 <i class="fa-solid fa-circle text-base opacity-70"></i>
                             </div>
 
-                            <!-- Actions (Undo, Redo, Download, Clear) -->
                             <div class="flex items-center gap-1.5">
-                                <button onclick="undoCanvas()" title="Geri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
-                                    <i class="fa-solid fa-rotate-left"></i>
-                                </button>
-                                <button onclick="redoCanvas()" title="İleri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
-                                    <i class="fa-solid fa-rotate-right"></i>
-                                </button>
-                                <button onclick="downloadCanvas()" title="İndir (PNG)" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all">
-                                    <i class="fa-solid fa-download"></i>
-                                </button>
-                                <button onclick="clearCanvas()" title="Temizle" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-rose-500 text-xs transition-all">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
+                                <button onclick="undoCanvas()" title="Geri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all"><i class="fa-solid fa-rotate-left"></i></button>
+                                <button onclick="redoCanvas()" title="İleri Al" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all"><i class="fa-solid fa-rotate-right"></i></button>
+                                <button onclick="downloadCanvas()" title="İndir (PNG)" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-xs transition-all"><i class="fa-solid fa-download"></i></button>
+                                <button onclick="clearCanvas()" title="Temizle" class="p-2.5 rounded-xl app-input hover:border-rose-500 text-rose-500 text-xs transition-all"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
                         </div>
 
-                        <!-- Quick Color Palette -->
                         <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                             <input type="color" id="customColorPicker" value="#000000" class="w-8 h-8 rounded-lg cursor-pointer border-0 bg-transparent shrink-0" title="Özel Renk">
                             <button onclick="setColor('#000000')" class="w-7 h-7 rounded-full bg-black border border-white/20 shrink-0"></button>
@@ -354,42 +331,32 @@
                             <button onclick="setColor('#ea580c')" class="w-7 h-7 rounded-full bg-orange-600 shrink-0"></button>
                         </div>
 
-                        <!-- Sender Meta Form -->
                         <div class="space-y-3 pt-2">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-xs font-semibold opacity-80 mb-1">Sanatçı Adı / Takma Ad</label>
-                                    <input type="text" id="senderNameInput" placeholder="İsminiz" maxlength="30" required
-                                        class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                                    <input type="text" id="senderNameInput" placeholder="İsminiz" maxlength="30" required class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold opacity-80 mb-1">Çizim Başlığı</label>
-                                    <input type="text" id="titleInput" placeholder="Örn: Konser Coşkusu" maxlength="40" required
-                                        class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                                    <input type="text" id="titleInput" placeholder="Örn: Konser Coşkusu" maxlength="40" required class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
                                 </div>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold opacity-80 mb-1">Mesajın / Notun (İsteğe Bağlı)</label>
-                                <input type="text" id="noteInput" placeholder="Çatalla Let's Go mesajını yaz..." maxlength="120"
-                                    class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
+                                <input type="text" id="noteInput" placeholder="Çatalla Let's Go mesajını yaz..." maxlength="120" class="w-full app-input rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-500">
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="button" id="submitDrawingBtn" onclick="submitDrawing()"
-                            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.99] flex items-center justify-center gap-2">
+                        <button type="button" id="submitDrawingBtn" onclick="submitDrawing()" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/30 transition-all active:scale-[0.99] flex items-center justify-center gap-2">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Çizimi Gönder & Buluta Yükle
                         </button>
-
                     </div>
                 </div>
             </div>
 
             <!-- RIGHT COLUMN: Fan Art Gallery Stream (5 Cols) -->
             <div class="lg:col-span-5 space-y-5">
-                
-                <!-- Filter Stream by Member -->
                 <div class="app-card p-4 rounded-2xl">
                     <div class="text-xs font-bold uppercase tracking-wider opacity-80 mb-2 flex items-center justify-between">
                         <span><i class="fa-solid fa-filter text-rose-500 mr-1"></i> Galeriyi Filtrele</span>
@@ -407,26 +374,21 @@
                     </div>
                 </div>
 
-                <!-- Gallery Grid / Stream -->
                 <div id="galleryContainer" class="space-y-4">
-                    <!-- Skeleton Loader -->
                     <div class="animate-pulse app-card p-4 rounded-2xl space-y-3">
                         <div class="h-4 bg-slate-500/20 rounded w-1/3"></div>
                         <div class="h-48 bg-slate-500/20 rounded-xl w-full"></div>
                         <div class="h-4 bg-slate-500/20 rounded w-2/3"></div>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- PROFILE VIEW (HIDDEN BY DEFAULT) -->
+        <!-- PROFILE VIEW -->
         <div id="profileView" class="hidden max-w-4xl mx-auto space-y-6">
             <button onclick="showHomeView()" class="px-4 py-2 rounded-xl app-card text-xs font-semibold flex items-center gap-2 hover:border-rose-500 transition-all">
                 <i class="fa-solid fa-arrow-left"></i> Çizim Alanına Dön
             </button>
-
-            <!-- Profile Card -->
             <div class="app-card p-6 sm:p-8 rounded-3xl relative overflow-hidden">
                 <div class="flex flex-col sm:flex-row items-center gap-6">
                     <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 p-1 flex items-center justify-center shadow-xl shadow-rose-900/30">
@@ -435,20 +397,15 @@
                             <img id="profileImageDisplay" src="" class="w-full h-full object-cover hidden" alt="Profil Resmi">
                         </div>
                     </div>
-
                     <div class="text-center sm:text-left flex-grow">
                         <div class="flex items-center justify-center sm:justify-start gap-3 mb-1">
                             <h2 id="profileUsername" class="text-2xl font-black font-display">Kullanıcı Adı</h2>
                             <span id="profileOwnerBadge" class="px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-500 text-[10px] font-bold">SENİN PROFİLİN</span>
                         </div>
                         <p class="text-xs opacity-70 mb-3">CRUSHERS Sanatçısı — Çatalla Let's Go!</p>
-                        <div class="text-xs opacity-80" id="profileDrawingCount">
-                            <strong class="text-rose-500">0</strong> Çizim Paylaşıldı
-                        </div>
+                        <div class="text-xs opacity-80" id="profileDrawingCount"><strong class="text-rose-500">0</strong> Çizim Paylaşıldı</div>
                     </div>
                 </div>
-
-                <!-- Custom Avatar URL -->
                 <div id="profileEditSection" class="mt-6 pt-6 border-t border-white/10 space-y-2">
                     <label class="block text-xs font-bold opacity-80 uppercase tracking-wider">Profil Resmini Güncelle (URL)</label>
                     <div class="flex gap-2">
@@ -457,19 +414,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Profile Gallery Stream -->
-            <h3 class="text-lg font-bold font-display flex items-center gap-2">
-                <i class="fa-solid fa-images text-rose-500"></i> Kullanıcının Çizimleri
-            </h3>
-            <div id="userDrawingsContainer" class="space-y-4">
-                <!-- Rendered user drawings -->
-            </div>
+            <h3 class="text-lg font-bold font-display flex items-center gap-2"><i class="fa-solid fa-images text-rose-500"></i> Kullanıcının Çizimleri</h3>
+            <div id="userDrawingsContainer" class="space-y-4"></div>
         </div>
-
     </main>
 
-    <!-- FLOATING MINI MUSIC PLAYER (YOUTUBE + GROUP PHOTO) -->
+    <!-- FLOATING MINI MUSIC PLAYER (LOCAL MP3 & GROUP PHOTO) -->
     <div class="fixed bottom-5 left-5 z-50 app-card px-3.5 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 border border-rose-500/30">
         <div class="w-10 h-10 rounded-xl overflow-hidden border border-rose-500/40 shadow-sm shrink-0">
             <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="CRUSHERS">
@@ -478,48 +428,41 @@
             <div class="text-[11px] font-bold">CRUSH - CRUSH!</div>
             <div class="text-[9px] opacity-70">50M+ Özel Müzik Kutusu</div>
         </div>
-        <a href="https://youtu.be/aKGCXYX7jN8" target="_blank" onclick="triggerConfetti()" class="w-8 h-8 rounded-xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-xs transition-all shadow-md ml-1" title="Şarkıyı Dinle">
-            <i class="fa-solid fa-play"></i>
-        </a>
+        <button onclick="toggleMusic()" id="musicToggleBtn" class="w-8 h-8 rounded-xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-xs transition-all shadow-md ml-1" title="Şarkıyı Oynat/Durdur">
+            <i id="musicIcon" class="fa-solid fa-play"></i>
+        </button>
     </div>
 
-    <!-- AUTH MODAL (LOGIN / REGISTER) -->
+    <!-- Hidden HTML5 Audio Element for Local MP3 Playback[span_4](start_span)[span_4](end_span) -->
+    <audio id="bgAudio" loop>
+        <source src="CRUSH - CRUSH! Official Music Video.mp3" type="audio/mp3">
+        Tarayıcınız ses oynatıcısını desteklemiyor.
+    </audio>
+
+    <!-- AUTH MODAL -->
     <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="app-card p-6 sm:p-8 rounded-3xl max-w-md w-full relative">
-            <button onclick="toggleAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <h3 class="text-xl font-bold mb-1 flex items-center gap-2 font-display">
-                <i class="fa-solid fa-user-lock text-rose-500"></i> CRUSHERS Hesabı
-            </h3>
+            <button onclick="toggleAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold mb-1 flex items-center gap-2 font-display"><i class="fa-solid fa-user-lock text-rose-500"></i> CRUSHERS Hesabı</h3>
             <p class="text-xs opacity-70 mb-6">Giriş yapın veya hemen yeni üyelik oluşturun.</p>
-            
             <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold opacity-80 mb-1">Kullanıcı Adı</label>
-                    <input type="text" id="authUsername" required maxlength="30" placeholder="Örn: CrusherEfe"
-                        class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
+                    <input type="text" id="authUsername" required maxlength="30" placeholder="Örn: CrusherEfe" class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold opacity-80 mb-1">Şifre</label>
-                    <input type="password" id="authPassword" required minlength="4" placeholder="••••••••"
-                        class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
+                    <input type="password" id="authPassword" required minlength="4" placeholder="••••••••" class="w-full app-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500">
                 </div>
-
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">
-                    Giriş Yap / Kayıt Ol
-                </button>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-900/40 transition-all">Giriş Yap / Kayıt Ol</button>
             </form>
         </div>
     </div>
 
-    <!-- LIGHTBOX MODAL FOR FULL VIEW -->
+    <!-- LIGHTBOX MODAL -->
     <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="relative max-w-3xl w-full flex flex-col items-center">
-            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white text-2xl hover:text-rose-500">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white text-2xl hover:text-rose-500"><i class="fa-solid fa-xmark"></i></button>
             <img id="lightboxImg" src="" class="max-h-[80vh] w-auto rounded-2xl shadow-2xl bg-white object-contain">
             <div id="lightboxMeta" class="mt-4 text-center text-white"></div>
         </div>
@@ -528,20 +471,16 @@
     <!-- FOOTER -->
     <footer class="app-header py-6 text-center text-xs opacity-60 mt-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-2 text-rose-500 font-bold">
-                <i class="fa-solid fa-utensils"></i>
-                <span>CRUSHERS — Çatalla Let's Go!</span>
-            </div>
+            <div class="flex items-center gap-2 text-rose-500 font-bold"><i class="fa-solid fa-utensils"></i><span>CRUSHERS — Çatalla Let's Go!</span></div>
             <p>&copy; 2026 CRUSHERS Hayran Çizim Platformu — Tüm Hakları Saklıdır.</p>
         </div>
     </footer>
 
-    <!-- FIREBASE MODULE & APPLICATION LOGIC -->
+    <!-- FIREBASE & SCRIPT LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, onValue, runTransaction, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBXlTNpnv4CrLC2H-rPV5Owry3CUbWB2jU",
             authDomain: "crushers-1c298.firebaseapp.com",
@@ -556,20 +495,18 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // App States
         const ALL_MEMBERS = ["Efe Şan", "Arda Soydoğan", "Batu Cengiz", "Miraç Fırat", "Milan Önder", "Barış Yüksekkaya", "Oğuzhan Çifçi"];
         let selectedMembers = ["Efe Şan"];
         let activeFilter = 'ALL';
         let allDrawings = [];
         let currentUser = JSON.parse(localStorage.getItem('crusher_logged_user') || 'null');
 
-        // Canvas State
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
-        let currentTool = 'brush'; // 'brush', 'fork', 'eraser'
+        let currentTool = 'brush';
         let currentColor = '#000000';
         let canvasBgColor = '#ffffff';
         let brushSize = 5;
@@ -579,20 +516,17 @@
         let redoStack = [];
         const MAX_HISTORY = 20;
 
-        // Auto Save Sender Handle
         const savedSender = localStorage.getItem('crusher_sender_name');
         if (savedSender) {
             document.getElementById('senderNameInput').value = savedSender;
         }
 
-        // Setup Canvas
         function initCanvas() {
             const rect = canvas.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             ctx.scale(dpr, dpr);
-
             ctx.fillStyle = canvasBgColor;
             ctx.fillRect(0, 0, rect.width, rect.height);
             saveState();
@@ -647,7 +581,6 @@
         window.setCanvasBg = function(color) {
             canvasBgColor = color;
             document.getElementById('bgCustomColorPicker').value = color;
-
             const rect = canvas.getBoundingClientRect();
             const tempImg = new Image();
             tempImg.src = canvas.toDataURL();
@@ -663,21 +596,15 @@
             setCanvasBg(e.target.value);
         });
 
-        // Drawing Event Handlers
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
             let clientX = e.clientX;
             let clientY = e.clientY;
-
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
             }
-
-            return {
-                x: clientX - rect.left,
-                y: clientY - rect.top
-            };
+            return { x: clientX - rect.left, y: clientY - rect.top };
         }
 
         function startDrawing(e) {
@@ -691,7 +618,6 @@
         function draw(e) {
             if (!isDrawing) return;
             const pos = getCoords(e);
-
             ctx.lineWidth = brushSize;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
@@ -707,7 +633,6 @@
                 ctx.strokeStyle = currentColor;
                 if (isNeon) { ctx.shadowColor = currentColor; ctx.shadowBlur = 10; } 
                 else { ctx.shadowBlur = 0; }
-
                 const offsets = [-12, -4, 4, 12];
                 offsets.forEach(offset => {
                     ctx.beginPath();
@@ -719,13 +644,11 @@
                 ctx.strokeStyle = currentColor;
                 if (isNeon) { ctx.shadowColor = currentColor; ctx.shadowBlur = 12; } 
                 else { ctx.shadowBlur = 0; }
-                
                 ctx.beginPath();
                 ctx.moveTo(lastX, lastY);
                 ctx.lineTo(pos.x, pos.y);
                 ctx.stroke();
             }
-
             lastX = pos.x;
             lastY = pos.y;
             e.preventDefault();
@@ -742,12 +665,10 @@
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseleave', stopDrawing);
-
         canvas.addEventListener('touchstart', startDrawing);
         canvas.addEventListener('touchmove', draw);
         canvas.addEventListener('touchend', stopDrawing);
 
-        // Tools Setup
         window.setTool = function(tool) {
             currentTool = tool;
             document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
@@ -759,11 +680,8 @@
         window.toggleNeonGlow = function() {
             isNeon = !isNeon;
             const btn = document.getElementById('neonToggleBtn');
-            if (isNeon) {
-                btn.classList.add('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
-            } else {
-                btn.classList.remove('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
-            }
+            if (isNeon) btn.classList.add('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
+            else btn.classList.remove('border-rose-500', 'text-rose-500', 'bg-rose-500/20');
         };
 
         window.setColor = function(color) {
@@ -780,7 +698,6 @@
             brushSize = e.target.value;
         });
 
-        // Multi-Select Member Handling
         window.toggleMember = function(memberName, btnEl) {
             const idx = selectedMembers.indexOf(memberName);
             if (idx > -1) {
@@ -823,34 +740,26 @@
         };
 
         function updateMemberBadge() {
-            const count = selectedMembers.length;
-            const badge = document.getElementById('memberCountBadge');
-            badge.innerText = `${count} üye seçildi`;
+            document.getElementById('memberCountBadge').innerText = `${selectedMembers.length} üye seçildi`;
         }
 
-        // Theme Switcher
         window.setTheme = function(themeName) {
             document.documentElement.className = `theme-${themeName}`;
         };
 
-        // Navigation & Auth Logic
         window.toggleAuthModal = function() {
             document.getElementById('authModal').classList.toggle('hidden');
         };
 
         window.handleNavUserClick = function() {
-            if (currentUser) {
-                viewUserProfile(currentUser.username);
-            } else {
-                toggleAuthModal();
-            }
+            if (currentUser) viewUserProfile(currentUser.username);
+            else toggleAuthModal();
         };
 
         window.handleAuthSubmit = async function(e) {
             e.preventDefault();
             const username = document.getElementById('authUsername').value.trim();
             const password = document.getElementById('authPassword').value.trim();
-
             if (!username || !password) return;
 
             const userRef = ref(db, `users/${username}`);
@@ -920,7 +829,6 @@
 
             const container = document.getElementById('userDrawingsContainer');
             container.innerHTML = '';
-
             if (userDrawings.length === 0) {
                 container.innerHTML = `<div class="p-8 text-center text-xs opacity-70 app-card rounded-2xl">Bu kullanıcının henüz gönderilmiş çizimi bulunmuyor.</div>`;
                 return;
@@ -931,15 +839,9 @@
                 card.className = 'app-card p-4 rounded-2xl space-y-3';
                 const targets = normalizeTargets(item);
                 const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-bold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
-
                 card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-sm">${escapeHtml(item.title || 'İsimsiz Çizim')}</span>
-                        <div class="flex flex-wrap gap-1">${targetBadges}</div>
-                    </div>
-                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" class="bg-white rounded-xl overflow-hidden cursor-pointer p-2 flex justify-center">
-                        <img src="${item.imageDataUrl}" class="max-h-56 object-contain" alt="Çizim">
-                    </div>
+                    <div class="flex items-center justify-between"><span class="font-bold text-sm">${escapeHtml(item.title || 'İsimsiz Çizim')}</span><div class="flex flex-wrap gap-1">${targetBadges}</div></div>
+                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" class="bg-white rounded-xl overflow-hidden cursor-pointer p-2 flex justify-center"><img src="${item.imageDataUrl}" class="max-h-56 object-contain" alt="Çizim"></div>
                 `;
                 container.appendChild(card);
             });
@@ -949,29 +851,20 @@
             if (!currentUser) return;
             const url = document.getElementById('avatarUrlInput').value.trim();
             if (!url) return;
-
             await set(ref(db, `users/${currentUser.username}/avatarUrl`), url);
             currentUser.avatarUrl = url;
             localStorage.setItem('crusher_logged_user', JSON.stringify(currentUser));
             viewUserProfile(currentUser.username);
         };
 
-        // Submit Drawing to Firebase
         window.submitDrawing = function() {
             const senderName = document.getElementById('senderNameInput').value.trim();
             const title = document.getElementById('titleInput').value.trim() || 'Çatalla Çizim';
             const note = document.getElementById('noteInput').value.trim();
             const submitBtn = document.getElementById('submitDrawingBtn');
 
-            if (!senderName) {
-                alert('Lütfen sanatçı isminizi girin!');
-                return;
-            }
-
-            if (selectedMembers.length === 0) {
-                alert('Lütfen en az 1 grup üyesi seçin!');
-                return;
-            }
+            if (!senderName) { alert('Lütfen sanatçı isminizi girin!'); return; }
+            if (selectedMembers.length === 0) { alert('Lütfen en az 1 grup üyesi seçin!'); return; }
 
             localStorage.setItem('crusher_sender_name', senderName);
             const imageDataUrl = canvas.toDataURL('image/png', 0.85);
@@ -1002,54 +895,51 @@
         };
 
         window.likeDrawing = function(drawingId) {
-            const likesRef = ref(db, `drawings/${drawingId}/likes`);
-            runTransaction(likesRef, (currentLikes) => {
-                return (currentLikes || 0) + 1;
-            });
+            runTransaction(ref(db, `drawings/${drawingId}/likes`), (currentLikes) => (currentLikes || 0) + 1);
         };
 
-        // Yorum Ekleme
         window.toggleComments = function(drawingId) {
             const commentsSec = document.getElementById(`comments-${drawingId}`);
-            if (commentsSec) {
-                commentsSec.classList.toggle('hidden');
-            }
+            if (commentsSec) commentsSec.classList.toggle('hidden');
         };
 
         window.addComment = function(drawingId) {
             const input = document.getElementById(`commentInput-${drawingId}`);
             const commentText = input ? input.value.trim() : '';
-
             if (!commentText) return;
 
-            let author = 'Anonim Crusher';
-            if (currentUser && currentUser.username) {
-                author = currentUser.username;
-            } else {
-                const inputName = document.getElementById('senderNameInput').value.trim();
-                if (inputName) author = inputName;
-            }
+            let author = currentUser && currentUser.username ? currentUser.username : (document.getElementById('senderNameInput').value.trim() || 'Anonim Crusher');
 
-            const commentRef = ref(db, `drawings/${drawingId}/comments`);
-            push(commentRef, {
+            push(ref(db, `drawings/${drawingId}/comments`), {
                 author: author,
                 text: commentText,
                 timestamp: Date.now()
-            }).then(() => {
-                input.value = '';
-            }).catch((err) => {
-                alert("Yorum gönderilemedi: " + err.message);
-            });
+            }).then(() => { input.value = ''; });
         };
 
-        // Confetti Celebration Trigger
+        // Local Audio Player Logic[span_5](start_span)[span_5](end_span)
+        let isAudioPlaying = false;
+        window.toggleMusic = function() {
+            const audio = document.getElementById('bgAudio');
+            const icon = document.getElementById('musicIcon');
+            if (!isAudioPlaying) {
+                audio.play().then(() => {
+                    icon.className = "fa-solid fa-pause";
+                    isAudioPlaying = true;
+                    triggerConfetti();
+                }).catch(e => {
+                    alert("Şarkı çalınamadı. Lütfen tarayıcı izinlerini kontrol edin.");
+                });
+            } else {
+                audio.pause();
+                icon.className = "fa-solid fa-play";
+                isAudioPlaying = false;
+            }
+        };
+
         window.triggerConfetti = function() {
             if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 90,
-                    spread: 80,
-                    origin: { y: 0.6 }
-                });
+                confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
             }
         };
 
@@ -1062,7 +952,6 @@
             renderGallery();
         };
 
-        // Lightbox
         window.openLightbox = function(imgSrc, sender, targets, note) {
             document.getElementById('lightboxImg').src = imgSrc;
             document.getElementById('lightboxMeta').innerHTML = `
@@ -1076,29 +965,21 @@
             document.getElementById('lightboxModal').classList.add('hidden');
         };
 
-        // Realtime Listener
         const drawingsRef = ref(db, 'drawings');
-        const statusDot = document.getElementById('statusDot');
-        const statusText = document.getElementById('statusText');
-
         onValue(drawingsRef, (snapshot) => {
-            statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500";
-            statusText.innerText = "Canlı Bulut";
+            document.getElementById('statusDot').className = "w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500";
+            document.getElementById('statusText').innerText = "Canlı Bulut";
 
             const data = snapshot.val();
             if (!data) {
                 allDrawings = [];
             } else {
-                allDrawings = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key]
-                })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                allDrawings = Object.keys(data).map(key => ({ id: key, ...data[key] })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             }
-
             renderGallery();
         }, () => {
-            statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            statusText.innerText = "Bağlantı Kesildi";
+            document.getElementById('statusDot').className = "w-2 h-2 rounded-full bg-rose-500";
+            document.getElementById('statusText').innerText = "Bağlantı Kesildi";
         });
 
         function normalizeTargets(item) {
@@ -1110,94 +991,45 @@
         function renderGallery() {
             const container = document.getElementById('galleryContainer');
             container.innerHTML = '';
-
             let filtered = allDrawings;
             if (activeFilter !== 'ALL') {
-                filtered = allDrawings.filter(d => {
-                    const targets = normalizeTargets(d);
-                    return targets.includes(activeFilter);
-                });
+                filtered = allDrawings.filter(d => normalizeTargets(d).includes(activeFilter));
             }
-
             document.getElementById('drawingCount').innerText = `${filtered.length} Çizim`;
 
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 app-card rounded-2xl">
-                        <i class="fa-solid fa-paint-brush text-3xl text-rose-500/50 mb-2 block"></i>
-                        <p class="font-medium text-xs opacity-70">Henüz bu filtre için çizim bulunmuyor.</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="text-center py-12 app-card rounded-2xl"><i class="fa-solid fa-paint-brush text-3xl text-rose-500/50 mb-2 block</i><p class="font-medium text-xs opacity-70">Henüz bu filtre için çizim bulunmuyor.</p></div>`;
                 return;
             }
 
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'app-card p-4 rounded-2xl space-y-3 relative transition-transform hover:-translate-y-0.5';
-                
                 const targets = normalizeTargets(item);
                 const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
 
                 const commentsObj = item.comments || {};
                 const commentsList = Object.keys(commentsObj).map(k => commentsObj[k]);
-                const commentsCount = commentsList.length;
-
                 let commentsHtml = '';
                 commentsList.forEach(c => {
-                    commentsHtml += `
-                        <div class="p-2 rounded-lg app-input text-[11px] leading-tight space-y-0.5">
-                            <span class="font-bold text-rose-500">${escapeHtml(c.author)}:</span>
-                            <span class="opacity-90">${escapeHtml(c.text)}</span>
-                        </div>
-                    `;
+                    commentsHtml += `<div class="p-2 rounded-lg app-input text-[11px] leading-tight space-y-0.5"><span class="font-bold text-rose-500">${escapeHtml(c.author)}:</span><span class="opacity-90">${escapeHtml(c.text)}</span></div>`;
                 });
 
                 card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                            <span class="font-bold text-xs">${escapeHtml(item.senderName)}</span>
-                        </div>
-                        <div class="flex flex-wrap gap-1 justify-end">${targetBadges}</div>
-                    </div>
-
+                    <div class="flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="font-bold text-xs">${escapeHtml(item.senderName)}</span></div><div class="flex flex-wrap gap-1 justify-end">${targetBadges}</div></div>
                     <h4 class="font-bold text-sm leading-snug">${escapeHtml(item.title || 'İsimsiz Çizim')}</h4>
-
-                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" 
-                        class="w-full bg-white rounded-xl overflow-hidden cursor-pointer shadow-inner border border-black/5 flex items-center justify-center p-2 group">
-                        <img src="${item.imageDataUrl}" class="max-h-56 w-auto object-contain group-hover:scale-105 transition-transform" alt="Fan Art">
-                    </div>
-
+                    <div onclick="openLightbox('${item.imageDataUrl}', '${escapeHtml(item.senderName)}', '${escapeHtml(targets.join(', '))}', '${escapeHtml(item.note || '')}')" class="w-full bg-white rounded-xl overflow-hidden cursor-pointer shadow-inner border border-black/5 flex items-center justify-center p-2 group"><img src="${item.imageDataUrl}" class="max-h-56 w-auto object-contain group-hover:scale-105 transition-transform" alt="Fan Art"></div>
                     ${item.note ? `<p class="text-xs opacity-80 italic">"${escapeHtml(item.note)}"</p>` : ''}
-
                     <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs gap-2">
                         <span class="text-[10px] opacity-60">${item.dateStr || ''}</span>
-                        
                         <div class="flex items-center gap-2">
-                            <button onclick="toggleComments('${item.id}')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg app-input hover:border-rose-500 text-xs transition-all opacity-80 hover:opacity-100">
-                                <i class="fa-regular fa-comment"></i>
-                                <span>Yorumlar (${commentsCount})</span>
-                            </button>
-
-                            <button onclick="likeDrawing('${item.id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 font-bold transition-all active:scale-95">
-                                <i class="fa-solid fa-utensils"></i>
-                                <span>Çatalla (${item.likes || 0})</span>
-                            </button>
+                            <button onclick="toggleComments('${item.id}')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg app-input hover:border-rose-500 text-xs transition-all opacity-80 hover:opacity-100"><i class="fa-regular fa-comment"></i><span>Yorumlar (${commentsList.length})</span></button>
+                            <button onclick="likeDrawing('${item.id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 font-bold transition-all active:scale-95"><i class="fa-solid fa-utensils"></i><span>Çatalla (${item.likes || 0})</span></button>
                         </div>
                     </div>
-
                     <div id="comments-${item.id}" class="hidden pt-3 border-t border-white/5 space-y-2">
-                        <div class="space-y-1.5 max-h-40 overflow-y-auto no-scrollbar">
-                            ${commentsCount > 0 ? commentsHtml : '<p class="text-[11px] opacity-50 italic">İlk yorumu sen yaz!</p>'}
-                        </div>
-                        <div class="flex gap-2 pt-1">
-                            <input type="text" id="commentInput-${item.id}" placeholder="Yorum yaz..." maxlength="100" 
-                                onkeypress="if(event.key === 'Enter') addComment('${item.id}')"
-                                class="flex-grow app-input rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-rose-500">
-                            <button onclick="addComment('${item.id}')" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-all">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </div>
+                        <div class="space-y-1.5 max-h-40 overflow-y-auto no-scrollbar">${commentsList.length > 0 ? commentsHtml : '<p class="text-[11px] opacity-50 italic">İlk yorumu sen yaz!</p>'}</div>
+                        <div class="flex gap-2 pt-1"><input type="text" id="commentInput-${item.id}" placeholder="Yorum yaz..." maxlength="100" onkeypress="if(event.key === 'Enter') addComment('${item.id}')" class="flex-grow app-input rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-rose-500"><button onclick="addComment('${item.id}')" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-all"><i class="fa-solid fa-paper-plane"></i></button></div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1211,9 +1043,7 @@
 
         window.addEventListener('load', () => {
             initCanvas();
-            setTimeout(() => {
-                triggerConfetti();
-            }, 300);
+            setTimeout(() => { triggerConfetti(); }, 300);
         });
     </script>
 </body>
