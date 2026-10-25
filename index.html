@@ -148,7 +148,6 @@
             opacity: 1 !important;
         }
 
-        /* 50M Celebration Pulse Keyframes */
         @keyframes popPulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.15); }
@@ -469,6 +468,24 @@
         </div>
 
     </main>
+
+    <!-- FLOATING MINI MUSIC PLAYER (YOUTUBE) -->
+    <div class="fixed bottom-5 left-5 z-50 app-card px-3.5 py-2.5 rounded-2xl shadow-xl flex items-center gap-3 border border-rose-500/30">
+        <div class="w-9 h-9 rounded-xl bg-rose-600/20 flex items-center justify-center text-rose-500">
+            <i class="fa-solid fa-music animate-bounce"></i>
+        </div>
+        <div>
+            <div class="text-[11px] font-bold">CRUSH - CRUSH!</div>
+            <div class="text-[9px] opacity-70">50M+ Özel Müzik Kutusu</div>
+        </div>
+        <button onclick="toggleMusic()" id="musicToggleBtn" class="w-8 h-8 rounded-xl bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-xs transition-all shadow-md ml-1">
+            <i id="musicIcon" class="fa-solid fa-play"></i>
+        </button>
+    </div>
+    <!-- Hidden YouTube iframe -->
+    <div id="youtubePlayerContainer" class="hidden">
+        <iframe id="youtubeAudio" width="200" height="200" src="https://www.youtube.com/embed/aKGCXYX7jN8?enablejsapi=1&autoplay=0" frameborder="0"></iframe>
+    </div>
 
     <!-- AUTH MODAL (LOGIN / REGISTER) -->
     <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
@@ -1029,12 +1046,33 @@
             });
         };
 
+        // Music Player Toggle
+        let isPlaying = false;
+        window.toggleMusic = function() {
+            const iframe = document.getElementById('youtubeAudio');
+            const icon = document.getElementById('musicIcon');
+            let src = iframe.src;
+
+            if (!isPlaying) {
+                if (!src.includes('autoplay=1')) {
+                    iframe.src = src.replace('autoplay=0', 'autoplay=1');
+                }
+                icon.className = "fa-solid fa-pause";
+                isPlaying = true;
+                triggerConfetti();
+            } else {
+                iframe.src = src.replace('autoplay=1', 'autoplay=0');
+                icon.className = "fa-solid fa-play";
+                isPlaying = false;
+            }
+        };
+
         // Confetti Celebration Trigger
         window.triggerConfetti = function() {
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 80,
-                    spread: 70,
+                    particleCount: 90,
+                    spread: 80,
                     origin: { y: 0.6 }
                 });
             }
