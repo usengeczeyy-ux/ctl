@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="tr" class="theme-black">
 <head>
@@ -284,6 +283,9 @@
                                 <button id="brushBtn" onclick="setTool('brush')" class="tool-btn active px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
                                     <i class="fa-solid fa-paint-brush"></i> Fırça
                                 </button>
+                                <button id="forkBtn" onclick="setTool('fork')" class="tool-btn px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all text-rose-500">
+                                    <i class="fa-solid fa-utensils"></i> Çatal Kalem
+                                </button>
                                 <button id="eraserBtn" onclick="setTool('eraser')" class="tool-btn px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
                                     <i class="fa-solid fa-eraser"></i> Silgi
                                 </button>
@@ -530,7 +532,9 @@
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
-        let currentTool = 'brush'; // 'brush' or 'eraser'
+        let lastX = 0;
+        let lastY = 0;
+        let currentTool = 'brush'; // 'brush', 'fork', 'eraser'
         let currentColor = '#000000';
         let canvasBgColor = '#ffffff';
         let brushSize = 5;
@@ -562,7 +566,7 @@
         function saveState() {
             if (undoStack.length >= MAX_HISTORY) undoStack.shift();
             undoStack.push(canvas.toDataURL());
-            redoStack = []; // clear redo on new stroke
+            redoStack = []; 
         }
 
         window.undoCanvas = function() {
@@ -644,8 +648,8 @@
         function startDrawing(e) {
             isDrawing = true;
             const pos = getCoords(e);
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
+            lastX = pos.x;
+            lastY = pos.y;
             e.preventDefault();
         }
 
@@ -660,25 +664,42 @@
             if (currentTool === 'eraser') {
                 ctx.strokeStyle = canvasBgColor;
                 ctx.shadowBlur = 0;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            } else if (currentTool === 'fork') {
+                // Çatal Kalem Effect (4 paralel çizgi)
+                ctx.strokeStyle = currentColor;
+                if (isNeon) { ctx.shadowColor = currentColor; ctx.shadowBlur = 10; } 
+                else { ctx.shadowBlur = 0; }
+
+                const offsets = [-12, -4, 4, 12];
+                offsets.forEach(offset => {
+                    ctx.beginPath();
+                    ctx.moveTo(lastX + offset, lastY);
+                    ctx.lineTo(pos.x + offset, pos.y);
+                    ctx.stroke();
+                });
             } else {
                 ctx.strokeStyle = currentColor;
-                if (isNeon) {
-                    ctx.shadowColor = currentColor;
-                    ctx.shadowBlur = 12;
-                } else {
-                    ctx.shadowBlur = 0;
-                }
+                if (isNeon) { ctx.shadowColor = currentColor; ctx.shadowBlur = 12; } 
+                else { ctx.shadowBlur = 0; }
+                
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
             }
 
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
+            lastX = pos.x;
+            lastY = pos.y;
             e.preventDefault();
         }
 
         function stopDrawing() {
             if (isDrawing) {
                 isDrawing = false;
-                ctx.closePath();
                 saveState();
             }
         }
@@ -697,6 +718,7 @@
             currentTool = tool;
             document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
             if (tool === 'brush') document.getElementById('brushBtn').classList.add('active');
+            if (tool === 'fork') document.getElementById('forkBtn').classList.add('active');
             if (tool === 'eraser') document.getElementById('eraserBtn').classList.add('active');
         };
 
@@ -712,7 +734,7 @@
 
         window.setColor = function(color) {
             currentColor = color;
-            setTool('brush');
+            if (currentTool === 'eraser') setTool('brush');
             document.getElementById('customColorPicker').value = color;
         };
 
@@ -927,7 +949,7 @@
                 senderName: senderName,
                 title: title,
                 targetMembers: selectedMembers,
-                targetMember: selectedMembers.join(', '), // backward compatibility fallback
+                targetMember: selectedMembers.join(', '),
                 imageDataUrl: imageDataUrl,
                 note: note,
                 likes: 0,
@@ -949,6 +971,40 @@
             const likesRef = ref(db, `drawings/${drawingId}/likes`);
             runTransaction(likesRef, (currentLikes) => {
                 return (currentLikes || 0) + 1;
+            });
+        };
+
+        // YORUM EKLEME SİSTEMİ
+        window.toggleComments = function(drawingId) {
+            const commentsSec = document.getElementById(`comments-${drawingId}`);
+            if (commentsSec) {
+                commentsSec.classList.toggle('hidden');
+            }
+        };
+
+        window.addComment = function(drawingId) {
+            const input = document.getElementById(`commentInput-${drawingId}`);
+            const commentText = input ? input.value.trim() : '';
+
+            if (!commentText) return;
+
+            let author = 'Anonim Crusher';
+            if (currentUser && currentUser.username) {
+                author = currentUser.username;
+            } else {
+                const inputName = document.getElementById('senderNameInput').value.trim();
+                if (inputName) author = inputName;
+            }
+
+            const commentRef = ref(db, `drawings/${drawingId}/comments`);
+            push(commentRef, {
+                author: author,
+                text: commentText,
+                timestamp: Date.now()
+            }).then(() => {
+                input.value = '';
+            }).catch((err) => {
+                alert("Yorum gönderilemedi: " + err.message);
             });
         };
 
@@ -1037,6 +1093,21 @@
                 const targets = normalizeTargets(item);
                 const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
 
+                // Yorumlar Listesini Hazırla
+                const commentsObj = item.comments || {};
+                const commentsList = Object.keys(commentsObj).map(k => commentsObj[k]);
+                const commentsCount = commentsList.length;
+
+                let commentsHtml = '';
+                commentsList.forEach(c => {
+                    commentsHtml += `
+                        <div class="p-2 rounded-lg app-input text-[11px] leading-tight space-y-0.5">
+                            <span class="font-bold text-rose-500">${escapeHtml(c.author)}:</span>
+                            <span class="opacity-90">${escapeHtml(c.text)}</span>
+                        </div>
+                    `;
+                });
+
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
@@ -1055,12 +1126,35 @@
 
                     ${item.note ? `<p class="text-xs opacity-80 italic">"${escapeHtml(item.note)}"</p>` : ''}
 
-                    <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+                    <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs gap-2">
                         <span class="text-[10px] opacity-60">${item.dateStr || ''}</span>
-                        <button onclick="likeDrawing('${item.id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 font-bold transition-all active:scale-95">
-                            <i class="fa-solid fa-utensils"></i>
-                            <span>Çatalla (${item.likes || 0})</span>
-                        </button>
+                        
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleComments('${item.id}')" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg app-input hover:border-rose-500 text-xs transition-all opacity-80 hover:opacity-100">
+                                <i class="fa-regular fa-comment"></i>
+                                <span>Yorumlar (${commentsCount})</span>
+                            </button>
+
+                            <button onclick="likeDrawing('${item.id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 font-bold transition-all active:scale-95">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span>Çatalla (${item.likes || 0})</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CANLI YORUM ALANI -->
+                    <div id="comments-${item.id}" class="hidden pt-3 border-t border-white/5 space-y-2">
+                        <div class="space-y-1.5 max-h-40 overflow-y-auto no-scrollbar">
+                            ${commentsCount > 0 ? commentsHtml : '<p class="text-[11px] opacity-50 italic">İlk yorumu sen yaz!</p>'}
+                        </div>
+                        <div class="flex gap-2 pt-1">
+                            <input type="text" id="commentInput-${item.id}" placeholder="Yorum yaz..." maxlength="100" 
+                                onkeypress="if(event.key === 'Enter') addComment('${item.id}')"
+                                class="flex-grow app-input rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-rose-500">
+                            <button onclick="addComment('${item.id}')" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-all">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1078,4 +1172,3 @@
     </script>
 </body>
 </html>
-```
