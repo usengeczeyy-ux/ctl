@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -145,6 +147,17 @@
             box-shadow: 0 0 12px rgba(225, 29, 72, 0.3);
             opacity: 1 !important;
         }
+
+        /* 50M Celebration Pulse Keyframes */
+        @keyframes popPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-pop-once {
+            animation: popPulse 1s ease-in-out 1;
+        }
     </style>
 </head>
 <body class="bg-grain min-h-screen flex flex-col justify-between selection:bg-rose-600 selection:text-white">
@@ -200,6 +213,15 @@
                 
                 <div class="app-card p-5 sm:p-7 rounded-3xl relative overflow-hidden">
                     
+                    <!-- SPECIAL 50M EDITION BANNER -->
+                    <div class="mb-4 flex justify-center">
+                        <button onclick="triggerConfetti()" id="milestoneBanner" class="animate-pop-once cursor-pointer px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-extrabold text-xs tracking-wider shadow-lg shadow-rose-900/50 border border-amber-300/40 flex items-center gap-2 transition-transform hover:scale-105 active:scale-95">
+                            <i class="fa-solid fa-crown text-amber-300"></i>
+                            <span>Crush! 50 Mn!!!</span>
+                            <i class="fa-solid fa-sparkles text-amber-300"></i>
+                        </button>
+                    </div>
+
                     <!-- Header & Target Member Multi-Picker -->
                     <div class="mb-5 space-y-3">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -278,7 +300,7 @@
                         <!-- Tools Row -->
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             
-                            <!-- Brush / Eraser Mode -->
+                            <!-- Brush / Fork / Eraser Mode -->
                             <div class="flex items-center gap-1.5 p-1 rounded-xl app-input">
                                 <button id="brushBtn" onclick="setTool('brush')" class="tool-btn active px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
                                     <i class="fa-solid fa-paint-brush"></i> Fırça
@@ -669,7 +691,6 @@
                 ctx.lineTo(pos.x, pos.y);
                 ctx.stroke();
             } else if (currentTool === 'fork') {
-                // Çatal Kalem Effect (4 paralel çizgi)
                 ctx.strokeStyle = currentColor;
                 if (isNeon) { ctx.shadowColor = currentColor; ctx.shadowBlur = 10; } 
                 else { ctx.shadowBlur = 0; }
@@ -974,7 +995,7 @@
             });
         };
 
-        // YORUM EKLEME SİSTEMİ
+        // Yorum Ekleme
         window.toggleComments = function(drawingId) {
             const commentsSec = document.getElementById(`comments-${drawingId}`);
             if (commentsSec) {
@@ -1006,6 +1027,17 @@
             }).catch((err) => {
                 alert("Yorum gönderilemedi: " + err.message);
             });
+        };
+
+        // Confetti Celebration Trigger
+        window.triggerConfetti = function() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         };
 
         window.filterDrawings = function(member, btnEl) {
@@ -1093,7 +1125,6 @@
                 const targets = normalizeTargets(item);
                 const targetBadges = targets.map(t => `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-500 text-[10px] font-extrabold border border-rose-500/30">${escapeHtml(t)}</span>`).join(' ');
 
-                // Yorumlar Listesini Hazırla
                 const commentsObj = item.comments || {};
                 const commentsList = Object.keys(commentsObj).map(k => commentsObj[k]);
                 const commentsCount = commentsList.length;
@@ -1142,7 +1173,6 @@
                         </div>
                     </div>
 
-                    <!-- CANLI YORUM ALANI -->
                     <div id="comments-${item.id}" class="hidden pt-3 border-t border-white/5 space-y-2">
                         <div class="space-y-1.5 max-h-40 overflow-y-auto no-scrollbar">
                             ${commentsCount > 0 ? commentsHtml : '<p class="text-[11px] opacity-50 italic">İlk yorumu sen yaz!</p>'}
@@ -1168,6 +1198,10 @@
 
         window.addEventListener('load', () => {
             initCanvas();
+            // Otomatik açılış konfetisi
+            setTimeout(() => {
+                triggerConfetti();
+            }, 300);
         });
     </script>
 </body>
